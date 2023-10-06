@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "456450312762",
+    "project_id": "zoove-8872a",
+    "storage_bucket": "zoove-8872a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456450312762:android:a489a9c3bec27b70bd4303",
+        "android_client_info": {
+          "package_name": "com.es.animals_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456450312762-tg56vc7m44o80ha7so89n69m5i5fqlis.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiNbXrZbKeA9tYb4BQ5vuCdmDrwJPMxv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456450312762-tg56vc7m44o80ha7so89n69m5i5fqlis.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "456450312762-72l328r8inf6mv897r2a0c7h4rhvsj9h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.animalsAppDeneme.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456450312762:android:49680d87136f448abd4303",
+        "android_client_info": {
+          "package_name": "com.example.zooventure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456450312762-tg56vc7m44o80ha7so89n69m5i5fqlis.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiNbXrZbKeA9tYb4BQ5vuCdmDrwJPMxv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456450312762-tg56vc7m44o80ha7so89n69m5i5fqlis.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "456450312762-72l328r8inf6mv897r2a0c7h4rhvsj9h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.animalsAppDeneme.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456450312762:android:e938dde6bb77dafebd4303",
+        "android_client_info": {
+          "package_name": "com.example.zooventure_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456450312762-tg56vc7m44o80ha7so89n69m5i5fqlis.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiNbXrZbKeA9tYb4BQ5vuCdmDrwJPMxv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456450312762-tg56vc7m44o80ha7so89n69m5i5fqlis.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "456450312762-72l328r8inf6mv897r2a0c7h4rhvsj9h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.animalsAppDeneme.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
