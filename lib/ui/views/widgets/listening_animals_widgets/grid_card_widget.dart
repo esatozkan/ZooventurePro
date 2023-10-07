@@ -5,14 +5,14 @@ import '../../../../data/services/application_data_service.dart';
 import '../../../providers/animal_provider.dart';
 import '../../../providers/page_changed_provider.dart';
 
-class GridCardWigdet extends StatefulWidget {
-  const GridCardWigdet({super.key});
+class GridCardWidget extends StatefulWidget {
+  const GridCardWidget({super.key});
 
   @override
-  State<GridCardWigdet> createState() => _GridCardWigdetState();
+  State<GridCardWidget> createState() => _GridCardWidgetState();
 }
 
-class _GridCardWigdetState extends State<GridCardWigdet> {
+class _GridCardWidgetState extends State<GridCardWidget> {
   AudioPlayer voicePlayer = AudioPlayer();
 
   @override

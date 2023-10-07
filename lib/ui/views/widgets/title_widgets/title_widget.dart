@@ -1,13 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import '/ui/views/widgets/title_widgets/language_widgets/language_widget.dart';
-import 'in_app_purchase_widgets/in_app_purchase_widget.dart';
 import '/data/services/application_data_service.dart';
 import '/ui/providers/language_provider.dart';
 import '/ui/providers/animal_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../data/constans/constans.dart';
+import '../../../../data/constants/constants.dart';
 import '../../../providers/page_changed_provider.dart';
+import 'language_widgets/loading_widget.dart';
 
 class TitleWidget extends StatefulWidget {
   const TitleWidget({super.key});
@@ -23,6 +22,8 @@ class _TitleWidgetState extends State<TitleWidget> {
         Provider.of<PageChangedProvider>(context);
     AnimalProvider animalProvider =
         Provider.of<AnimalProvider>(context, listen: false);
+    LanguageProvider languageProvider =
+        Provider.of<LanguageProvider>(context, listen: false);
 
     return Column(
       children: [
@@ -35,7 +36,7 @@ class _TitleWidgetState extends State<TitleWidget> {
             IconButton(
               onPressed: () async {
                 applicationData("Click Sale");
-                inAppPurchaseWidget(context);
+                //  inAppPurchaseWidget(context);
               },
               icon: Image.asset(
                 "assets/bottom_navbar_icon/gift.gif",
@@ -63,18 +64,60 @@ class _TitleWidgetState extends State<TitleWidget> {
               child: IconButton(
                 onPressed: () async {
                   applicationData("Click Language Button");
-                  languageWidget(context);
 
-                  // setState(
-                  //   () {
-                  //      animalProvider.getUiTexts[2] =
-                  //         animalProvider.getUiTexts[2];
-                  //     animalProvider.getUiTexts[3] =
-                  //         animalProvider.getUiTexts[3];
-                  //     animalProvider.getUiTexts[4] =
-                  //         animalProvider.getUiTexts[4];
-                  //   },
-                  // );
+                  if (pageChangedProvider.getPageChanged != 2) {
+                    showDialog(
+                      context: context,
+                      builder: (_) => Center(
+                        child: Container(
+                          color: Colors.transparent,
+                          height: (MediaQuery.of(context).size.height * 7) / 8,
+                          width: (MediaQuery.of(context).size.width * 7) / 8,
+                          child: Padding(
+                            padding: const EdgeInsets.all(40.0),
+                            child: GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                crossAxisSpacing: 120,
+                                mainAxisSpacing: 20,
+                              ),
+                              itemCount:
+                                  languageProvider.getLanguageService.length,
+                              itemBuilder: (BuildContext context, index) {
+                                return IconButton(
+                                  onPressed: () async {
+                                    languageProvider.setFlagIndex(index);
+                                    // ignore: use_build_context_synchronously
+                                    await loadingWidget(context);
+
+                                    // ignore: use_build_context_synchronously
+                                    Navigator.pop(context);
+
+                                    setState(
+                                      () {
+                                        animalProvider.getUiTexts[2] =
+                                            animalProvider.getUiTexts[2];
+                                        animalProvider.getUiTexts[3] =
+                                            animalProvider.getUiTexts[3];
+                                        animalProvider.getUiTexts[4] =
+                                            animalProvider.getUiTexts[4];
+                                      },
+                                    );
+                                  },
+                                  icon: CachedNetworkImage(
+                                    imageUrl: languageProvider
+                                        .getLanguageService[index],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+
                   animalProvider.trueTextFunction();
                 },
                 icon: Consumer<LanguageProvider>(

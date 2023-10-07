@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '/data/services/animal_images_service.dart';
 import '../../providers/internet_connection_provider.dart';
 import '/ui/providers/language_provider.dart';
-import '/data/constans/constans.dart';
+import '../../../data/constants/constants.dart';
 import '/ui/views/screens/main_screen.dart';
 import '../../../data/services/animal_service.dart';
 import '../../../data/services/language_service.dart';

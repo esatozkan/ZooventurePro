@@ -1,8 +1,8 @@
 import 'package:provider/provider.dart';
 import '/ui/providers/animal_provider.dart';
 import 'package:flutter/material.dart';
-import '../../../data/constans/constans.dart';
-import '../widgets/on_borading_control_widget.dart';
+import '../../../data/constants/constants.dart';
+import '../widgets/on_boarding_control_widget.dart';
 import '../widgets/games_widgets/game_icon_widget.dart';
 import '../widgets/title_widgets/title_widget.dart';
 
@@ -16,18 +16,9 @@ class GamesScreen extends StatefulWidget {
 class _GamesScreenState extends State<GamesScreen> {
   @override
   Widget build(BuildContext context) {
-    AnimalProvider animalProvider = Provider.of(context);
+    AnimalProvider animalProvider = Provider.of(context, listen: false);
 
     if (animalProvider.changeText) {
-      setState(
-        () {
-          animalProvider.getUiTexts[5] = animalProvider.getUiTexts[5];
-          animalProvider.getUiTexts[6] = animalProvider.getUiTexts[6];
-          animalProvider.getUiTexts[7] = animalProvider.getUiTexts[7];
-          animalProvider.getUiTexts[8] = animalProvider.getUiTexts[8];
-        },
-      );
-
       animalProvider.falseTextFunction();
     }
 
@@ -38,22 +29,22 @@ class _GamesScreenState extends State<GamesScreen> {
       GameIconWidget(
         icon: "assets/games/know_what_real_image_logo.png",
         text1: animalProvider.getUiTexts[5],
-        whichFonction: "knowWhatVirtualAnimalImage",
+        whichFunction: "knowWhatVirtualAnimalImage",
       ),
       GameIconWidget(
         icon: "assets/games/know_what_hear_game_logo.png",
         text1: animalProvider.getUiTexts[6],
-        whichFonction: "knowWhatHear",
+        whichFunction: "knowWhatHear",
       ),
       GameIconWidget(
         icon: "assets/games/know_what_virtual_image_logo.png",
         text1: animalProvider.getUiTexts[7],
-        whichFonction: "knowWhatRealImage",
+        whichFunction: "knowWhatRealImage",
       ),
       GameIconWidget(
         icon: "assets/games/know_what_type_animal_game_logo.png",
         text1: animalProvider.getUiTexts[8],
-        whichFonction: "knowWhatTypeAnimal",
+        whichFunction: "knowWhatTypeAnimal",
       ),
     ];
     return Builder(
@@ -62,7 +53,7 @@ class _GamesScreenState extends State<GamesScreen> {
           body: SafeArea(
             child: Stack(
               children: [
-                screenBackgroundgImage(
+                screenBackgroundImage(
                   "assets/bottom_navbar_icon/gameScreenIcon.png",
                   height,
                   width,

@@ -49,6 +49,5 @@ class AnimalProvider with ChangeNotifier {
 
   void falseTextFunction() {
     changeText = gameControlRepository.falseOption(changeText);
-    notifyListeners();
   }
 }

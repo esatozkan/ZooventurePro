@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'in_app_purchase_icon_widget.dart';
 import '../../../../providers/animal_provider.dart';
-import '/data/constans/constans.dart';
+import '../../../../../data/constants/constants.dart';
 
 inAppPurchaseWidget(context) {
   AnimalProvider animalProvider =

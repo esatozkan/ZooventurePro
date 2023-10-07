@@ -28,7 +28,6 @@ PageController pageController = PageController(initialPage: 0);
 
 class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   Connectivity connectivity = Connectivity();
-  late Timer timer;
   int count = 0;
   bool isAppActive = true;
 
@@ -37,18 +36,6 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (timer) {
-        if (isAppActive) {
-          setState(
-            () {
-              count += 1;
-            },
-          );
-        }
-      },
-    );
   }
 
 
@@ -152,6 +139,5 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     // TODO: implement dispose
     super.dispose();
     WidgetsBinding.instance.removeObserver(this);
-    timer.cancel();
   }
 }

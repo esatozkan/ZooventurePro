@@ -8,7 +8,7 @@ extension DynamicSize on BuildContext {
 Color itemColor = Colors.pink;
 Color giftWidgetItemColor = Colors.grey.shade300;
 
-Image screenBackgroundgImage(String image, double height, double width) {
+Image screenBackgroundImage(String image, double height, double width) {
   Image screenBgImage = Image.asset(
     image,
     height: height,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/data/constans/constans.dart';
+import '../../../../../data/constants/constants.dart';
 import '../../../../../data/services/language_service.dart';
 
 Future loadingWidget(context) async {

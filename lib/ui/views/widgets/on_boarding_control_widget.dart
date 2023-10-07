@@ -68,5 +68,4 @@ class _OnBoardingControlWidgetState extends State<OnBoardingControlWidget> {
       ),
     );
   }
-
 }

@@ -1,7 +1,7 @@
 import '../widgets/title_widgets/title_widget.dart';
-import '../widgets/listening_animals_widgets/grid_card_wigdet.dart';
-import '/data/constans/constans.dart';
-import '../widgets/on_borading_control_widget.dart';
+import '../widgets/listening_animals_widgets/grid_card_widget.dart';
+import '../../../data/constants/constants.dart';
+import '../widgets/on_boarding_control_widget.dart';
 import 'package:flutter/material.dart';
 
 class AnimalNamesScreen extends StatelessWidget {
@@ -16,7 +16,7 @@ class AnimalNamesScreen extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            screenBackgroundgImage(
+            screenBackgroundImage(
               "assets/bottom_navbar_icon/animalsIcon.png",
               height,
               width,
@@ -29,7 +29,7 @@ class AnimalNamesScreen extends StatelessWidget {
                 right: 100,
                 top: 100,
               ),
-              child: GridCardWigdet(),
+              child: GridCardWidget(),
             ),
           ],
         ),

@@ -1,7 +1,7 @@
 import '../widgets/title_widgets/title_widget.dart';
-import '/data/constans/constans.dart';
-import '../widgets/on_borading_control_widget.dart';
-import '/ui/views/widgets/listening_animals_widgets/grid_card_wigdet.dart';
+import '../../../data/constants/constants.dart';
+import '../widgets/on_boarding_control_widget.dart';
+import '../widgets/listening_animals_widgets/grid_card_widget.dart';
 import 'package:flutter/material.dart';
 
 class ListeningAnimalsScreen extends StatelessWidget {
@@ -15,8 +15,8 @@ class ListeningAnimalsScreen extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            screenBackgroundgImage(
-              "assets/bottom_navbar_icon/gameScreenIcon.png",
+            screenBackgroundImage(
+              "assets/bottom_navbar_icon/animalVoiceIcon.png",
               height,
               width,
             ),
@@ -28,7 +28,7 @@ class ListeningAnimalsScreen extends StatelessWidget {
                 right: 100,
                 top: 100,
               ),
-              child: GridCardWigdet(),
+              child: GridCardWidget(),
             ),
           ],
         ),

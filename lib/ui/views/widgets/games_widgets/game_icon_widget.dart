@@ -2,12 +2,12 @@ import 'dart:math';
 import '../../../../data/services/application_data_service.dart';
 import '/ui/providers/animal_provider.dart';
 import '/ui/views/screens/games/know_what_real_animal_screen.dart';
-import '/ui/views/screens/games/know_what_virtual_animal_screeen.dart';
+import '../../screens/games/know_what_virtual_animal_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../data/repository/generate_question.dart';
 import '../../../providers/games_control_provider.dart';
-import '/data/constans/constans.dart';
+import '../../../../data/constants/constants.dart';
 import '/ui/views/screens/games/know_what_hear_screen.dart';
 import '../../screens/games/know_what_type_animal_screen.dart';
 
@@ -16,12 +16,12 @@ class GameIconWidget extends StatefulWidget {
     Key? key,
     required this.icon,
     required this.text1,
-    required this.whichFonction,
+    required this.whichFunction,
   }) : super(key: key);
 
   final String icon;
   final String text1;
-  final String whichFonction;
+  final String whichFunction;
 
   @override
   State<GameIconWidget> createState() => _GameIconWidgetState();
@@ -33,7 +33,7 @@ class _GameIconWidgetState extends State<GameIconWidget> {
     return IconButton(
       onPressed: () {
         Future.delayed(const Duration(milliseconds: 500));
-        if (widget.whichFonction == "knowWhatTypeAnimal") {
+        if (widget.whichFunction == "knowWhatTypeAnimal") {
           applicationData("Click Know Animal Types");
           Provider.of<GamesControlProvider>(context, listen: false)
               .resetVoiceGameQuestionSkor();
@@ -53,7 +53,7 @@ class _GameIconWidgetState extends State<GameIconWidget> {
               builder: (context) => const KnowWhatTypeAnimalScreen(),
             ),
           );
-        } else if (widget.whichFonction == "knowWhatHear") {
+        } else if (widget.whichFunction == "knowWhatHear") {
           applicationData("Click Know Animal Sounds");
 
           Provider.of<GamesControlProvider>(context, listen: false)
@@ -74,7 +74,7 @@ class _GameIconWidgetState extends State<GameIconWidget> {
               builder: (context) => const KnowWhatHearScreen(),
             ),
           );
-        } else if (widget.whichFonction == "knowWhatRealImage") {
+        } else if (widget.whichFunction == "knowWhatRealImage") {
           applicationData("Click Find Virtual Image");
 
           Provider.of<GamesControlProvider>(context, listen: false)
@@ -95,7 +95,7 @@ class _GameIconWidgetState extends State<GameIconWidget> {
               builder: (context) => const KnowWhatRealAnimalScreen(),
             ),
           );
-        } else if (widget.whichFonction == "knowWhatVirtualAnimalImage") {
+        } else if (widget.whichFunction == "knowWhatVirtualAnimalImage") {
           applicationData("Click Find Real Image");
 
           Provider.of<GamesControlProvider>(context, listen: false)
