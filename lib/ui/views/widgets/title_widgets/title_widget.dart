@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../data/constants/constants.dart';
 import '../../../providers/page_changed_provider.dart';
+import 'in_app_purchase_widgets/in_app_purchase_widget.dart';
 import 'language_widgets/loading_widget.dart';
 
 class TitleWidget extends StatefulWidget {
@@ -36,7 +37,7 @@ class _TitleWidgetState extends State<TitleWidget> {
             IconButton(
               onPressed: () async {
                 applicationData("Click Sale");
-                //  inAppPurchaseWidget(context);
+                inAppPurchaseWidget(context);
               },
               icon: Image.asset(
                 "assets/bottom_navbar_icon/gift.gif",
@@ -92,12 +93,11 @@ class _TitleWidgetState extends State<TitleWidget> {
                                 Container(
                                   color: Colors.transparent,
                                   height:
-                                      (MediaQuery.of(context).size.height *
-                                              7) /
+                                      (MediaQuery.of(context).size.height * 7) /
                                           8,
-                                  width: (MediaQuery.of(context).size.width *
-                                          7) /
-                                      8,
+                                  width:
+                                      (MediaQuery.of(context).size.width * 7) /
+                                          8,
                                   child: Padding(
                                     padding: const EdgeInsets.all(40.0),
                                     child: GridView.builder(

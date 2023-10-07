@@ -1,3 +1,4 @@
+import '/ui/providers/internet_connection_provider.dart';
 import '../../../data/repository/generate_animal.dart';
 import '../../../data/repository/generate_question.dart';
 import '/ui/providers/page_changed_provider.dart';
@@ -27,6 +28,10 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     PageChangedProvider pageChangedProvider =
         Provider.of<PageChangedProvider>(context, listen: false);
+    InternetConnectionProvider internetConnectionProvider =
+        Provider.of<InternetConnectionProvider>(context, listen: false);
+
+    internetConnectionProvider.getConnectivity(context);
 
     generateAnimal(context);
     generateQuestions("knowWhatHear", 10, context);
