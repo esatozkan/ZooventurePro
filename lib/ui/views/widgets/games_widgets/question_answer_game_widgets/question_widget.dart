@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../data/repository/generate_question.dart';
 import '../../../../providers/games_control_provider.dart';
-
 
 class QuestionWidget extends StatefulWidget {
   const QuestionWidget({
@@ -29,13 +29,14 @@ class _QuestionWidget extends State<QuestionWidget> {
         Provider.of<GamesControlProvider>(context, listen: false);
 
     return Container(
-      padding:const EdgeInsets.only(bottom: 40),
+      padding: const EdgeInsets.only(bottom: 40),
       child: widget.gameType == "see"
           ? ClipRRect(
               borderRadius: BorderRadius.circular(30),
               child: Consumer<GamesControlProvider>(
                 builder: (context, getVoiceGameQuestionIndex, _) =>
-                Image.asset(widget.whichVoice == "knowWhatRealImage"
+                    CachedNetworkImage(
+                  imageUrl: widget.whichVoice == "knowWhatRealImage"
                       ? realImageQuestions[
                               gamesControlProvider.getVoiceGameQuestionIndex]
                           .animalVoice
@@ -44,7 +45,8 @@ class _QuestionWidget extends State<QuestionWidget> {
                           .animalVoice,
                   height: 150,
                   width: 150,
-                  fit: BoxFit.cover,),
+                  fit: BoxFit.cover,
+                ),
               ),
             )
           : Consumer<GamesControlProvider>(
@@ -61,9 +63,8 @@ class _QuestionWidget extends State<QuestionWidget> {
       () {
         if (widget.whichVoice == "KnowWhatHeardScreen") {
           voicePlayer.play(
-            UrlSource(
-                questions[gamesControlProvider.getVoiceGameQuestionIndex]
-                    .animalVoice),
+            UrlSource(questions[gamesControlProvider.getVoiceGameQuestionIndex]
+                .animalVoice),
           );
         } else if (widget.whichVoice == "knowWhatTypeAnimal") {
           voicePlayer.play(

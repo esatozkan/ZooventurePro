@@ -1,48 +1,77 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:provider/provider.dart';
-import '/ui/providers/language_provider.dart';
 import '/ui/providers/animal_provider.dart';
 
-getAnimalInformation(List list, String path, context) async {
+getAnimalGif(context) async {
   AnimalProvider animalProvider =
       Provider.of<AnimalProvider>(context, listen: false);
 
-  final storageRef = FirebaseStorage.instance.ref().child(path);
+  final storageRef =
+      FirebaseStorage.instance.ref().child("animal-images/animal-gifs");
   final listResult = await storageRef.listAll();
   for (var element in listResult.items) {
-    animalProvider.addInformation(list, await element.getDownloadURL());
+    animalProvider.addInformation(
+        animalProvider.getAnimalGif, await element.getDownloadURL());
   }
 }
 
-getAnimal(String local, context) async {
+getAnimalRealImage(context) async {
   AnimalProvider animalProvider =
       Provider.of<AnimalProvider>(context, listen: false);
-  LanguageProvider languageProvider =
-      Provider.of<LanguageProvider>(context, listen: false);
 
-  await getAnimalInformation(
-    animalProvider.animalNames,
-    "animal-types/animal-type-$local",
-    context,
-  );
+  final storageRef =
+      FirebaseStorage.instance.ref().child("animal-images/animal-real-images");
+  final listResult = await storageRef.listAll();
+  for (var element in listResult.items) {
+    animalProvider.addInformation(
+        animalProvider.getAnimalRealImage, await element.getDownloadURL());
+  }
+}
 
-  if (animalProvider.getAnimalNames.isEmpty) {
-    await getAnimalInformation(
-      animalProvider.getAnimalNames,
-      "animal-types/animal-type-en",
-      context,
-    );
+getAnimalVirtualImage(context) async {
+  AnimalProvider animalProvider =
+      Provider.of<AnimalProvider>(context, listen: false);
+
+  final storageRef = FirebaseStorage.instance
+      .ref()
+      .child("animal-images/animal-virtual-images");
+  final listResult = await storageRef.listAll();
+  for (var element in listResult.items) {
+    animalProvider.addInformation(
+        animalProvider.getAnimalVirtualImage, await element.getDownloadURL());
+  }
+}
+
+getAnimalName(String local, context) async {
+  AnimalProvider animalProvider =
+      Provider.of<AnimalProvider>(context, listen: false);
+  final storageRef =
+      FirebaseStorage.instance.ref().child("animal-types/animal-type-$local");
+  final listResult = await storageRef.listAll();
+  for (var element in listResult.items) {
+    animalProvider.addInformation(
+        animalProvider.animalNames, await element.getDownloadURL());
   }
 
-  await getAnimalInformation(
-    languageProvider.getLanguageService,
-    "flag-images",
-    context,
-  );
+  if (animalProvider.getAnimalNames.isEmpty) {
+    final storageRef =
+        FirebaseStorage.instance.ref().child("animal-types/animal-type-en");
+    final listResult = await storageRef.listAll();
+    for (var element in listResult.items) {
+      animalProvider.addInformation(
+          animalProvider.animalNames, await element.getDownloadURL());
+    }
+  }
+}
 
-  await getAnimalInformation(
-    animalProvider.animalVoices,
-    "animal-voices",
-    context,
-  );
+getAnimalVoice(context) async {
+  AnimalProvider animalProvider =
+      Provider.of<AnimalProvider>(context, listen: false);
+
+  final storageRef = FirebaseStorage.instance.ref().child("animal-voices");
+  final listResult = await storageRef.listAll();
+  for (var element in listResult.items) {
+    animalProvider.addInformation(
+        animalProvider.animalVoices, await element.getDownloadURL());
+  }
 }

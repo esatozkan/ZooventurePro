@@ -6,47 +6,16 @@ import '../widgets/on_boarding_control_widget.dart';
 import '../widgets/games_widgets/game_icon_widget.dart';
 import '../widgets/title_widgets/title_widget.dart';
 
-class GamesScreen extends StatefulWidget {
+class GamesScreen extends StatelessWidget {
   const GamesScreen({super.key});
 
-  @override
-  State<GamesScreen> createState() => _GamesScreenState();
-}
-
-class _GamesScreenState extends State<GamesScreen> {
   @override
   Widget build(BuildContext context) {
     AnimalProvider animalProvider = Provider.of(context, listen: false);
 
-    if (animalProvider.changeText) {
-      animalProvider.falseTextFunction();
-    }
-
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
-    List<GameIconWidget> games = [
-      GameIconWidget(
-        icon: "assets/games/know_what_real_image_logo.png",
-        text1: animalProvider.getUiTexts[5],
-        whichFunction: "knowWhatVirtualAnimalImage",
-      ),
-      GameIconWidget(
-        icon: "assets/games/know_what_hear_game_logo.png",
-        text1: animalProvider.getUiTexts[6],
-        whichFunction: "knowWhatHear",
-      ),
-      GameIconWidget(
-        icon: "assets/games/know_what_virtual_image_logo.png",
-        text1: animalProvider.getUiTexts[7],
-        whichFunction: "knowWhatRealImage",
-      ),
-      GameIconWidget(
-        icon: "assets/games/know_what_type_animal_game_logo.png",
-        text1: animalProvider.getUiTexts[8],
-        whichFunction: "knowWhatTypeAnimal",
-      ),
-    ];
     return Builder(
       builder: (context) {
         return Scaffold(
@@ -65,17 +34,52 @@ class _GamesScreenState extends State<GamesScreen> {
                     left: 100,
                     right: 100,
                     top: 100,
-                    bottom: 50,
                   ),
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              GameIconWidget(
+                                icon:
+                                    "assets/games/know_what_real_image_logo.png",
+                                text1: animalProvider.getUiTexts[5],
+                                whichFunction: "knowWhatVirtualAnimalImage",
+                              ),
+                              GameIconWidget(
+                                icon:
+                                    "assets/games/know_what_hear_game_logo.png",
+                                text1: animalProvider.getUiTexts[6],
+                                whichFunction: "knowWhatHear",
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              GameIconWidget(
+                                icon:
+                                    "assets/games/know_what_virtual_image_logo.png",
+                                text1: animalProvider.getUiTexts[7],
+                                whichFunction: "knowWhatRealImage",
+                              ),
+                              GameIconWidget(
+                                icon:
+                                    "assets/games/know_what_type_animal_game_logo.png",
+                                text1: animalProvider.getUiTexts[8],
+                                whichFunction: "knowWhatTypeAnimal",
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                    itemCount: games.length,
-                    itemBuilder: (BuildContext context, index) {
-                      return games[index];
-                    },
                   ),
                 ),
               ],

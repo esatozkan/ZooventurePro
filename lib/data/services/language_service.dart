@@ -1,8 +1,8 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/ui/providers/language_provider.dart';
 import '/ui/providers/animal_provider.dart';
-import '/data/services/animal_service.dart';
 import '/data/services/text_services.dart';
 
 void getLanguageFlag(String local, BuildContext context) {
@@ -35,15 +35,18 @@ Future chanceLocal(context) async {
   animalProvider.clearList(animalProvider.getUiTexts);
   languageProvider.chanceLocal();
 
-  await getAnimalInformation(
-    animalProvider.getAnimalNames,
-    "animal-types/animal-type-${languageProvider.getLocal}",
-    context,
-  );
+  final storageRef = FirebaseStorage.instance
+      .ref()
+      .child("animal-types/animal-type-${languageProvider.getLocal}");
+  final listResult = await storageRef.listAll();
+  for (var element in listResult.items) {
+    animalProvider.addInformation(
+        animalProvider.getAnimalNames, await element.getDownloadURL());
+  }
 
   for (int i = 0; i < animalProvider.getAnimalGif.length; i++) {
     animalProvider.getAnimals[i].name = animalProvider.getAnimalNames[i];
   }
 
-  await getText(languageProvider.getLocal, context);
+  await changeText(languageProvider.getLocal, context);
 }

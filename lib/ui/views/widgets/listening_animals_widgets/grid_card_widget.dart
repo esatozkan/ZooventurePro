@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../data/services/application_data_service.dart';
@@ -19,8 +20,11 @@ class _GridCardWidgetState extends State<GridCardWidget> {
   Widget build(BuildContext context) {
     PageChangedProvider pageChangedProvider =
         Provider.of<PageChangedProvider>(context, listen: false);
+
     final Size size = MediaQuery.of(context).size;
+
     AnimalProvider animalProvider = Provider.of<AnimalProvider>(context);
+
     return Padding(
       padding: const EdgeInsets.only(top: 5),
       child: GridView.builder(
@@ -53,8 +57,12 @@ class _GridCardWidgetState extends State<GridCardWidget> {
                       };
               },
               icon: ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Image.asset(animalProvider.getAnimalGif[index])),
+                borderRadius: BorderRadius.circular(30),
+                child: CachedNetworkImage(
+                  imageUrl: animalProvider.getAnimalGif[index],
+                ),
+              ),
+              // Image.network(animalProvider.getAnimalGif[index])),
             ),
           );
         },
