@@ -2,7 +2,7 @@
 import 'package:hive/hive.dart';
 
 @HiveType(typeId: 1)
-class Animal {
+class AnimalHiveModel {
   @HiveField(0)
   late String name;
 
@@ -18,19 +18,19 @@ class Animal {
   @HiveField(4)
   late String realImage;
 
-  @HiveField(11)
+  @HiveField(5)
   late bool isVisible;
 
-  @HiveField(12)
+  @HiveField(6)
   late bool isCorrectAnswer;
 
-  Animal({
-    required this.name,
-    required this.voice,
-    required this.gif,
-    required this.image,
-    required this.realImage,
-    required this.isVisible,
-    required this.isCorrectAnswer,
-  });
+  AnimalHiveModel(
+    this.name,
+    this.voice,
+    this.gif,
+    this.image,
+    this.realImage,
+    this.isVisible,
+    this.isCorrectAnswer,
+  );
 }

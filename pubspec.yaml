@@ -45,7 +45,8 @@ dependencies:
   cached_network_image: ^3.2.3
   animated_splash_screen: ^1.3.0
   internet_connection_checker: ^1.0.0+1
-  change_app_package_name: ^1.1.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -112,9 +113,6 @@ flutter:
     - assets/know_what_hear/
     - assets/game_control/
     - assets/games/
-    - assets/animals/animal-gifs/
-    - assets/animals/animal-real-images/
-    - assets/animals/animal-virtual-images/
     - assets/purchases_icon/
   #   - images/a_dot_ham.jpeg
 

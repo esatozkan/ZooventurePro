@@ -1,8 +1,9 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import '/data/services/animal_images_service.dart';
+import '../../../data/services/flag_service.dart';
 import '../../providers/internet_connection_provider.dart';
 import '/ui/providers/language_provider.dart';
 import '../../../data/constants/constants.dart';
@@ -36,16 +37,23 @@ Future getFirebase(context) async {
   LanguageProvider languageProvider =
       Provider.of<LanguageProvider>(context, listen: false);
 
-  addAnimalImages(context);
+  Box animalBox = Hive.box("Animals");
 
-  await getAnimal(
-    languageProvider.getLocal,
-    context,
-  );
+  if (animalBox.isEmpty) {
+    await getAnimalGif(context);
+    await getAnimalName(languageProvider.getLocal, context);
+    await getAnimalVoice(context);
+    await getAnimalRealImage(context);
+    await getAnimalVirtualImage(context);
+  }
+
+  await getFlags(context);
+
   getLanguageFlag(
     languageProvider.getLocal,
     context,
   );
+
   await getText(
     languageProvider.getLocal,
     context,

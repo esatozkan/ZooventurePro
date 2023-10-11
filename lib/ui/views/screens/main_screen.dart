@@ -1,3 +1,5 @@
+import 'package:zooventure/ui/providers/language_provider.dart';
+
 import '/ui/providers/internet_connection_provider.dart';
 import '../../../data/repository/generate_animal.dart';
 import '../../../data/repository/generate_question.dart';
@@ -14,14 +16,14 @@ List<Widget> pages = const [
   GamesScreen(),
 ];
 
+PageController pageController = PageController(initialPage: 0);
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
-
-PageController pageController = PageController(initialPage: 0);
 
 class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   @override
@@ -30,10 +32,12 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
         Provider.of<PageChangedProvider>(context, listen: false);
     InternetConnectionProvider internetConnectionProvider =
         Provider.of<InternetConnectionProvider>(context, listen: false);
+    LanguageProvider languageProvider =
+        Provider.of<LanguageProvider>(context, listen: false);
 
     internetConnectionProvider.getConnectivity(context);
 
-    generateAnimal(context);
+    generateAnimal(context, languageProvider.getLocal);
     generateQuestions("knowWhatHear", 10, context);
     generateQuestions("knowWhatTypeAnimal", 10, context);
     generateQuestions("knowWhatRealAnimalImage", 10, context);

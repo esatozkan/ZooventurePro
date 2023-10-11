@@ -1,3 +1,5 @@
+import 'package:hive_flutter/hive_flutter.dart';
+import '/data/models/animal_hive_adapter.dart';
 import '/ui/providers/internet_connection_provider.dart';
 import '/ui/providers/language_provider.dart';
 import '/ui/views/screens/animated_splash_screen.dart';
@@ -14,10 +16,23 @@ import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+  Hive.registerAdapter(AnimalHiveAdapter());
+  await Hive.openBox("Animals");
+  await Hive.openBox("flags");
+  await Hive.openBox("languages");
+
+  // await Hive.deleteBoxFromDisk("Animals");
+  // await Hive.deleteBoxFromDisk("flags");
+  // await Hive.deleteBoxFromDisk("languages");
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   var connectivityResult = await Connectivity().checkConnectivity();
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,

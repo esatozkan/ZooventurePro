@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/data/models/question_model.dart';
@@ -79,8 +80,8 @@ class _QuestionAnswerGameScreen extends State<QuestionAnswerGameScreen> {
                                     },
                                     icon: ClipRRect(
                                       borderRadius: BorderRadius.circular(30),
-                                      child: Image.asset(
-                                        widget.whichSkor ==
+                                      child: CachedNetworkImage(
+                                        imageUrl: widget.whichSkor ==
                                                 "knowWhatVirtualImage"
                                             ? virtualImageQuestions[
                                                     gamesControlProvider

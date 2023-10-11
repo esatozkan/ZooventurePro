@@ -151,8 +151,6 @@ class _TitleWidgetState extends State<TitleWidget> {
                       ),
                     );
                   }
-
-                  animalProvider.trueTextFunction();
                 },
                 icon: Consumer<LanguageProvider>(
                   builder: (context, languageProvider, _) => CircleAvatar(

@@ -11,8 +11,6 @@ class AnimalProvider with ChangeNotifier {
   List<String> uiTexts = [];
   List<Animal> animals = [];
 
-  bool changeText = false;
-
   List<String> get getAnimalNames => animalNames;
   List<String> get getAnimalGif => animalGif;
   List<String> get getAnimalVirtualImage => animalVirtualImages;
@@ -20,8 +18,6 @@ class AnimalProvider with ChangeNotifier {
   List<String> get getAnimalVoices => animalVoices;
   List<String> get getUiTexts => uiTexts;
   List<Animal> get getAnimals => animals;
-
-  bool get getChangeText => changeText;
 
   GameControlRepository gameControlRepository = GameControlRepository();
 
@@ -40,14 +36,5 @@ class AnimalProvider with ChangeNotifier {
   void updateText(String newText, int index) {
     uiTexts[index] = newText;
     notifyListeners();
-  }
-
-  void trueTextFunction() {
-    changeText = gameControlRepository.trueOption(changeText);
-    notifyListeners();
-  }
-
-  void falseTextFunction() {
-    changeText = gameControlRepository.falseOption(changeText);
   }
 }
