@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/data/repository/game_control_repository.dart';
 import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/game_audio_widget.dart';
 import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/word_model.dart';
 
@@ -9,6 +10,18 @@ class WordPictureMemoryGameProvider extends ChangeNotifier {
   bool ignoreTaps = false;
   bool roundCompleted = false;
   List<int> answerWords = [];
+  int move = 0;
+  int difficulty = 0;
+
+  int get getMove => move;
+  int get getDifficulty => difficulty;
+
+  GameControlRepository gameControlRepository = GameControlRepository();
+
+  void setValue(int value) {
+    difficulty = gameControlRepository.setIndex(value);
+    notifyListeners();
+  }
 
   tileTapped({required int index, required WordModel word}) {
     ignoreTaps = true;
@@ -27,17 +40,22 @@ class WordPictureMemoryGameProvider extends ChangeNotifier {
         if (tappedWords.entries.elementAt(0).value.text ==
             tappedWords.entries.elementAt(1).value.text) {
           answerWords.addAll(tappedWords.keys);
-          if (answerWords.length == 12) {
-            print("match all cards");
-            await GameAudioWidget.playAudio("Rounded");
+          if (answerWords.length == 8) {
+            print("*******************");
+            print(difficulty);
+            move = 0;
+            await GameAudioWidget.playAudio("Round");
+
             roundCompleted = true;
           } else {
+            move++;
             await GameAudioWidget.playAudio("Correct");
           }
           tappedWords.clear();
           canFlip = true;
           ignoreTaps = false;
         } else {
+          move++;
           await GameAudioWidget.playAudio("Incorrect");
           reserveFlip = true;
         }

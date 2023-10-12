@@ -25,7 +25,7 @@ class WordTile extends StatelessWidget {
       child: Consumer<WordPictureMemoryGameProvider>(
         builder: (_, notifier, __) {
           bool animate = checkAnimationRun(notifier);
-    
+
           return GestureDetector(
             onTap: () {
               if (!notifier.ignoreTaps &&
@@ -45,7 +45,6 @@ class WordTile extends StatelessWidget {
                 numberOfWordAnswered: notifier.answerWords.length,
                 animate: notifier.answerWords.contains(index),
                 child: Container(
-                 //   color: Colors.purple,
                     child: word.displayText
                         ? Padding(
                             padding: const EdgeInsets.all(16.0),
@@ -55,7 +54,7 @@ class WordTile extends StatelessWidget {
                               transform: Matrix4.rotationY(pi),
                               child: Text(
                                 word.text,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontFamily: "bubblegumSans"),
                               ),

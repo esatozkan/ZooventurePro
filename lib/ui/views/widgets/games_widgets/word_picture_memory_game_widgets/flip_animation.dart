@@ -33,7 +33,7 @@ class _FlipAnimationWidgetState extends State<FlipAnimationWidget>
     // TODO: implement initState
     super.initState();
     controller = AnimationController(
-        duration: const Duration(milliseconds: 1200), vsync: this)
+        duration: const Duration(milliseconds: 1000), vsync: this)
       ..addStatusListener(
         (status) {
           if (status == AnimationStatus.completed) {

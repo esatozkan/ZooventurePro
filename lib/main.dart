@@ -66,9 +66,12 @@ Future<void> main() async {
               ListenableProvider(
                 create: (context) => InternetConnectionProvider(),
               ),
-              ListenableProvider(
-                create: (context) => WordPictureMemoryGameProvider(),
-              )
+              // ListenableProvider(
+              //   create: (context) => WordPictureMemoryGameProvider(),
+              // )
+              ChangeNotifierProvider(
+                create: (_) => WordPictureMemoryGameProvider(),
+              ),
             ],
             child: const MyApp(),
           ),
