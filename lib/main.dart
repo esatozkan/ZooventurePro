@@ -14,14 +14,10 @@ import '/ui/providers/games_control_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'ui/views/widgets/games_widgets/word_picture_memory_game_widgets/word_picture_memory_game_provider.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await Hive.initFlutter();
-  Hive.registerAdapter(AnimalHiveAdapter());
-  await Hive.openBox("Animals");
-  await Hive.openBox("flags");
-  await Hive.openBox("languages");
 
   // await Hive.deleteBoxFromDisk("Animals");
   // await Hive.deleteBoxFromDisk("flags");
@@ -47,6 +43,11 @@ Future<void> main() async {
         );
         main();
       } else {
+        await Hive.initFlutter();
+        Hive.registerAdapter(AnimalHiveAdapter());
+        await Hive.openBox("Animals");
+        await Hive.openBox("flags");
+        await Hive.openBox("languages");
         runApp(
           MultiProvider(
             providers: [
@@ -65,6 +66,9 @@ Future<void> main() async {
               ListenableProvider(
                 create: (context) => InternetConnectionProvider(),
               ),
+              ListenableProvider(
+                create: (context) => WordPictureMemoryGameProvider(),
+              )
             ],
             child: const MyApp(),
           ),
