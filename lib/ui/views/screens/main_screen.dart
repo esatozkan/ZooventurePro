@@ -1,5 +1,7 @@
 import 'package:zooventure/ui/providers/language_provider.dart';
+import 'package:zooventure/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/word_picture_memory_game_screen.dart';
 
+import '../widgets/games_widgets/word_picture_memory_game_widgets/generate_word.dart';
 import '/ui/providers/internet_connection_provider.dart';
 import '../../../data/repository/generate_animal.dart';
 import '../../../data/repository/generate_question.dart';
@@ -43,18 +45,21 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     generateQuestions("knowWhatRealAnimalImage", 10, context);
     generateQuestions("knowWhatVirtualAnimalImage", 10, context);
 
-    return Scaffold(
-      body: SafeArea(
-        child: PageView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: pages.length,
-          controller: pageController,
-          onPageChanged: (index) {
-            pageChangedProvider.pageChangedFunction(index);
-          },
-          itemBuilder: (context, index) => pages[index],
-        ),
-      ),
+    populateSourceWords(context);
+
+    return  Scaffold(
+      body: SafeArea(child:
+       WordPictureMemoryGameScreen()
+          //  PageView.builder(
+          //   physics: const NeverScrollableScrollPhysics(),
+          //   itemCount: pages.length,
+          //   controller: pageController,
+          //   onPageChanged: (index) {
+          //     pageChangedProvider.pageChangedFunction(index);
+          //   },
+          //   itemBuilder: (context, index) => pages[index],
+          // ),
+          ),
     );
   }
 }
