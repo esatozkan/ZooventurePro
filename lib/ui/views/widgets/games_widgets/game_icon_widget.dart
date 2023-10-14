@@ -1,4 +1,6 @@
 import 'dart:math';
+import 'package:zooventure/ui/views/screens/games/memory_games_screen.dart';
+
 import '../../../../data/services/application_data_service.dart';
 import '/ui/providers/animal_provider.dart';
 import '/ui/views/screens/games/know_what_real_animal_screen.dart';
@@ -114,6 +116,13 @@ class _GameIconWidgetState extends State<GameIconWidget> {
             context,
             MaterialPageRoute(
               builder: (context) => const KnowWhatVirtualAnimalScreen(),
+            ),
+          );
+        } else if (widget.whichFunction == "wordPictureMemoryGame") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const MemoryGamesScreen(),
             ),
           );
         }

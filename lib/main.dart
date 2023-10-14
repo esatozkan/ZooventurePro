@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:zooventure/ui/views/screens/main_screen.dart';
 import '/data/models/animal_hive_adapter.dart';
 import '/ui/providers/internet_connection_provider.dart';
 import '/ui/providers/language_provider.dart';
@@ -13,11 +14,16 @@ import '/ui/providers/animal_provider.dart';
 import '/ui/providers/games_control_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'ui/views/widgets/games_widgets/word_picture_memory_game_widgets/word_picture_memory_game_provider.dart';
+import 'ui/views/widgets/games_widgets/word_picture_memory_game_widgets/memory_games_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+  Hive.registerAdapter(AnimalHiveAdapter());
+  await Hive.openBox("Animals");
+  await Hive.openBox("flags");
+  await Hive.openBox("languages");
 
   // await Hive.deleteBoxFromDisk("Animals");
   // await Hive.deleteBoxFromDisk("flags");
@@ -43,11 +49,6 @@ Future<void> main() async {
         );
         main();
       } else {
-        await Hive.initFlutter();
-        Hive.registerAdapter(AnimalHiveAdapter());
-        await Hive.openBox("Animals");
-        await Hive.openBox("flags");
-        await Hive.openBox("languages");
         runApp(
           MultiProvider(
             providers: [
@@ -66,11 +67,8 @@ Future<void> main() async {
               ListenableProvider(
                 create: (context) => InternetConnectionProvider(),
               ),
-              // ListenableProvider(
-              //   create: (context) => WordPictureMemoryGameProvider(),
-              // )
               ChangeNotifierProvider(
-                create: (_) => WordPictureMemoryGameProvider(),
+                create: (_) => MemoryGamesProvider(),
               ),
             ],
             child: const MyApp(),

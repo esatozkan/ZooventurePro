@@ -1,16 +1,15 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/spin_animation.dart';
-import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/matched_animation_widget.dart';
-import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/word_picture_memory_game_provider.dart';
 import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/flip_animation.dart';
+import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/matched_animation_widget.dart';
+import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/spin_animation.dart';
 import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/word_model.dart';
+import 'memory_games_provider.dart';
 
-class WordTile extends StatelessWidget {
-  const WordTile({
+class WordTileWidget extends StatelessWidget {
+  const WordTileWidget({
     Key? key,
     required this.index,
     required this.word,
@@ -22,7 +21,7 @@ class WordTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SpinAnimationWidget(
-      child: Consumer<WordPictureMemoryGameProvider>(
+      child: Consumer<MemoryGamesProvider>(
         builder: (_, notifier, __) {
           bool animate = checkAnimationRun(notifier);
 
@@ -45,11 +44,11 @@ class WordTile extends StatelessWidget {
                 numberOfWordAnswered: notifier.answerWords.length,
                 animate: notifier.answerWords.contains(index),
                 child: Container(
-                    child: word.displayText
-                        ? Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: FittedBox(
-                                child: Transform(
+                  child: word.displayText
+                      ? Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: FittedBox(
+                            child: Transform(
                               alignment: Alignment.center,
                               transform: Matrix4.rotationY(pi),
                               child: Text(
@@ -58,12 +57,14 @@ class WordTile extends StatelessWidget {
                                     color: Colors.white,
                                     fontFamily: "bubblegumSans"),
                               ),
-                            )),
-                          )
-                        : CachedNetworkImage(
-                            imageUrl: word.url,
-                            fit: BoxFit.cover,
-                          )),
+                            ),
+                          ),
+                        )
+                      : CachedNetworkImage(
+                          imageUrl: word.url,
+                          fit: BoxFit.cover,
+                        ),
+                ),
               ),
             ),
           );
@@ -72,7 +73,7 @@ class WordTile extends StatelessWidget {
     );
   }
 
-  bool checkAnimationRun(WordPictureMemoryGameProvider notifier) {
+  bool checkAnimationRun(MemoryGamesProvider notifier) {
     bool animate = false;
 
     if (notifier.canFlip) {

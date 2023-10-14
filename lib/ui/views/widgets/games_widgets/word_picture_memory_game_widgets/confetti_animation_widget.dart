@@ -16,14 +16,11 @@ class ConfettiAnimationWidget extends StatefulWidget {
 }
 
 class _ConfettiAnimationWidgetState extends State<ConfettiAnimationWidget> {
-  final controller = ConfettiController(
-    duration: Duration(milliseconds: 1500)
-  );
+  final controller =
+      ConfettiController(duration: const Duration(milliseconds: 1500));
 
   @override
   void didUpdateWidget(covariant ConfettiAnimationWidget oldWidget) {
-    // TODO: implement didUpdateWidget
-
     if (widget.animate) {
       controller.play();
     }
@@ -33,10 +30,10 @@ class _ConfettiAnimationWidgetState extends State<ConfettiAnimationWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment(0, -1.5),
+      alignment: const Alignment(0, -1.5),
       child: ConfettiWidget(
-          maximumSize: Size(30, 100),
-          minimumSize: Size(10, 30),
+          maximumSize: const Size(30, 100),
+          minimumSize: const Size(10, 30),
           gravity: .5,
           blastDirectionality: BlastDirectionality.explosive,
           numberOfParticles: 60,

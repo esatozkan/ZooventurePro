@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'memory_games_provider.dart';
+import '../../../screens/games/memory_games_screen.dart';
 
-import 'word_picture_memory_game_provider.dart';
-import 'word_picture_memory_game_screen.dart';
-
-class MemoryGameTitleWidget extends StatelessWidget {
-  const MemoryGameTitleWidget({super.key});
+class MemoryGamesTitleWidget extends StatelessWidget {
+  const MemoryGamesTitleWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,10 @@ class MemoryGameTitleWidget extends StatelessWidget {
       children: [
         IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            SystemChrome.setPreferredOrientations([
+              DeviceOrientation.landscapeLeft,
+              DeviceOrientation.landscapeRight,
+            ]);
           },
           icon: Image.asset(
             "assets/game_control/back_icon.png",
@@ -24,13 +27,14 @@ class MemoryGameTitleWidget extends StatelessWidget {
             color: Colors.deepPurple,
           ),
         ),
-        Consumer<WordPictureMemoryGameProvider>(
-          builder: (_, wordPictureMemoryGameProvider, __) => Text(
-            wordPictureMemoryGameProvider.getMove.toString(),
+        Consumer<MemoryGamesProvider>(
+          builder: (_, memoryGameProvider, __) => Text(
+            memoryGameProvider.getMove.toString(),
             style: const TextStyle(
-                color: Colors.deepPurple,
-                fontSize: 40,
-                fontFamily: "bubblegumSans"),
+              color: Colors.deepPurple,
+              fontSize: 40,
+              fontFamily: "bubblegumSans",
+            ),
           ),
         ),
         Padding(
@@ -40,8 +44,7 @@ class MemoryGameTitleWidget extends StatelessWidget {
               Navigator.pushAndRemoveUntil(
                   context,
                   PageRouteBuilder(
-                    pageBuilder: (_, __, ___) =>
-                        const WordPictureMemoryGameScreen(),
+                    pageBuilder: (_, __, ___) => const MemoryGamesScreen(),
                   ),
                   (route) => false);
             },

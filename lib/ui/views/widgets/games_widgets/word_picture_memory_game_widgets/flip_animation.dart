@@ -30,7 +30,6 @@ class _FlipAnimationWidgetState extends State<FlipAnimationWidget>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this)
@@ -51,8 +50,6 @@ class _FlipAnimationWidgetState extends State<FlipAnimationWidget>
 
   @override
   void didUpdateWidget(covariant FlipAnimationWidget oldWidget) {
-    // TODO: implement didUpdateWidget
-
     Future.delayed(
       Duration(milliseconds: widget.delay),
       () {
@@ -74,7 +71,6 @@ class _FlipAnimationWidgetState extends State<FlipAnimationWidget>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     controller.dispose();
   }

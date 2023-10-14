@@ -1,7 +1,5 @@
-import 'package:zooventure/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/difficulty_selection_widget.dart';
-
+import '../widgets/games_widgets/word_picture_memory_game_widgets/memory_games_provider.dart';
 import '/ui/providers/language_provider.dart';
-import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/word_picture_memory_game_screen.dart';
 import '../widgets/games_widgets/word_picture_memory_game_widgets/generate_word.dart';
 import '/ui/providers/internet_connection_provider.dart';
 import '../../../data/repository/generate_animal.dart';
@@ -49,19 +47,15 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     populateSourceWords(context);
 
     return Scaffold(
-      body: SafeArea(child: DifficultlySelectionWidget()),
-    )
-
-        //  PageView.builder(
-        //   physics: const NeverScrollableScrollPhysics(),
-        //   itemCount: pages.length,
-        //   controller: pageController,
-        //   onPageChanged: (index) {
-        //     pageChangedProvider.pageChangedFunction(index);
-        //   },
-        //   itemBuilder: (context, index) => pages[index],
-        // ),
-
-        ;
+      body: PageView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: pages.length,
+        controller: pageController,
+        onPageChanged: (index) {
+          pageChangedProvider.pageChangedFunction(index);
+        },
+        itemBuilder: (context, index) => pages[index],
+      ),
+    );
   }
 }

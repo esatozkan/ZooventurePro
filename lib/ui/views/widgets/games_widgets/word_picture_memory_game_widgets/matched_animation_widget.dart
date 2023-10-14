@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class MatchedAnimationWidget extends StatefulWidget {
@@ -26,10 +25,9 @@ class _MatchedAnimationWidgetState extends State<MatchedAnimationWidget>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller = AnimationController(
-      duration: Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 800),
       vsync: this,
     );
 
@@ -56,10 +54,12 @@ class _MatchedAnimationWidgetState extends State<MatchedAnimationWidget>
   void didUpdateWidget(covariant MatchedAnimationWidget oldWidget) {
     if (widget.animate) {
       if (!correctColorIsSet) {
-        if (widget.numberOfWordAnswered == 4 ||widget.numberOfWordAnswered == 8) {
+        if (widget.numberOfWordAnswered == 4 ||
+            widget.numberOfWordAnswered == 8) {
           correctColor = Colors.pink;
         }
-        if (widget.numberOfWordAnswered == 6 || widget.numberOfWordAnswered == 12) {
+        if (widget.numberOfWordAnswered == 6 ||
+            widget.numberOfWordAnswered == 12) {
           correctColor = Colors.amber;
         }
       }
@@ -67,14 +67,12 @@ class _MatchedAnimationWidgetState extends State<MatchedAnimationWidget>
       controller.forward();
     }
 
-    // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void dispose() {
     controller.dispose();
-    // TODO: implement dispose
     super.dispose();
   }
 

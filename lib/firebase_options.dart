@@ -17,15 +17,24 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,39 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCaPWZyRWy4ziT-9zT2gm4TwC2EjQNtisk',
-    appId: '1:456450312762:web:7fcadbc7979eb6bcbd4303',
-    messagingSenderId: '456450312762',
-    projectId: 'zoove-8872a',
-    authDomain: 'zoove-8872a.firebaseapp.com',
-    storageBucket: 'zoove-8872a.appspot.com',
-    measurementId: 'G-C27PS22TCV',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCiNbXrZbKeA9tYb4BQ5vuCdmDrwJPMxv4',
-    appId: '1:456450312762:android:49680d87136f448abd4303',
-    messagingSenderId: '456450312762',
-    projectId: 'zoove-8872a',
-    storageBucket: 'zoove-8872a.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDUVVcntT2Tz-LNmButltcoFW75xT6no4s',
-    appId: '1:456450312762:ios:573923ca31b76fbabd4303',
-    messagingSenderId: '456450312762',
-    projectId: 'zoove-8872a',
-    storageBucket: 'zoove-8872a.appspot.com',
-    iosBundleId: 'com.example.zooventure',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDUVVcntT2Tz-LNmButltcoFW75xT6no4s',
-    appId: '1:456450312762:ios:719113210576f7eebd4303',
-    messagingSenderId: '456450312762',
-    projectId: 'zoove-8872a',
-    storageBucket: 'zoove-8872a.appspot.com',
-    iosBundleId: 'com.example.zooventure.RunnerTests',
+    apiKey: 'AIzaSyCU3a3OZUoP7PgxMpPhZlK9ijx_VPma8pc',
+    appId: '1:10800693971:android:27a889875d2900c123ca26',
+    messagingSenderId: '10800693971',
+    projectId: 'oyun-akademisi-zooventure',
+    storageBucket: 'oyun-akademisi-zooventure.appspot.com',
   );
 }

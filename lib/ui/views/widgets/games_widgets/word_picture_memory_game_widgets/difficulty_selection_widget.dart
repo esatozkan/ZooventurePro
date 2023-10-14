@@ -1,9 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
-import 'package:zooventure/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/word_picture_memory_game_provider.dart';
-import 'package:zooventure/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/word_picture_memory_game_screen.dart';
 
 class DifficultlySelectionWidget extends StatefulWidget {
   const DifficultlySelectionWidget({super.key});
@@ -45,25 +42,15 @@ class _DifficultlySelectionWidgetState
             child: GestureDetector(
               onTap: () {
                 if (index == 0) {
-                  Provider.of<WordPictureMemoryGameProvider>(context,
-                          listen: false)
-                      .setValue(6);
                 } else if (index == 1) {
-                  Provider.of<WordPictureMemoryGameProvider>(context,
-                          listen: false)
-                      .setValue(8);
-                } else {
-                  Provider.of<WordPictureMemoryGameProvider>(context,
-                          listen: false)
-                      .setValue(12);
-                }
+                } else {}
 
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const WordPictureMemoryGameScreen(),
-                  ),
-                );
+                // Navigator.pushReplacement(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const WordPictureMemoryGameScreen(),
+                //   ),
+                // );
               },
               child: Stack(
                 children: [

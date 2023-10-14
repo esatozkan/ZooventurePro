@@ -78,6 +78,21 @@ class GamesScreen extends StatelessWidget {
                             ],
                           ),
                         ),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              GameIconWidget(
+                                icon:
+                                    "assets/games/word_picture_memory_game_logo.png",
+                                text1: "Word Memory Game",
+                                whichFunction: "wordPictureMemoryGame",
+                              ),
+                              Spacer(),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
