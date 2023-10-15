@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:zooventure/main.dart';
-import 'package:zooventure/ui/views/screens/main_screen.dart';
+import '/main.dart';
 import '../../../screens/games/memory_games_screen.dart';
 import 'spin_animation.dart';
 
