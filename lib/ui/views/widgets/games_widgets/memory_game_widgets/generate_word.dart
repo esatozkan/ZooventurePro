@@ -1,5 +1,5 @@
 import 'package:provider/provider.dart';
-import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/word_model.dart';
+import 'word_model.dart';
 import '../../../../providers/animal_provider.dart';
 
 List<WordModel> sourceWords = [];

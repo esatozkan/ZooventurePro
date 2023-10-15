@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:zooventure/ui/views/screens/main_screen.dart';
+import 'package:zooventure/ui/views/widgets/games_widgets/spelling_bee_game_widgets/spelling_bee_game_provider.dart';
 import '/data/models/animal_hive_adapter.dart';
 import '/ui/providers/internet_connection_provider.dart';
 import '/ui/providers/language_provider.dart';
@@ -14,7 +14,7 @@ import '/ui/providers/animal_provider.dart';
 import '/ui/providers/games_control_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'ui/views/widgets/games_widgets/word_picture_memory_game_widgets/memory_games_provider.dart';
+import 'ui/views/widgets/games_widgets/memory_game_widgets/memory_games_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -70,6 +70,9 @@ Future<void> main() async {
               ChangeNotifierProvider(
                 create: (_) => MemoryGamesProvider(),
               ),
+              ChangeNotifierProvider(
+                create: (_) => SpellingBeeGameProvider(),
+              )
             ],
             child: const MyApp(),
           ),

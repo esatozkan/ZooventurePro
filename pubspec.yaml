@@ -116,6 +116,8 @@ flutter:
     - assets/purchases_icon/
     - assets/memory_game_sounds/
     - assets/memory_games/
+    - assets/spelling_bee_game_sounds/
+    - assets/spelling_bee_games/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -137,6 +139,9 @@ flutter:
     - family: bubblegumSans
       fonts:
         - asset: assets/fonts/bubblegumSans.ttf
+    - family: partyConfetti
+      fonts:
+        - asset: assets/fonts/partyConfetti.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

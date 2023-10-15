@@ -2,13 +2,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/confetti_animation_widget.dart';
-import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/generate_word.dart';
-import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/memory_game_title_widget.dart';
-import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/replay_widget.dart';
-import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/word_model.dart';
-import '../../widgets/games_widgets/word_picture_memory_game_widgets/memory_games_provider.dart';
-import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/word_tile.dart';
+import '../../widgets/games_widgets/memory_game_widgets/confetti_animation_widget.dart';
+import '../../widgets/games_widgets/memory_game_widgets/generate_word.dart';
+import '../../widgets/games_widgets/memory_game_widgets/memory_game_title_widget.dart';
+import '../../widgets/games_widgets/memory_game_widgets/replay_widget.dart';
+import '../../widgets/games_widgets/memory_game_widgets/word_model.dart';
+import '../../widgets/games_widgets/memory_game_widgets/memory_games_provider.dart';
+import '../../widgets/games_widgets/memory_game_widgets/word_tile.dart';
 
 class MemoryGamesScreen extends StatefulWidget {
   const MemoryGamesScreen({
@@ -150,6 +150,6 @@ class _MemoryGamesScreen extends State<MemoryGamesScreen> {
 
       gridWords.add(sourceWords[i]);
     }
-    // gridWords.shuffle(Random());
+    //  gridWords.shuffle(Random());
   }
 }

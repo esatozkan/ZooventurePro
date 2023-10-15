@@ -18,7 +18,6 @@ class _DifficultlySelectionWidgetState
       [DeviceOrientation.portraitUp],
     );
 
-    // TODO: implement initState
     super.initState();
   }
 

@@ -2,10 +2,10 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/flip_animation.dart';
-import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/matched_animation_widget.dart';
-import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/spin_animation.dart';
-import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/word_model.dart';
+import 'flip_animation.dart';
+import 'matched_animation_widget.dart';
+import 'spin_animation.dart';
+import 'word_model.dart';
 import 'memory_games_provider.dart';
 
 class WordTileWidget extends StatelessWidget {

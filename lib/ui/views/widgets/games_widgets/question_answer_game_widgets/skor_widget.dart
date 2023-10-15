@@ -122,7 +122,7 @@ class SkorWidget extends StatelessWidget {
                     context,
                     "backButton",
                   );
-                  Navigator.pop(context);
+                  Navigator.pop(context); 
                 },
                 icon: Image.asset(
                   "assets/game_control/back_icon.png",

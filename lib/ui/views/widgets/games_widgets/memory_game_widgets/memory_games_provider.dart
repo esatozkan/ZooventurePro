@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/game_audio_widget.dart';
-import '/ui/views/widgets/games_widgets/word_picture_memory_game_widgets/word_model.dart';
+import 'game_audio_widget.dart';
+import 'word_model.dart';
 
 class MemoryGamesProvider extends ChangeNotifier {
   Map<int, WordModel> tappedWords = {};

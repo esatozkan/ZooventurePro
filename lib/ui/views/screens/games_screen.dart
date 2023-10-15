@@ -84,12 +84,15 @@ class GamesScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               GameIconWidget(
-                                icon:
-                                    "assets/games/word_picture_memory_game_logo.png",
-                                text1: "Word Memory Game",
-                                whichFunction: "wordPictureMemoryGame",
+                                icon: "assets/games/memory_game_logo.png",
+                                text1: "Word Memory",
+                                whichFunction: "memoryGame",
                               ),
-                              Spacer(),
+                              GameIconWidget(
+                                icon: "assets/games/spelling_bee_game_logo.png",
+                                text1: "Spelling Bee",
+                                whichFunction: "SpellingBeeGame",
+                              ),
                             ],
                           ),
                         ),

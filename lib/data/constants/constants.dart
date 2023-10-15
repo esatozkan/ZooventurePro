@@ -17,3 +17,13 @@ Image screenBackgroundImage(String image, double height, double width) {
   );
   return screenBgImage;
 }
+
+ThemeData spellingBeeGameThemeData = ThemeData(
+  textTheme: const TextTheme(
+      displayLarge: TextStyle(
+    fontFamily: "partyConfetti",
+    fontSize: 60,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  )),
+);

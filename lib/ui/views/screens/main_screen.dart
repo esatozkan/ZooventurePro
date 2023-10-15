@@ -1,6 +1,6 @@
-import '../widgets/games_widgets/word_picture_memory_game_widgets/memory_games_provider.dart';
+import '../widgets/games_widgets/spelling_bee_game_widgets/all_words_widget.dart';
 import '/ui/providers/language_provider.dart';
-import '../widgets/games_widgets/word_picture_memory_game_widgets/generate_word.dart';
+import '../widgets/games_widgets/memory_game_widgets/generate_word.dart';
 import '/ui/providers/internet_connection_provider.dart';
 import '../../../data/repository/generate_animal.dart';
 import '../../../data/repository/generate_question.dart';
@@ -45,6 +45,8 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     generateQuestions("knowWhatVirtualAnimalImage", 10, context);
 
     populateSourceWords(context);
+
+    spellingBeeGameGenerateAnimalWords(context);
 
     return Scaffold(
       body: PageView.builder(
