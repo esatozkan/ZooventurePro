@@ -52,7 +52,7 @@ class _MemoryGamesScreen extends State<MemoryGamesScreen> {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                      "assets/memory_games/word_picture_memory_game_background.png"),
+                      "assets/games/memory_games/word_picture_memory_game_background.png"),
                   fit: BoxFit.cover,
                 ),
               ),

@@ -18,19 +18,11 @@ class AnimalHiveModel {
   @HiveField(4)
   late String realImage;
 
-  @HiveField(5)
-  late bool isVisible;
-
-  @HiveField(6)
-  late bool isCorrectAnswer;
-
   AnimalHiveModel(
     this.name,
     this.voice,
     this.gif,
     this.image,
     this.realImage,
-    this.isVisible,
-    this.isCorrectAnswer,
   );
 }

@@ -1,10 +1,8 @@
-import 'package:zooventure/ui/views/screens/games/know_what_hear_screen.dart';
-import 'package:zooventure/ui/views/screens/games/know_what_real_animal_screen.dart';
-import 'package:zooventure/ui/views/screens/games/know_what_type_animal_screen.dart';
-import 'package:zooventure/ui/views/screens/games/know_what_virtual_animal_screen.dart';
-
+import '/ui/views/screens/games/know_what_hear_screen.dart';
+import '/ui/views/screens/games/know_what_real_animal_screen.dart';
+import '/ui/views/screens/games/know_what_type_animal_screen.dart';
+import '/ui/views/screens/games/know_what_virtual_animal_screen.dart';
 import '../../screens/games/memory_games_screen.dart';
-import '/ui/views/screens/main_screen.dart';
 import '../../screens/games/spelling_bee_game_screen.dart';
 import '/ui/providers/animal_provider.dart';
 import 'package:flutter/material.dart';
