@@ -109,16 +109,16 @@ flutter:
   assets:
     - assets/
     - assets/bottom_navbar_icon/
-    - assets/check_answer/
-    - assets/know_what_hear/
+    - assets/games/question_games/question_game/
     - assets/game_control/
-    - assets/games/
     - assets/purchases_icon/
-    - assets/memory_game_sounds/
-    - assets/memory_games/
-    - assets/spelling_bee_game_sounds/
-    - assets/spelling_bee_games/
-    - assets/question_answer_game_sounds/
+    - assets/games/
+    - assets/games/spelling_bee_games/
+    - assets/games/spelling_bee_games/spelling_bee_game_sounds/
+    - assets/games/memory_games/memory_game_sounds/
+    - assets/games/memory_games/
+    - assets/games/question_games/question_game_sounds/
+    - assets/games/question_games/question_game/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

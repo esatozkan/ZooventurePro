@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import '../services/animal_service.dart';
 import '/data/models/animal_hive_model.dart';
 import '/ui/providers/animal_provider.dart';
 import 'package:provider/provider.dart';
@@ -10,26 +11,22 @@ void generateAnimal(context, String local) {
   Box animalBox = Hive.box("Animals");
 
   if (animalBox.isEmpty) {
-    for (int i = 0; i < animalProvider.getAnimalNames.length; i++) {
+    for (int i = 0; i < animalNames.length; i++) {
       Animal animal = Animal(
-        name: animalProvider.getAnimalNames[i],
-        voice: animalProvider.getAnimalVoices[i],
-        gif: animalProvider.getAnimalGif[i],
-        image: animalProvider.getAnimalVirtualImage[i],
-        realImage: animalProvider.getAnimalVirtualImage[i],
-        isVisible: false,
-        isCorrectAnswer: false,
+        name: animalNames[i],
+        voice: animalVoices[i],
+        gif: animalGif[i],
+        image: animalVirtualImages[i],
+        realImage: animalRealImage[i],
       );
       animalProvider.addAnimal(animal);
 
       final animalHive = AnimalHiveModel(
-        animalProvider.getAnimalNames[i],
-        animalProvider.getAnimalVoices[i],
-        animalProvider.getAnimalGif[i],
-        animalProvider.getAnimalVirtualImage[i],
-        animalProvider.getAnimalRealImage[i],
-        false,
-        false,
+        animalNames[i],
+        animalVoices[i],
+        animalGif[i],
+        animalVirtualImages[i],
+        animalRealImage[i],
       );
       animalBox.put(i, animalHive);
     }
@@ -37,30 +34,11 @@ void generateAnimal(context, String local) {
     for (int i = 0; i < animalBox.length; i++) {
       final animalHive = animalBox.get(i);
 
-      animalProvider.addInformation(
-        animalProvider.getAnimalGif,
-        animalHive.gif,
-      );
-
-      animalProvider.addInformation(
-        animalProvider.getAnimalRealImage,
-        animalHive.realImage,
-      );
-
-      animalProvider.addInformation(
-        animalProvider.getAnimalVirtualImage,
-        animalHive.image,
-      );
-
-      animalProvider.addInformation(
-        animalProvider.getAnimalVoices,
-        animalHive.voice,
-      );
-
-      animalProvider.addInformation(
-        animalProvider.getAnimalNames,
-        animalHive.name,
-      );
+      animalGif.add(animalHive.gif);
+      animalRealImage.add(animalHive.realImage);
+      animalVirtualImages.add(animalHive.image);
+      animalVoices.add(animalHive.voice);
+      animalNames.add(animalHive.name);
 
       Animal animal = Animal(
         name: animalHive.name,
@@ -68,8 +46,6 @@ void generateAnimal(context, String local) {
         gif: animalHive.gif,
         image: animalHive.image,
         realImage: animalHive.realImage,
-        isVisible: animalHive.isVisible,
-        isCorrectAnswer: animalHive.isCorrectAnswer,
       );
       animalProvider.addAnimal(animal);
     }

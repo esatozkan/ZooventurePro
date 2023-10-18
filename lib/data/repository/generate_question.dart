@@ -13,7 +13,7 @@ void generateQuestion(context) {
       Provider.of(context, listen: false);
 
   for (int i = 0; i < animalProvider.getAnimals.length; i++) {
-    question.add(addQuention(context, i));
+    question.add(addQuestion(context, i));
   }
 
   question.shuffle(Random());

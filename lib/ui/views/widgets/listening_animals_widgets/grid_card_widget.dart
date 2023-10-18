@@ -33,7 +33,7 @@ class _GridCardWidgetState extends State<GridCardWidget> {
           mainAxisSpacing: 10,
           crossAxisSpacing: 10,
         ),
-        itemCount: animalProvider.getAnimalGif.length,
+        itemCount: animalProvider.getAnimals.length,
         itemBuilder: (BuildContext context, index) {
           return Consumer<AnimalProvider>(
             builder: (context, animalProvider, _) => IconButton(
@@ -59,7 +59,7 @@ class _GridCardWidgetState extends State<GridCardWidget> {
               icon: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
                 child: CachedNetworkImage(
-                  imageUrl: animalProvider.getAnimalGif[index],
+                  imageUrl: animalProvider.getAnimals[index].gif,
                 ),
               ),
               // Image.network(animalProvider.getAnimalGif[index])),

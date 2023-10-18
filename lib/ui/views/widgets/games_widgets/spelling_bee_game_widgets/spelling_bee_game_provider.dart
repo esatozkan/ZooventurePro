@@ -25,7 +25,7 @@ class SpellingBeeGameProvider extends ChangeNotifier {
 
     updateLetterDropped(dropped: true);
     if (letterAnswered == totalLetters) {
-      player.play(AssetSource("spelling_bee_game_sounds/correct_2.mp3"));
+      player.play(AssetSource("games/spelling_bee_games/spelling_bee_game_sounds/correct_2.mp3"));
       wordsAnswered++;
       percentCompleted = wordsAnswered / allWords.length;
       if (wordsAnswered == allWords.length) {
@@ -39,7 +39,7 @@ class SpellingBeeGameProvider extends ChangeNotifier {
         ),
       );
     } else {
-      player.play(AssetSource("spelling_bee_game_sounds/correct_1.mp3"));
+      player.play(AssetSource("games/spelling_bee_games/spelling_bee_game_sounds/correct_1.mp3"));
     }
     notifyListeners();
   }

@@ -44,7 +44,7 @@ class SpellingBeeGameTitleWidget extends StatelessWidget {
               animate: dropped,
               animationCompleted: animatedCompleted(),
               child: Image.asset(
-                "assets/spelling_bee_games/bee.png",
+                "assets/games/spelling_bee_games/bee.png",
                 height: 80,
                 width: 80,
                 fit: BoxFit.cover,

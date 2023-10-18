@@ -32,8 +32,8 @@ class QuestionGameProvider extends ChangeNotifier {
     audioPlayer.play(
       AssetSource(
         question[questionIndex].option.values.toList()[index] == true
-            ? "question_answer_game_sounds/correct.mp3"
-            : "question_answer_game_sounds/incorrect.mp3",
+            ? "games/question_games/question_game_sounds/correct.mp3"
+            : "games/question_games/question_game_sounds/incorrect.mp3",
       ),
     );
 

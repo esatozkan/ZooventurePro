@@ -30,8 +30,8 @@ Future chanceLocal(context) async {
       Provider.of<AnimalProvider>(context, listen: false);
   LanguageProvider languageProvider =
       Provider.of<LanguageProvider>(context, listen: false);
+  List<String> getUrls = [];
 
-  animalProvider.clearList(animalProvider.getAnimalNames);
   animalProvider.clearList(animalProvider.getUiTexts);
   languageProvider.chanceLocal();
 
@@ -40,12 +40,11 @@ Future chanceLocal(context) async {
       .child("animal-types/animal-type-${languageProvider.getLocal}");
   final listResult = await storageRef.listAll();
   for (var element in listResult.items) {
-    animalProvider.addInformation(
-        animalProvider.getAnimalNames, await element.getDownloadURL());
+    getUrls.add(await element.getDownloadURL());
   }
 
-  for (int i = 0; i < animalProvider.getAnimalGif.length; i++) {
-    animalProvider.getAnimals[i].name = animalProvider.getAnimalNames[i];
+  for (int i = 0; i < animalProvider.getAnimals.length; i++) {
+    animalProvider.getAnimals[i].name = getUrls[i];
   }
 
   await changeText(languageProvider.getLocal, context);

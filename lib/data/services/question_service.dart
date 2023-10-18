@@ -4,7 +4,7 @@ import '/data/models/question_model.dart';
 import '/ui/providers/animal_provider.dart';
 import 'package:provider/provider.dart';
 
-QuestionAnswerModel addQuention(context, index) {
+QuestionAnswerModel addQuestion(context, index) {
   AnimalProvider animalProvider =
       Provider.of<AnimalProvider>(context, listen: false);
 

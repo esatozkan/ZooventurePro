@@ -217,8 +217,8 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                                           .values
                                           .toList()[index] ==
                                       true
-                                  ? "assets/check_answer/correct_answer.png"
-                                  : "assets/check_answer/wrong_answer.png",
+                                  ? "assets/games/question_games/question_game/correct_answer.png"
+                                  : "assets/games/question_games/question_game/wrong_answer.png",
                             ),
                           ),
                         ],

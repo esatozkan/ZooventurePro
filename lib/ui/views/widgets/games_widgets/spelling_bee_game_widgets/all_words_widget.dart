@@ -8,18 +8,18 @@ List<SpellingBeeGameWordModel> allWords = [];
 spellingBeeGameGenerateAnimalWords(context) {
   AnimalProvider animalProvider = Provider.of(context);
 
-  for (int i = 0; i < animalProvider.getAnimalVirtualImage.length; i++) {
-    int startIndex = animalProvider.getAnimalVirtualImage[i]
-        .indexOf('animal-virtual-images%2F');
-    int endIndex = animalProvider.getAnimalVirtualImage[i].indexOf('.png');
+  for (int i = 0; i < animalProvider.getAnimals.length; i++) {
+    int startIndex =
+        animalProvider.getAnimals[i].image.indexOf('animal-virtual-images%2F');
+    int endIndex = animalProvider.getAnimals[i].image.indexOf('.png');
 
-    String animalLength = animalProvider.getAnimalVirtualImage[i]
-        .substring(startIndex + 24, endIndex);
+    String animalLength =
+        animalProvider.getAnimals[i].image.substring(startIndex + 24, endIndex);
     if (animalLength.length < 7) {
       SpellingBeeGameWordModel spellingBeeGameWordModel =
           SpellingBeeGameWordModel(
         name: animalLength,
-        url: animalProvider.getAnimalVirtualImage[i],
+        url: animalProvider.getAnimals[i].image,
       );
       allWords.add(spellingBeeGameWordModel);
     }
