@@ -1,3 +1,4 @@
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '/ui/views/widgets/games_widgets/question_games_widgets/question_games_provider.dart';
 import '/ui/views/widgets/games_widgets/spelling_bee_game_widgets/spelling_bee_game_provider.dart';
@@ -18,6 +19,8 @@ import 'ui/views/widgets/games_widgets/memory_game_widgets/memory_games_provider
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  MobileAds.instance.initialize();
 
   await Hive.initFlutter();
   Hive.registerAdapter(AnimalHiveAdapter());

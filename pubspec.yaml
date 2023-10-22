@@ -48,6 +48,7 @@ dependencies:
   hive_flutter: ^1.1.0
   purchases_flutter: ^6.0.0
   confetti: ^0.7.0
+  google_mobile_ads: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -109,7 +110,6 @@ flutter:
   assets:
     - assets/
     - assets/bottom_navbar_icon/
-    - assets/games/question_games/question_game/
     - assets/game_control/
     - assets/purchases_icon/
     - assets/games/
@@ -117,6 +117,7 @@ flutter:
     - assets/games/spelling_bee_games/spelling_bee_game_sounds/
     - assets/games/memory_games/memory_game_sounds/
     - assets/games/memory_games/
+    - assets/games/question_games/
     - assets/games/question_games/question_game_sounds/
     - assets/games/question_games/question_game/
   #   - images/a_dot_ham.jpeg

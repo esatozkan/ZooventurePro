@@ -8,7 +8,7 @@ class KnowWhatRealAnimalScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return QuestionGameWidget(
       question: "knowWhatRealImage",
-      background: "assets/bg.gif",
+      background: "assets/games/question_games/find_real_image_background.png",
     );
   }
 }

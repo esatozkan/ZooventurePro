@@ -8,7 +8,8 @@ class KnowWhatHearAnimalScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return QuestionGameWidget(
       question: "KnowWhatHearAnimalScreen",
-      background: "assets/bg.gif",
+      background:
+          "assets/games/question_games/find_animal_sounds_background.png",
     );
   }
 }

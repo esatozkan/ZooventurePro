@@ -41,19 +41,21 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
     AudioPlayer audioPlayer = AudioPlayer();
     if (widget.question == "knowWhatTypeAnimalScreen") {
       audioPlayer.play(
-        UrlSource(question[
-                Provider.of<QuestionGameProvider>(context, listen: false)
-                    .getQuestionIndex]
-            .question
-            .name),
+        UrlSource(
+          question[Provider.of<QuestionGameProvider>(context, listen: false)
+                  .getQuestionIndex]
+              .question
+              .name,
+        ),
       );
     } else if (widget.question == "KnowWhatHearAnimalScreen") {
       audioPlayer.play(
-        UrlSource(question[
-                Provider.of<QuestionGameProvider>(context, listen: false)
-                    .getQuestionIndex]
-            .question
-            .voice),
+        UrlSource(
+          question[Provider.of<QuestionGameProvider>(context, listen: false)
+                  .getQuestionIndex]
+              .question
+              .voice,
+        ),
       );
     }
 
@@ -66,7 +68,9 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage(widget.background), fit: BoxFit.cover),
+                  image: AssetImage(widget.background),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Column(
@@ -115,19 +119,21 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                                       if (widget.question ==
                                           "knowWhatTypeAnimalScreen") {
                                         audioPlayer.play(
-                                          UrlSource(question[
-                                                  questionGameProvider
-                                                      .getQuestionIndex]
-                                              .question
-                                              .name),
+                                          UrlSource(
+                                            question[questionGameProvider
+                                                    .getQuestionIndex]
+                                                .question
+                                                .name,
+                                          ),
                                         );
                                       } else {
                                         audioPlayer.play(
-                                          UrlSource(question[
-                                                  questionGameProvider
-                                                      .getQuestionIndex]
-                                              .question
-                                              .voice),
+                                          UrlSource(
+                                            question[questionGameProvider
+                                                    .getQuestionIndex]
+                                                .question
+                                                .voice,
+                                          ),
                                         );
                                       }
                                     },
