@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import '/ui/views/screens/main_screen.dart';
 import 'memory_games_provider.dart';
 import '../../../screens/games/memory_games_screen.dart';
 
@@ -19,7 +18,6 @@ class MemoryGamesTitleWidget extends StatelessWidget {
               DeviceOrientation.landscapeLeft,
               DeviceOrientation.landscapeRight,
             ]);
-            pageController.jumpToPage(2);
           },
           icon: Image.asset(
             "assets/game_control/back_icon.png",
@@ -43,12 +41,15 @@ class MemoryGamesTitleWidget extends StatelessWidget {
           padding: const EdgeInsets.only(right: 10),
           child: IconButton(
             onPressed: () {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => const MemoryGamesScreen(),
+               Navigator.pushAndRemoveUntil(
+                   context,
+                   PageRouteBuilder(
+                     pageBuilder: (_, __, ___) => const MemoryGamesScreen(),
                   ),
                   (route) => false);
+
+             
+
             },
             icon: Image.asset(
               "assets/bottom_navbar_icon/gameScreenIcon.png",

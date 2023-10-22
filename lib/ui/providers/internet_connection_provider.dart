@@ -2,9 +2,6 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:provider/provider.dart';
-import '/ui/providers/animal_provider.dart';
-import '../../data/constants/constants.dart';
 import '/data/repository/internet_connection_repository.dart';
 
 class InternetConnectionProvider with ChangeNotifier {
@@ -34,27 +31,10 @@ class InternetConnectionProvider with ChangeNotifier {
   }
 
   StreamSubscription getConnectivity(context) {
-    AnimalProvider animalProvider =
-        Provider.of<AnimalProvider>(context, listen: false);
     streamSubscription = Connectivity().onConnectivityChanged.listen(
       (ConnectivityResult result) async {
         isDeviceConnected = await InternetConnectionChecker().hasConnection;
-        if (!isDeviceConnected && isAlert == false) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: itemColor,
-              content: Center(
-                child: Text(
-                  animalProvider.getUiTexts[9],
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
-          );
-          internetOn();
-        } else {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        }
+      
       },
     );
     return streamSubscription;

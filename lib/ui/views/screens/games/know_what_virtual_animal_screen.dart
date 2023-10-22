@@ -8,7 +8,8 @@ class KnowWhatVirtualAnimalScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return QuestionGameWidget(
       question: "knowWhatVirtualImage",
-      background: "assets/bg.gif",
+      background:
+          "assets/games/question_games/find_virtual_image_background.png",
     );
   }
 }

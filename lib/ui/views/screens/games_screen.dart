@@ -1,4 +1,5 @@
 import 'package:provider/provider.dart';
+import '/ui/providers/language_provider.dart';
 import '/ui/providers/animal_provider.dart';
 import 'package:flutter/material.dart';
 import '../../../data/constants/constants.dart';
@@ -12,6 +13,8 @@ class GamesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AnimalProvider animalProvider = Provider.of(context, listen: false);
+    LanguageProvider languageProvider =
+        Provider.of<LanguageProvider>(context, listen: false);
 
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -43,11 +46,10 @@ class GamesScreen extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              GameIconWidget(
-                                icon:
-                                    "assets/games/know_what_real_image_logo.png",
-                                text1: animalProvider.getUiTexts[5],
-                                whichFunction: "knowWhatRealAnimalScreen",
+                              const GameIconWidget(
+                                icon: "assets/games/memory_game_logo.png",
+                                text1: "Memory",
+                                whichFunction: "memoryGame",
                               ),
                               GameIconWidget(
                                 icon:
@@ -78,21 +80,29 @@ class GamesScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 10),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               GameIconWidget(
-                                icon: "assets/games/memory_game_logo.png",
-                                text1: "Memory",
-                                whichFunction: "memoryGame",
+                                icon:
+                                    "assets/games/know_what_real_image_logo.png",
+                                text1: animalProvider.getUiTexts[5],
+                                whichFunction: "knowWhatRealAnimalScreen",
                               ),
-                              GameIconWidget(
-                                icon: "assets/games/spelling_bee_game_logo.png",
-                                text1: "Spelling Bee",
-                                whichFunction: "SpellingBeeGame",
-                              ),
+                              languageProvider.getLocal == "en"
+                                  ? const GameIconWidget(
+                                      icon:
+                                          "assets/games/spelling_bee_game_logo.png",
+                                      text1: "Spelling Bee",
+                                      whichFunction: "SpellingBeeGame",
+                                    )
+                                  : Container(
+                                      height: 150,
+                                      width: 150,
+                                      color: Colors.transparent,
+                                    ),
                             ],
                           ),
                         ),
