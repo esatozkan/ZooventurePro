@@ -19,6 +19,8 @@ List<Widget> pages = const [
 
 PageController pageController = PageController(initialPage: 0);
 
+
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -27,6 +29,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
+
+
   @override
   Widget build(BuildContext context) {
     PageChangedProvider pageChangedProvider =

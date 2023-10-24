@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:zooventure/ui/providers/animal_provider.dart';
 import '/ui/views/screens/games/know_what_hear_screen.dart';
 import '../../../screens/games/know_what_type_animal_screen.dart';
 import '/ui/views/screens/games/know_what_virtual_animal_screen.dart';
@@ -18,6 +19,8 @@ class QuestionGameGameOverWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AnimalProvider animalProvider =
+        Provider.of<AnimalProvider>(context, listen: false);
     return Consumer<QuestionGameProvider>(
       builder: (context, questionGameProvider, _) => SingleChildScrollView(
         child: Visibility(
@@ -105,9 +108,9 @@ class QuestionGameGameOverWidget extends StatelessWidget {
                         color: const Color(0xff01ddb3),
                       ),
                     ),
-                    child: const Text(
-                      "B U Y",
-                      style: TextStyle(
+                    child: Text(
+                      animalProvider.getUiTexts[4],
+                      style: const TextStyle(
                           color: Color(0xffeb92e5),
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
@@ -128,9 +131,9 @@ class QuestionGameGameOverWidget extends StatelessWidget {
                         color: const Color(0xff01ddb3),
                       ),
                     ),
-                    child: const Text(
-                      "E X I T",
-                      style: TextStyle(
+                    child: Text(
+                      animalProvider.getUiTexts[6],
+                      style: const TextStyle(
                         color: Color(0xffeb92e5),
                         fontSize: 30,
                         fontWeight: FontWeight.bold,

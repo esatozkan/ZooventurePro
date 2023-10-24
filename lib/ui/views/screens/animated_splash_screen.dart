@@ -27,6 +27,7 @@ class SplashScreen extends StatelessWidget {
       splashIconSize: 300,
       screenFunction: () async {
         await getFirebase(context);
+
         return const MainScreen();
       },
     );
