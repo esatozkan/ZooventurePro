@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '/data/repository/generate_question.dart';
 
 class QuestionGameProvider extends ChangeNotifier {
-  int numberOfQuestion = 3;
+  int numberOfQuestion = 7;
   int questionIndex = 0;
   bool answerControl = false;
   bool onTap = true;

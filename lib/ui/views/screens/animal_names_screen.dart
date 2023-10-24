@@ -4,8 +4,15 @@ import '../../../data/constants/constants.dart';
 import '../widgets/on_boarding_control_widget.dart';
 import 'package:flutter/material.dart';
 
-class AnimalNamesScreen extends StatelessWidget {
+class AnimalNamesScreen extends StatefulWidget {
   const AnimalNamesScreen({super.key});
+
+  @override
+  State<AnimalNamesScreen> createState() => _AnimalNamesScreenState();
+}
+
+class _AnimalNamesScreenState extends State<AnimalNamesScreen> {
+
 
   @override
   Widget build(BuildContext context) {

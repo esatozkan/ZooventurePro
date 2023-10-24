@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:zooventure/ui/providers/animal_provider.dart';
 import '/ui/views/screens/main_screen.dart';
 import '../../../screens/games/memory_games_screen.dart';
 import 'spin_animation.dart';
@@ -9,6 +11,8 @@ class ReplayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AnimalProvider animalProvider =
+        Provider.of<AnimalProvider>(context, listen: false);
     return SpinAnimationWidget(
       child: AlertDialog(
         backgroundColor: Colors.deepPurple,
@@ -24,9 +28,9 @@ class ReplayWidget extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {},
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Buy'),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(animalProvider.getUiTexts[4]),
               ),
             ),
           ),
@@ -43,9 +47,9 @@ class ReplayWidget extends StatelessWidget {
                   (route) => false,
                 );
               },
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Replay!'),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(animalProvider.getUiTexts[5]),
               ),
             ),
           ),
@@ -65,9 +69,9 @@ class ReplayWidget extends StatelessWidget {
                 //     PageRouteBuilder(pageBuilder: (_, __, ___) => MyApp()),
                 //     (route) => false);
               },
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Exit'),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(animalProvider.getUiTexts[6]),
               ),
             ),
           ),
