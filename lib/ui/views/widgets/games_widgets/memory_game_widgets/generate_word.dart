@@ -10,7 +10,7 @@ int populateSourceWords(context) {
   for (int i = 0; i < animalProvider.getAnimals.length; i++) {
     int startIndex =
         animalProvider.getAnimals[i].image.indexOf('animal-virtual-images%2F');
-    int endIndex = animalProvider.getAnimals[i].image.indexOf('.png');
+    int endIndex = animalProvider.getAnimals[i].image.indexOf('.');
     sourceWords.add(WordModel(
         text: animalProvider.getAnimals[i].image
             .substring(startIndex + 24, endIndex),
