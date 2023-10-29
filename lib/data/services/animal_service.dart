@@ -1,19 +1,9 @@
 import 'package:firebase_storage/firebase_storage.dart';
 
 List<String> animalNames = [];
-List<String> animalGif = [];
 List<String> animalVirtualImages = [];
 List<String> animalRealImage = [];
 List<String> animalVoices = [];
-
-getAnimalGif(context) async {
-  final storageRef =
-      FirebaseStorage.instance.ref().child("animal-images/animal-gifs");
-  final listResult = await storageRef.listAll();
-  for (var element in listResult.items) {
-    animalGif.add(await element.getDownloadURL());
-  }
-}
 
 getAnimalRealImage(context) async {
   final storageRef =

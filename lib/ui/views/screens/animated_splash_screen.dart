@@ -41,7 +41,6 @@ Future getFirebase(context) async {
   Box animalBox = Hive.box("Animals");
 
   if (animalBox.isEmpty) {
-    await getAnimalGif(context);
     await getAnimalName(languageProvider.getLocal, context);
     await getAnimalVoice(context);
     await getAnimalRealImage(context);

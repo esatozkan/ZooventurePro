@@ -10,18 +10,14 @@ class AnimalHiveModel {
   late String voice;
 
   @HiveField(2)
-  late String gif;
-
-  @HiveField(3)
   late String image;
 
-  @HiveField(4)
+  @HiveField(3)
   late String realImage;
 
   AnimalHiveModel(
     this.name,
     this.voice,
-    this.gif,
     this.image,
     this.realImage,
   );

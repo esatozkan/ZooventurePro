@@ -10,18 +10,14 @@ class Animal {
   late String voice;
 
   @HiveField(2)
-  late String gif;
-
-  @HiveField(3)
   late String image;
 
-  @HiveField(4)
+  @HiveField(3)
   late String realImage;
 
   Animal({
     required this.name,
     required this.voice,
-    required this.gif,
     required this.image,
     required this.realImage,
   });
