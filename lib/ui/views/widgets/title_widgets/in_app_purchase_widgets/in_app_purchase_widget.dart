@@ -27,7 +27,7 @@ inAppPurchaseWidget(context) {
                   children: [
                     Text(""),
                     Text(
-                      animalProvider.getUiTexts[10],
+                      animalProvider.getUiTexts[15],
                       style: TextStyle(
                         fontSize: 32,
                         fontFamily: "jokerman",
@@ -55,12 +55,12 @@ inAppPurchaseWidget(context) {
                 children: [
                   PurchaseIconWidget(
                     icon: "assets/purchases_icon/buy_24_animals.gif",
-                    text: animalProvider.getUiTexts[11],
+                    text: animalProvider.getUiTexts[16],
                     whichFunction: "",
                   ),
                   PurchaseIconWidget(
-                    icon: "assets/purchases_icon/buy_48_animals.gif",
-                    text: animalProvider.getUiTexts[12],
+                    icon: "assets/purchases_icon/buy_36_animals.gif",
+                    text: animalProvider.getUiTexts[17],
                     whichFunction: "",
                   ),
                 ],
@@ -75,7 +75,7 @@ inAppPurchaseWidget(context) {
                   ),
                   PurchaseIconWidget(
                     icon: "assets/purchases_icon/play_with_ads.gif",
-                    text: animalProvider.getUiTexts[1],
+                    text: animalProvider.getUiTexts[6],
                     whichFunction: "",
                   ),
                 ],

@@ -39,8 +39,32 @@ class QuestionGameGameOverWidget extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   fit: BoxFit.cover,
                 ),
-                GestureDetector(
-                  onTap: () {
+                TextButton(
+                  onPressed: () {},
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 60, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xff01ddb3),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        width: 2,
+                        color: const Color(0xff01ddb3),
+                      ),
+                    ),
+                    child: Text(
+                      animalProvider.getUiTexts[3],
+                      style: const TextStyle(
+                        color: Color(0xffeb92e5),
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "partyConfetti",
+                      ),
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
                     questionGameProvider.resetGame();
                     if (question == "knowWhatRealImage") {
                       Navigator.pushAndRemoveUntil(
@@ -79,27 +103,8 @@ class QuestionGameGameOverWidget extends StatelessWidget {
                     }
                   },
                   child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 60, vertical: 10),
-                      decoration: BoxDecoration(
-                        color: const Color(0xff01ddb3),
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          width: 2,
-                          color: const Color(0xff01ddb3),
-                        ),
-                      ),
-                      child: const Icon(
-                        Icons.refresh,
-                        size: 40,
-                        color: Color(0xffeb92e5),
-                      )),
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 60, vertical: 10),
+                        horizontal: 40, vertical: 10),
                     decoration: BoxDecoration(
                       color: const Color(0xff01ddb3),
                       borderRadius: BorderRadius.circular(10),
@@ -111,15 +116,16 @@ class QuestionGameGameOverWidget extends StatelessWidget {
                     child: Text(
                       animalProvider.getUiTexts[4],
                       style: const TextStyle(
-                          color: Color(0xffeb92e5),
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "partyConfetti"),
+                        color: Color(0xffeb92e5),
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "partyConfetti",
+                      ),
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {},
+                TextButton(
+                  onPressed: () {},
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 60, vertical: 10),
@@ -132,7 +138,7 @@ class QuestionGameGameOverWidget extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      animalProvider.getUiTexts[6],
+                      animalProvider.getUiTexts[5],
                       style: const TextStyle(
                         color: Color(0xffeb92e5),
                         fontSize: 30,

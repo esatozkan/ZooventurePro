@@ -49,10 +49,10 @@ class _TitleWidgetState extends State<TitleWidget> {
             Center(
               child: Text(
                 pageChangedProvider.getPageChanged == 0
-                    ? animalProvider.getUiTexts[2]
+                    ? animalProvider.getUiTexts[7]
                     : (pageChangedProvider.getPageChanged == 1)
-                        ? animalProvider.getUiTexts[3]
-                        : animalProvider.getUiTexts[4],
+                        ? animalProvider.getUiTexts[8]
+                        : animalProvider.getUiTexts[9],
                 style: TextStyle(
                   fontSize: 32,
                   fontFamily: "jokerman",
@@ -61,7 +61,7 @@ class _TitleWidgetState extends State<TitleWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(right: context.dynamicSize(.026)),
+              padding: EdgeInsets.only(right: MediaQuery.of(context).size.height * .026),
               child: GestureDetector(
                 onTap: () async {
                   applicationData("Click Language Button");

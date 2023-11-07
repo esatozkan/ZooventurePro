@@ -30,7 +30,7 @@ class ReplayWidget extends StatelessWidget {
               onPressed: () {},
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(animalProvider.getUiTexts[4]),
+                child: Text(animalProvider.getUiTexts[3]),
               ),
             ),
           ),
@@ -49,7 +49,7 @@ class ReplayWidget extends StatelessWidget {
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(animalProvider.getUiTexts[5]),
+                child: Text(animalProvider.getUiTexts[4]),
               ),
             ),
           ),
@@ -71,7 +71,7 @@ class ReplayWidget extends StatelessWidget {
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(animalProvider.getUiTexts[6]),
+                child: Text(animalProvider.getUiTexts[5]),
               ),
             ),
           ),
