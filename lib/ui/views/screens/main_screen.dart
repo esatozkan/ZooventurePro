@@ -75,7 +75,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
                 onPageChanged: (index) {
                   pageChangedProvider.pageChangedFunction(index);
                 },
-                itemBuilder: (context, index) => pages[index],
+                itemBuilder: (context, index) => pages[pageChangedProvider.getPageChanged],
               ),
             ),
           ],

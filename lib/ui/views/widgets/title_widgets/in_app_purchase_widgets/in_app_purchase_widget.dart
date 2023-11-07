@@ -36,11 +36,11 @@ inAppPurchaseWidget(context) {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
-                      child: IconButton(
-                        onPressed: () {
+                      child: GestureDetector(
+                        onTap: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(
+                        child: Icon(
                           Icons.close,
                           color: itemColor,
                           size: 32,

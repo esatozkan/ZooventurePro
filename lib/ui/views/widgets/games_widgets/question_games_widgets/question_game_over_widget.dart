@@ -39,8 +39,8 @@ class QuestionGameGameOverWidget extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   fit: BoxFit.cover,
                 ),
-                TextButton(
-                  onPressed: () {
+                GestureDetector(
+                  onTap: () {
                     questionGameProvider.resetGame();
                     if (question == "knowWhatRealImage") {
                       Navigator.pushAndRemoveUntil(
@@ -95,8 +95,8 @@ class QuestionGameGameOverWidget extends StatelessWidget {
                         color: Color(0xffeb92e5),
                       )),
                 ),
-                TextButton(
-                  onPressed: () {},
+                GestureDetector(
+                  onTap: () {},
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 60, vertical: 10),
@@ -118,8 +118,8 @@ class QuestionGameGameOverWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                TextButton(
-                  onPressed: () {},
+                GestureDetector(
+                  onTap: () {},
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 60, vertical: 10),

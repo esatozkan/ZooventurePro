@@ -11,9 +11,8 @@ class AnimalNamesScreen extends StatefulWidget {
 class _AnimalNamesScreenState extends State<AnimalNamesScreen> {
   @override
   Widget build(BuildContext context) {
-    return const  SafeArea(
-        child: GridCardWidget(),
-      );
-    
+    return const SafeArea(
+      child: GridCardWidget(),
+    );
   }
 }

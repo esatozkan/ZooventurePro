@@ -12,14 +12,14 @@ class MemoryGamesTitleWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        IconButton(
-          onPressed: () {
+        GestureDetector(
+          onTap: () {
             SystemChrome.setPreferredOrientations([
               DeviceOrientation.landscapeLeft,
               DeviceOrientation.landscapeRight,
             ]);
           },
-          icon: Image.asset(
+          child: Image.asset(
             "assets/game_control/back_icon.png",
             height: 60,
             width: 60,
@@ -39,8 +39,8 @@ class MemoryGamesTitleWidget extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(right: 10),
-          child: IconButton(
-            onPressed: () {
+          child: GestureDetector(
+            onTap: () {
                Navigator.pushAndRemoveUntil(
                    context,
                    PageRouteBuilder(
@@ -51,7 +51,7 @@ class MemoryGamesTitleWidget extends StatelessWidget {
              
 
             },
-            icon: Image.asset(
+            child: Image.asset(
               "assets/bottom_navbar_icon/gameScreenIcon.png",
               height: 60,
               width: 60,

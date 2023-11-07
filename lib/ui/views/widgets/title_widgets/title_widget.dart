@@ -34,12 +34,12 @@ class _TitleWidgetState extends State<TitleWidget> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            IconButton(
-              onPressed: () async {
+            GestureDetector(
+              onTap: () async {
                 applicationData("Click Sale");
                 inAppPurchaseWidget(context);
               },
-              icon: Image.asset(
+              child: Image.asset(
                 "assets/bottom_navbar_icon/gift.gif",
                 height: 100,
                 width: 150,
@@ -62,8 +62,8 @@ class _TitleWidgetState extends State<TitleWidget> {
             ),
             Padding(
               padding: EdgeInsets.only(right: context.dynamicSize(.026)),
-              child: IconButton(
-                onPressed: () async {
+              child: GestureDetector(
+                onTap: () async {
                   applicationData("Click Language Button");
 
                   if (pageChangedProvider.getPageChanged != 2) {
@@ -78,11 +78,11 @@ class _TitleWidgetState extends State<TitleWidget> {
                                 Row(
                                   children: [
                                     const Spacer(),
-                                    IconButton(
-                                      onPressed: () {
+                                    GestureDetector(
+                                      onTap: () {
                                         Navigator.pop(context);
                                       },
-                                      icon: Icon(
+                                      child: Icon(
                                         Icons.close,
                                         color: itemColor,
                                         size: 35,
@@ -111,8 +111,8 @@ class _TitleWidgetState extends State<TitleWidget> {
                                           .getLanguageService.length,
                                       itemBuilder:
                                           (BuildContext context, index) {
-                                        return IconButton(
-                                          onPressed: () async {
+                                        return GestureDetector(
+                                          onTap: () async {
                                             languageProvider
                                                 .setFlagIndex(index);
                                             // ignore: use_build_context_synchronously
@@ -135,7 +135,7 @@ class _TitleWidgetState extends State<TitleWidget> {
                                               },
                                             );
                                           },
-                                          icon: CachedNetworkImage(
+                                          child: CachedNetworkImage(
                                             imageUrl: languageProvider
                                                 .getLanguageService[index],
                                           ),
@@ -152,7 +152,7 @@ class _TitleWidgetState extends State<TitleWidget> {
                     );
                   }
                 },
-                icon: Consumer<LanguageProvider>(
+                child: Consumer<LanguageProvider>(
                   builder: (context, languageProvider, _) => CircleAvatar(
                     radius: 30,
                     backgroundColor: Colors.black,
