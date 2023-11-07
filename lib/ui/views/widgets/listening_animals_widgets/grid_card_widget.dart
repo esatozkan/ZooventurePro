@@ -59,7 +59,7 @@ class _GridCardWidgetState extends State<GridCardWidget> {
               icon: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
                 child: CachedNetworkImage(
-                  imageUrl: animalProvider.getAnimals[index].gif,
+                  imageUrl: animalProvider.getAnimals[index].image,
                 ),
               ),
               // Image.network(animalProvider.getAnimalGif[index])),

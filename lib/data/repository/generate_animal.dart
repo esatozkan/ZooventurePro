@@ -15,7 +15,6 @@ void generateAnimal(context, String local) {
       Animal animal = Animal(
         name: animalNames[i],
         voice: animalVoices[i],
-        gif: animalGif[i],
         image: animalVirtualImages[i],
         realImage: animalRealImage[i],
       );
@@ -24,7 +23,6 @@ void generateAnimal(context, String local) {
       final animalHive = AnimalHiveModel(
         animalNames[i],
         animalVoices[i],
-        animalGif[i],
         animalVirtualImages[i],
         animalRealImage[i],
       );
@@ -34,7 +32,6 @@ void generateAnimal(context, String local) {
     for (int i = 0; i < animalBox.length; i++) {
       final animalHive = animalBox.get(i);
 
-      animalGif.add(animalHive.gif);
       animalRealImage.add(animalHive.realImage);
       animalVirtualImages.add(animalHive.image);
       animalVoices.add(animalHive.voice);
@@ -43,7 +40,6 @@ void generateAnimal(context, String local) {
       Animal animal = Animal(
         name: animalHive.name,
         voice: animalHive.voice,
-        gif: animalHive.gif,
         image: animalHive.image,
         realImage: animalHive.realImage,
       );
