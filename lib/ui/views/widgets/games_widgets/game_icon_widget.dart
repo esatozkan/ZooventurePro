@@ -1,3 +1,4 @@
+import '../../../../data/services/application_data_service.dart';
 import '/ui/views/screens/games/know_what_hear_screen.dart';
 import '/ui/views/screens/games/know_what_real_animal_screen.dart';
 import '/ui/views/screens/games/know_what_type_animal_screen.dart';
@@ -28,8 +29,8 @@ class GameIconWidget extends StatefulWidget {
 class _GameIconWidgetState extends State<GameIconWidget> {
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {
+    return GestureDetector(
+      onTap: () {
         Future.delayed(const Duration(milliseconds: 500));
         if (widget.whichFunction == "memoryGame") {
           Navigator.push(
@@ -38,6 +39,7 @@ class _GameIconWidgetState extends State<GameIconWidget> {
               builder: (context) => const MemoryGamesScreen(),
             ),
           );
+           applicationData("Memory Game");
         } else if (widget.whichFunction == "SpellingBeeGame") {
           Navigator.push(
             context,
@@ -45,6 +47,7 @@ class _GameIconWidgetState extends State<GameIconWidget> {
               builder: (context) => const SpellingBeeGameScreen(),
             ),
           );
+           applicationData("Spelling Bee Game");
         } else if (widget.whichFunction == "knowWhatVirtualAnimalScreen") {
           Navigator.push(
             context,
@@ -52,6 +55,7 @@ class _GameIconWidgetState extends State<GameIconWidget> {
               builder: (context) => const KnowWhatVirtualAnimalScreen(),
             ),
           );
+           applicationData("Find Virtual Image Game");
         } else if (widget.whichFunction == "knowWhatHearAnimalScreen") {
           Navigator.push(
             context,
@@ -59,6 +63,7 @@ class _GameIconWidgetState extends State<GameIconWidget> {
               builder: (context) => const KnowWhatHearAnimalScreen(),
             ),
           );
+           applicationData("Know Animal Sounds Game");
         } else if (widget.whichFunction == "knowWhatRealAnimalScreen") {
           Navigator.push(
             context,
@@ -66,6 +71,7 @@ class _GameIconWidgetState extends State<GameIconWidget> {
               builder: (context) => const KnowWhatRealAnimalScreen(),
             ),
           );
+           applicationData("Find Real Image Game");
         } else if (widget.whichFunction == "knowWhatTypeAnimalScreen") {
           Navigator.push(
             context,
@@ -73,9 +79,10 @@ class _GameIconWidgetState extends State<GameIconWidget> {
               builder: (context) => const KnowWhatTypeAnimalScreen(),
             ),
           );
+           applicationData("Know Animal Types Game");
         }
       },
-      icon: Column(
+      child: Column(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(30),

@@ -20,10 +20,10 @@ class PurchaseIconWidget extends StatefulWidget {
 class _PurchaseIconWidget extends State<PurchaseIconWidget> {
   @override
   Widget build(BuildContext context) {
-    return IconButton(
+    return GestureDetector(
    
-      onPressed: () {},
-      icon: Column(
+      onTap: () {},
+      child: Column(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20),

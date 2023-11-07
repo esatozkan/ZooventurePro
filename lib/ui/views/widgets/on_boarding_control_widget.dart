@@ -27,14 +27,16 @@ class _OnBoardingControlWidgetState extends State<OnBoardingControlWidget> {
         children: [
           Visibility(
             visible: pageChangedProvider.getPageChanged != 0 ? true : false,
-            child: IconButton(
-              onPressed: () async {
+            child: GestureDetector(
+              onTap: () async {
                 pageController.previousPage(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.ease,
                 );
+                pageChangedProvider.pageChangedFunction(
+                    pageChangedProvider.getPageChanged == 1 ? 0 : 1);
               },
-              icon: Image.asset(
+              child: Image.asset(
                 "assets/bottom_navbar_icon/left_swipe.png",
                 height: 100,
                 width: 100,
@@ -45,14 +47,16 @@ class _OnBoardingControlWidgetState extends State<OnBoardingControlWidget> {
           const Spacer(),
           Visibility(
             visible: pageChangedProvider.getPageChanged == 2 ? false : true,
-            child: IconButton(
-              onPressed: () {
+            child: GestureDetector(
+              onTap: () {
                 pageController.nextPage(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.ease,
                 );
+                 pageChangedProvider.pageChangedFunction(
+                    pageChangedProvider.getPageChanged == 0 ? 1 : 2);
               },
-              icon: Image.asset(
+              child: Image.asset(
                 "assets/bottom_navbar_icon/right_swipe.png",
                 height: 100,
                 width: 100,

@@ -36,8 +36,8 @@ class _GridCardWidgetState extends State<GridCardWidget> {
         itemCount: animalProvider.getAnimals.length,
         itemBuilder: (BuildContext context, index) {
           return Consumer<AnimalProvider>(
-            builder: (context, animalProvider, _) => IconButton(
-              onPressed: () async {
+            builder: (context, animalProvider, _) => GestureDetector(
+              onTap: () async {
                 pageChangedProvider.getPageChanged == 0
                     ? {
                         applicationData("Click Animal Name"),
@@ -56,8 +56,8 @@ class _GridCardWidgetState extends State<GridCardWidget> {
                         ),
                       };
               },
-              icon: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50),
                 child: CachedNetworkImage(
                   imageUrl: animalProvider.getAnimals[index].image,
                 ),
