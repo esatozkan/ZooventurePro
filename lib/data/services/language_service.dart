@@ -37,7 +37,7 @@ Future chanceLocal(context) async {
 
   final storageRef = FirebaseStorage.instance
       .ref()
-      .child("animal-types/animal-type-${languageProvider.getLocal}");
+      .child("free-animals/animal-types/animal-type-${languageProvider.getLocal}");
   final listResult = await storageRef.listAll();
   for (var element in listResult.items) {
     getUrls.add(await element.getDownloadURL());

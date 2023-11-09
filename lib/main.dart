@@ -28,6 +28,7 @@ Future<void> main() async {
   await Hive.openBox("flags");
   await Hive.openBox("languages");
 
+
   // await Hive.deleteBoxFromDisk("Animals");
   // await Hive.deleteBoxFromDisk("flags");
   // await Hive.deleteBoxFromDisk("languages");

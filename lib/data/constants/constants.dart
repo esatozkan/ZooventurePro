@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 
-extension DynamicSize on BuildContext {
-  double dynamicSize(double val) => MediaQuery.of(this).size.height * val;
-  double dynamicWidth(double val) => MediaQuery.of(this).size.width * val;
-}
-
 Color itemColor = Colors.pink;
 Color giftWidgetItemColor = Colors.grey.shade300;
 
