@@ -1,5 +1,4 @@
 import '../../../data/constants/constants.dart';
-import '../../providers/animal_provider.dart';
 import '../widgets/games_widgets/spelling_bee_game_widgets/all_words_widget.dart';
 import '../widgets/on_boarding_control_widget.dart';
 import '../widgets/title_widgets/title_widget.dart';
@@ -48,12 +47,6 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
 
     spellingBeeGameGenerateAnimalWords(context);
 
-
-    AnimalProvider animalProvider=Provider.of<AnimalProvider>(context,listen: false);
-    for(int i=0;i<animalProvider.getUiTexts.length;i++){
-  print("***************");
-  print(animalProvider.getUiTexts[i]);
-}
     return Scaffold(
       body: Consumer<PageChangedProvider>(
         builder: (context, pageChangedProvider, _) => Stack(
