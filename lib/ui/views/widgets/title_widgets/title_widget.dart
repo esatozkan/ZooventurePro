@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import '/data/services/application_data_service.dart';
 import '/ui/providers/language_provider.dart';
 import '/ui/providers/animal_provider.dart';
@@ -32,7 +31,7 @@ class _TitleWidgetState extends State<TitleWidget> {
           height: 10,
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
               onTap: () async {
@@ -61,7 +60,7 @@ class _TitleWidgetState extends State<TitleWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(right: MediaQuery.of(context).size.height * .026),
+              padding: const EdgeInsets.only(right: 50),
               child: GestureDetector(
                 onTap: () async {
                   applicationData("Click Language Button");
@@ -135,8 +134,8 @@ class _TitleWidgetState extends State<TitleWidget> {
                                               },
                                             );
                                           },
-                                          child: CachedNetworkImage(
-                                            imageUrl: languageProvider
+                                          child: Image.network(
+                                            languageProvider
                                                 .getLanguageService[index],
                                           ),
                                         );
@@ -158,9 +157,9 @@ class _TitleWidgetState extends State<TitleWidget> {
                     backgroundColor: Colors.black,
                     child: CircleAvatar(
                       radius: 28,
-                      backgroundImage: CachedNetworkImageProvider(
-                        languageProvider
-                            .getLanguageService[languageProvider.getFlagIndex],
+                      backgroundImage: MemoryImage(
+                        languageProvider.getLanguageServiceImage[
+                            languageProvider.getFlagIndex],
                       ),
                     ),
                   ),

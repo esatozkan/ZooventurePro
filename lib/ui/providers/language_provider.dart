@@ -5,10 +5,12 @@ import '/data/repository/game_control_repository.dart';
 class LanguageProvider extends ChangeNotifier {
   String local = Platform.localeName.split("_")[0];
   List<String> languageService = [];
+  List<Uint8List> languageServiceImage = [];
   int flagIndex = -1;
 
   String get getLocal => local;
   List<String> get getLanguageService => languageService;
+  List<Uint8List> get getLanguageServiceImage => languageServiceImage;
   int get getFlagIndex => flagIndex;
 
   void chanceLocal() {

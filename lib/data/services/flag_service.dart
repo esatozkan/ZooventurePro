@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+import 'package:http/http.dart' as http;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
@@ -12,20 +14,42 @@ getFlags(context) async {
   LanguageProvider languageProvider =
       Provider.of<LanguageProvider>(context, listen: false);
 
-  if (flagBox.isEmpty) {
+  final storageRef = FirebaseStorage.instance.ref().child("flag-images");
+  final listResult = await storageRef.listAll();
+
+  if (flagBox.length != listResult.items.length) {
+    flagBox.clear();
     int i = 0;
-    final storageRef = FirebaseStorage.instance.ref().child("flag-images");
-    final listResult = await storageRef.listAll();
+
     for (var element in listResult.items) {
+      final imageUrl = await element.getDownloadURL();
+      final response = await http.get(Uri.parse(imageUrl));
+      final Uint8List imageBytes = response.bodyBytes;
+
       animalProvider.addInformation(
-          languageProvider.getLanguageService, await element.getDownloadURL());
-      flagBox.put(i, await element.getDownloadURL());
+        languageProvider.getLanguageServiceImage,
+        imageBytes,
+      );
+
+      animalProvider.addInformation(
+        languageProvider.getLanguageService,
+        imageUrl,
+      );
+      flagBox.put(i, imageUrl);
       i++;
     }
   } else {
     for (var element in flagBox.values) {
+      final response = await http.get(Uri.parse(element));
+      final Uint8List imageBytes = response.bodyBytes;
       animalProvider.addInformation(
-          languageProvider.getLanguageService, element);
+        languageProvider.getLanguageService,
+        element,
+      );
+      animalProvider.addInformation(
+        languageProvider.getLanguageServiceImage,
+        imageBytes,
+      );
     }
   }
 }

@@ -12,6 +12,7 @@ class AnimalHiveAdapter extends TypeAdapter<AnimalHiveModel> {
       reader.read(),
       reader.read(),
       reader.read(),
+      reader.read(),
     );
   }
 
@@ -21,5 +22,6 @@ class AnimalHiveAdapter extends TypeAdapter<AnimalHiveModel> {
     writer.write(obj.voice);
     writer.write(obj.image);
     writer.write(obj.realImage);
+    writer.write(obj.spelling);
   }
 }

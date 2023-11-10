@@ -15,7 +15,7 @@ class AnimalProvider with ChangeNotifier {
     animals.add(animal);
   }
 
-  void addInformation(List list, String information) {
+  void addInformation(List list, dynamic information) {
     list.add(information);
   }
 
