@@ -137,7 +137,7 @@ class _MemoryGamesScreen extends State<MemoryGamesScreen> {
 
   Future<int> cacheImages() async {
     for (var w in gridWords) {
-      final image = Image.network(w.url);
+      final image = Image.memory(w.url);
       await precacheImage(image.image, context);
     }
     return 1;

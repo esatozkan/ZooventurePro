@@ -9,7 +9,6 @@ void generateAnimal(context, String local) {
   AnimalProvider animalProvider = Provider.of(context);
 
   Box animalBox = Hive.box("Animals");
-
   if (animalBox.isEmpty) {
     for (int i = 0; i < animalNames.length; i++) {
       Animal animal = Animal(
@@ -17,6 +16,7 @@ void generateAnimal(context, String local) {
         voice: animalVoices[i],
         image: animalVirtualImages[i],
         realImage: animalRealImage[i],
+        spelling: animalSpelling[i],
       );
       animalProvider.addAnimal(animal);
 
@@ -25,6 +25,7 @@ void generateAnimal(context, String local) {
         animalVoices[i],
         animalVirtualImages[i],
         animalRealImage[i],
+        animalSpelling[i],
       );
       animalBox.put(i, animalHive);
     }
@@ -36,12 +37,14 @@ void generateAnimal(context, String local) {
       animalVirtualImages.add(animalHive.image);
       animalVoices.add(animalHive.voice);
       animalNames.add(animalHive.name);
+      animalSpelling.add(animalHive.spelling);
 
       Animal animal = Animal(
         name: animalHive.name,
         voice: animalHive.voice,
         image: animalHive.image,
         realImage: animalHive.realImage,
+        spelling: animalHive.spelling,
       );
       animalProvider.addAnimal(animal);
     }

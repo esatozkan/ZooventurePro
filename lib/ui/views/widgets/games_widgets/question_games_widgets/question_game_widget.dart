@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:audioplayers/audioplayers.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +40,7 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
     AudioPlayer audioPlayer = AudioPlayer();
     if (widget.question == "knowWhatTypeAnimalScreen") {
       audioPlayer.play(
-        UrlSource(
+        BytesSource(
           question[Provider.of<QuestionGameProvider>(context, listen: false)
                   .getQuestionIndex]
               .question
@@ -50,7 +49,7 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
       );
     } else if (widget.question == "KnowWhatHearAnimalScreen") {
       audioPlayer.play(
-        UrlSource(
+        BytesSource(
           question[Provider.of<QuestionGameProvider>(context, listen: false)
                   .getQuestionIndex]
               .question
@@ -89,7 +88,7 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                       borderRadius: BorderRadius.circular(30),
                       child: widget.question == "knowWhatVirtualImage" ||
                               widget.question == "knowWhatRealImage"
-                          ? Image.network(
+                          ? Image.memory(
                               widget.question == "knowWhatVirtualImage"
                                   ? question[Provider.of<QuestionGameProvider>(
                                               context,
@@ -119,7 +118,7 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                                       if (widget.question ==
                                           "knowWhatTypeAnimalScreen") {
                                         audioPlayer.play(
-                                          UrlSource(
+                                          BytesSource(
                                             question[questionGameProvider
                                                     .getQuestionIndex]
                                                 .question
@@ -128,7 +127,7 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                                         );
                                       } else {
                                         audioPlayer.play(
-                                          UrlSource(
+                                          BytesSource(
                                             question[questionGameProvider
                                                     .getQuestionIndex]
                                                 .question
@@ -190,29 +189,27 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                               }
                             },
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(30),
-                              child: CachedNetworkImage(
-                                imageUrl:
-                                    widget.question == "knowWhatVirtualImage" ||
-                                            widget.question ==
-                                                "knowWhatTypeAnimalScreen"
-                                        ? question[questionGameProvider
-                                                .getQuestionIndex]
-                                            .option
-                                            .keys
-                                            .toList()[index]
-                                            .image
-                                        : question[questionGameProvider
-                                                .getQuestionIndex]
-                                            .option
-                                            .keys
-                                            .toList()[index]
-                                            .realImage,
-                                height: 150,
-                                width: 150,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                                borderRadius: BorderRadius.circular(30),
+                                child: Image.memory(
+                                  widget.question == "knowWhatVirtualImage" ||
+                                          widget.question ==
+                                              "knowWhatTypeAnimalScreen"
+                                      ? question[questionGameProvider
+                                              .getQuestionIndex]
+                                          .option
+                                          .keys
+                                          .toList()[index]
+                                          .image
+                                      : question[questionGameProvider
+                                              .getQuestionIndex]
+                                          .option
+                                          .keys
+                                          .toList()[index]
+                                          .realImage,
+                                  height: 150,
+                                  width: 150,
+                                  fit: BoxFit.cover,
+                                )),
                           ),
                           Visibility(
                             visible:

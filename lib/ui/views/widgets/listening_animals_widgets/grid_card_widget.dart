@@ -1,5 +1,4 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../data/services/application_data_service.dart';
@@ -24,7 +23,6 @@ class _GridCardWidgetState extends State<GridCardWidget> {
     final Size size = MediaQuery.of(context).size;
 
     AnimalProvider animalProvider = Provider.of<AnimalProvider>(context);
-
     return Padding(
       padding: const EdgeInsets.only(top: 5),
       child: GridView.builder(
@@ -42,7 +40,7 @@ class _GridCardWidgetState extends State<GridCardWidget> {
                     ? {
                         applicationData("Click Animal Name"),
                         await voicePlayer.play(
-                          UrlSource(
+                          BytesSource(
                             animalProvider.getAnimals[index].name,
                           ),
                         ),
@@ -50,7 +48,7 @@ class _GridCardWidgetState extends State<GridCardWidget> {
                     : {
                         applicationData("Click Animal Listening"),
                         await voicePlayer.play(
-                          UrlSource(
+                          BytesSource(
                             animalProvider.getAnimals[index].voice,
                           ),
                         ),
@@ -58,8 +56,8 @@ class _GridCardWidgetState extends State<GridCardWidget> {
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(50),
-                child: CachedNetworkImage(
-                  imageUrl: animalProvider.getAnimals[index].image,
+                child: Image.memory(
+                  animalProvider.getAnimals[index].image,
                 ),
               ),
               // Image.network(animalProvider.getAnimalGif[index])),
