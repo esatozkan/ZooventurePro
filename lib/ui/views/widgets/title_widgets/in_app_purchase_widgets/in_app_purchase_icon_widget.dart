@@ -20,32 +20,36 @@ class PurchaseIconWidget extends StatefulWidget {
 class _PurchaseIconWidget extends State<PurchaseIconWidget> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-   
-      onTap: () {},
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Image.asset(
-              widget.icon,
-              height: 100,
-              width: 100,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: Text(
-              widget.text,
-              style: TextStyle(
-                fontFamily: "jokerman",
-                fontSize: 18,
-                color: itemColor,
+    return Padding(
+      padding: const EdgeInsets.only(top:10),
+      child: GestureDetector(
+         
+        onTap: () {},
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(
+                widget.icon,
+                height: 80,
+                width: 80,
+                fit: BoxFit.cover,
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: Text(
+                widget.text,
+                style: TextStyle(
+                  fontFamily: "displayFont",
+                  fontSize: 20,
+                 // fontWeight: FontWeight.w400,
+                  color: itemColor,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

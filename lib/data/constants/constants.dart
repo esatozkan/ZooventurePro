@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Color itemColor = Colors.pink;
-Color giftWidgetItemColor = Colors.grey.shade300;
+Color giftWidgetItemColor =const Color(0xFF74bcc4);
 
 Image screenBackgroundImage(String image, double height, double width) {
   Image screenBgImage = Image.asset(

@@ -22,14 +22,9 @@ List<Widget> pages = const [
 
 PageController pageController = PageController(initialPage: 0);
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     InternetConnectionProvider internetConnectionProvider =

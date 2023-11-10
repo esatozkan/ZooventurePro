@@ -30,8 +30,6 @@ Future<void> main() async {
   await Hive.openBox("languages");
   await Hive.openBox("internetConnection");
 
-  
-
   // await Hive.deleteBoxFromDisk("animals");
   //await Hive.deleteBoxFromDisk("flags");
   // await Hive.deleteBoxFromDisk("languages");

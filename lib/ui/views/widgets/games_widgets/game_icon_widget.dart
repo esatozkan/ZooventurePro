@@ -39,7 +39,7 @@ class _GameIconWidgetState extends State<GameIconWidget> {
               builder: (context) => const MemoryGamesScreen(),
             ),
           );
-           applicationData("Memory Game");
+          applicationData("Memory Game");
         } else if (widget.whichFunction == "SpellingBeeGame") {
           Navigator.push(
             context,
@@ -47,7 +47,7 @@ class _GameIconWidgetState extends State<GameIconWidget> {
               builder: (context) => const SpellingBeeGameScreen(),
             ),
           );
-           applicationData("Spelling Bee Game");
+          applicationData("Spelling Bee Game");
         } else if (widget.whichFunction == "knowWhatVirtualAnimalScreen") {
           Navigator.push(
             context,
@@ -55,7 +55,7 @@ class _GameIconWidgetState extends State<GameIconWidget> {
               builder: (context) => const KnowWhatVirtualAnimalScreen(),
             ),
           );
-           applicationData("Find Virtual Image Game");
+          applicationData("Find Virtual Image Game");
         } else if (widget.whichFunction == "knowWhatHearAnimalScreen") {
           Navigator.push(
             context,
@@ -63,7 +63,7 @@ class _GameIconWidgetState extends State<GameIconWidget> {
               builder: (context) => const KnowWhatHearAnimalScreen(),
             ),
           );
-           applicationData("Know Animal Sounds Game");
+          applicationData("Know Animal Sounds Game");
         } else if (widget.whichFunction == "knowWhatRealAnimalScreen") {
           Navigator.push(
             context,
@@ -71,7 +71,7 @@ class _GameIconWidgetState extends State<GameIconWidget> {
               builder: (context) => const KnowWhatRealAnimalScreen(),
             ),
           );
-           applicationData("Find Real Image Game");
+          applicationData("Find Real Image Game");
         } else if (widget.whichFunction == "knowWhatTypeAnimalScreen") {
           Navigator.push(
             context,
@@ -79,7 +79,7 @@ class _GameIconWidgetState extends State<GameIconWidget> {
               builder: (context) => const KnowWhatTypeAnimalScreen(),
             ),
           );
-           applicationData("Know Animal Types Game");
+          applicationData("Know Animal Types Game");
         }
       },
       child: Column(
@@ -99,7 +99,7 @@ class _GameIconWidgetState extends State<GameIconWidget> {
               builder: (context, animalProvider, _) => Text(
                 widget.text1,
                 style: TextStyle(
-                    fontFamily: "jokerman", fontSize: 18, color: itemColor),
+                    fontFamily: "displayFont", fontSize: 18, color: itemColor),
               ),
             ),
           ),

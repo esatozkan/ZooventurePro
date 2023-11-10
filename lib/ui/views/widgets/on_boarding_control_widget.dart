@@ -53,7 +53,7 @@ class _OnBoardingControlWidgetState extends State<OnBoardingControlWidget> {
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.ease,
                 );
-                 pageChangedProvider.pageChangedFunction(
+                pageChangedProvider.pageChangedFunction(
                     pageChangedProvider.getPageChanged == 0 ? 1 : 2);
               },
               child: Image.asset(

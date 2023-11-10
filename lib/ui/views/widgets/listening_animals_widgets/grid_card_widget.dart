@@ -34,16 +34,19 @@ class _GridCardWidgetState extends State<GridCardWidget> {
         itemCount: animalProvider.getAnimals.length,
         itemBuilder: (BuildContext context, index) {
           return Consumer<AnimalProvider>(
-            builder: (context, animalProvider, _) => GestureDetector(
-              onTap: () async {
+            builder: (context, animalProvider, _) => IconButton(
+              onPressed: () async {
                 pageChangedProvider.getPageChanged == 0
                     ? {
                         applicationData("Click Animal Name"),
+                        {
                         await voicePlayer.play(
-                          BytesSource(
-                            animalProvider.getAnimals[index].name,
-                          ),
+                        BytesSource(
+                          animalProvider.getAnimals[index].name,
                         ),
+                      ),
+                      }
+                        
                       }
                     : {
                         applicationData("Click Animal Listening"),
@@ -54,8 +57,8 @@ class _GridCardWidgetState extends State<GridCardWidget> {
                         ),
                       };
               },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
+              icon: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
                 child: Image.memory(
                   animalProvider.getAnimals[index].image,
                 ),
