@@ -7,6 +7,7 @@ import '../../ui/providers/animal_provider.dart';
 import '../../ui/providers/language_provider.dart';
 
 Box flagBox = Hive.box("flags");
+Box flagBoxSpelling = Hive.box("flagSpelling");
 
 getFlags(context) async {
   AnimalProvider animalProvider =
@@ -14,11 +15,10 @@ getFlags(context) async {
   LanguageProvider languageProvider =
       Provider.of<LanguageProvider>(context, listen: false);
 
-  final storageRef = FirebaseStorage.instance.ref().child("flag-images");
-  final listResult = await storageRef.listAll();
+  if (flagBox.isEmpty) {
+    final storageRef = FirebaseStorage.instance.ref().child("flag-images");
+    final listResult = await storageRef.listAll();
 
-  if (flagBox.length != listResult.items.length) {
-    flagBox.clear();
     int i = 0;
 
     for (var element in listResult.items) {
@@ -30,25 +30,26 @@ getFlags(context) async {
         languageProvider.getLanguageServiceImage,
         imageBytes,
       );
+      flagBox.put(i, imageBytes);
 
       animalProvider.addInformation(
         languageProvider.getLanguageService,
         imageUrl,
       );
-      flagBox.put(i, imageUrl);
+      flagBoxSpelling.put(i, imageUrl);
       i++;
     }
   } else {
-    for (var element in flagBox.values) {
-      final response = await http.get(Uri.parse(element));
-      final Uint8List imageBytes = response.bodyBytes;
+    for (var element in flagBoxSpelling.values) {
       animalProvider.addInformation(
         languageProvider.getLanguageService,
         element,
       );
+    }
+    for (var element in flagBox.values) {
       animalProvider.addInformation(
         languageProvider.getLanguageServiceImage,
-        imageBytes,
+        element,
       );
     }
   }

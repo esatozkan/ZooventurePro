@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import '/data/services/application_data_service.dart';
 import '/ui/providers/language_provider.dart';
 import '/ui/providers/animal_provider.dart';
@@ -64,8 +65,11 @@ class _TitleWidgetState extends State<TitleWidget> {
               child: GestureDetector(
                 onTap: () async {
                   applicationData("Click Language Button");
-
-                  if (pageChangedProvider.getPageChanged != 2) {
+                  var connectivityResult =
+                      await Connectivity().checkConnectivity();
+                  if (pageChangedProvider.getPageChanged != 2 &&
+                      connectivityResult != ConnectivityResult.none) {
+                    // ignore: use_build_context_synchronously
                     showDialog(
                       context: context,
                       builder: (_) => Center(
