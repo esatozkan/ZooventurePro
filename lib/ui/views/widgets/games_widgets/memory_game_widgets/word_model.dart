@@ -1,6 +1,8 @@
+import 'dart:typed_data';
+
 class WordModel {
   final String text;
-  final String url;
+  final Uint8List url;
   bool displayText;
 
   WordModel({

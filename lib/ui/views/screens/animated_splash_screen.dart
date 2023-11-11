@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:zooventure/data/models/animal_model.dart';
 import '../../../data/services/flag_service.dart';
 import '../../providers/internet_connection_provider.dart';
 import '/ui/providers/language_provider.dart';
@@ -11,6 +12,8 @@ import '/ui/views/screens/main_screen.dart';
 import '../../../data/services/animal_service.dart';
 import '../../../data/services/language_service.dart';
 import '../../../data/services/text_services.dart';
+
+final internetConnection = Hive.box("internetConnection");
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -27,7 +30,7 @@ class SplashScreen extends StatelessWidget {
       splashIconSize: 300,
       screenFunction: () async {
         await getFirebase(context);
-
+        internetConnection.put(0, true);
         return const MainScreen();
       },
     );
@@ -38,7 +41,7 @@ Future getFirebase(context) async {
   LanguageProvider languageProvider =
       Provider.of<LanguageProvider>(context, listen: false);
 
-  Box animalBox = Hive.box("Animals");
+  Box animalBox = Hive.box<Animal>("animals");
 
   if (animalBox.isEmpty) {
     await getAnimalName(languageProvider.getLocal, context);

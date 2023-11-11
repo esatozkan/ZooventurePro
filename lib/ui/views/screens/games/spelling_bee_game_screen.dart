@@ -19,8 +19,8 @@ class SpellingBeeGameScreen extends StatefulWidget {
 
 class _SpellingBeeGameScreenState extends State<SpellingBeeGameScreen> {
   List<String> words = allWords.map((e) => e.name).toList();
-  List<String> images = allWords.map((e) => e.url).toList();
-  late String image;
+  List<Uint8List> images = allWords.map((e) => e.url).toList();
+  late Uint8List image;
   late String word;
   late String dropWord;
 
@@ -94,7 +94,7 @@ class _SpellingBeeGameScreenState extends State<SpellingBeeGameScreen> {
                       animate: true,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30),
-                        child: Image.network(
+                        child: Image.memory(
                           image,
                           fit: BoxFit.cover,
                         ),

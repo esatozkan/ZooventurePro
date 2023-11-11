@@ -1,4 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:zooventure/ui/views/widgets/internet_connection_widget.dart';
 import '/data/services/application_data_service.dart';
 import '/ui/providers/language_provider.dart';
 import '/ui/providers/animal_provider.dart';
@@ -32,12 +33,20 @@ class _TitleWidgetState extends State<TitleWidget> {
           height: 10,
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
               onTap: () async {
-                applicationData("Click Sale");
-                inAppPurchaseWidget(context);
+                var connectivityResult =
+                    await Connectivity().checkConnectivity();
+                if (connectivityResult != ConnectivityResult.none) {
+                  applicationData("Click Sale");
+                  // ignore: use_build_context_synchronously
+                  inAppPurchaseWidget(context);
+                } else {
+                  // ignore: use_build_context_synchronously
+                  showInternetConnectionSnackbar(context);
+                }
               },
               child: Image.asset(
                 "assets/bottom_navbar_icon/gift.gif",
@@ -55,18 +64,22 @@ class _TitleWidgetState extends State<TitleWidget> {
                         : animalProvider.getUiTexts[9],
                 style: TextStyle(
                   fontSize: 32,
-                  fontFamily: "jokerman",
+                  fontFamily: "displayFont",
                   color: itemColor,
+                  letterSpacing: 2,
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(right: MediaQuery.of(context).size.height * .026),
+              padding: const EdgeInsets.only(right: 50),
               child: GestureDetector(
                 onTap: () async {
-                  applicationData("Click Language Button");
-
-                  if (pageChangedProvider.getPageChanged != 2) {
+                  var connectivityResult =
+                      await Connectivity().checkConnectivity();
+                  if (pageChangedProvider.getPageChanged != 2 &&
+                      connectivityResult != ConnectivityResult.none) {
+                    applicationData("Click Language Button");
+                    // ignore: use_build_context_synchronously
                     showDialog(
                       context: context,
                       builder: (_) => Center(
@@ -82,12 +95,25 @@ class _TitleWidgetState extends State<TitleWidget> {
                                       onTap: () {
                                         Navigator.pop(context);
                                       },
-                                      child: Icon(
-                                        Icons.close,
-                                        color: itemColor,
-                                        size: 35,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          right: 20,
+                                          top: 10,
+                                        ),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Image.asset(
+                                            "assets/close_icon.png",
+                                            color: itemColor,
+                                            height: 50,
+                                            width: 50,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                                 Container(
@@ -135,8 +161,8 @@ class _TitleWidgetState extends State<TitleWidget> {
                                               },
                                             );
                                           },
-                                          child: CachedNetworkImage(
-                                            imageUrl: languageProvider
+                                          child: Image.network(
+                                            languageProvider
                                                 .getLanguageService[index],
                                           ),
                                         );
@@ -150,6 +176,9 @@ class _TitleWidgetState extends State<TitleWidget> {
                         ),
                       ),
                     );
+                  } else if (connectivityResult == ConnectivityResult.none) {
+                    // ignore: use_build_context_synchronously
+                    showInternetConnectionSnackbar(context);
                   }
                 },
                 child: Consumer<LanguageProvider>(
@@ -158,9 +187,9 @@ class _TitleWidgetState extends State<TitleWidget> {
                     backgroundColor: Colors.black,
                     child: CircleAvatar(
                       radius: 28,
-                      backgroundImage: CachedNetworkImageProvider(
-                        languageProvider
-                            .getLanguageService[languageProvider.getFlagIndex],
+                      backgroundImage: MemoryImage(
+                        languageProvider.getLanguageServiceImage[
+                            languageProvider.getFlagIndex],
                       ),
                     ),
                   ),

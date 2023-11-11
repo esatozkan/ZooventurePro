@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
 import '../services/animal_service.dart';
-import '/data/models/animal_hive_model.dart';
 import '/ui/providers/animal_provider.dart';
 import 'package:provider/provider.dart';
 import '../models/animal_model.dart';
@@ -8,7 +7,7 @@ import '../models/animal_model.dart';
 void generateAnimal(context, String local) {
   AnimalProvider animalProvider = Provider.of(context);
 
-  Box animalBox = Hive.box("Animals");
+  Box animalBox = Hive.box<Animal>("animals");
 
   if (animalBox.isEmpty) {
     for (int i = 0; i < animalNames.length; i++) {
@@ -17,31 +16,28 @@ void generateAnimal(context, String local) {
         voice: animalVoices[i],
         image: animalVirtualImages[i],
         realImage: animalRealImage[i],
+        spelling: animalSpelling[i],
       );
       animalProvider.addAnimal(animal);
 
-      final animalHive = AnimalHiveModel(
-        animalNames[i],
-        animalVoices[i],
-        animalVirtualImages[i],
-        animalRealImage[i],
-      );
-      animalBox.put(i, animalHive);
+      animalBox.put(i, animal);
     }
   } else {
     for (int i = 0; i < animalBox.length; i++) {
-      final animalHive = animalBox.get(i);
+      final getAnimalHive = animalBox.get(i);
 
-      animalRealImage.add(animalHive.realImage);
-      animalVirtualImages.add(animalHive.image);
-      animalVoices.add(animalHive.voice);
-      animalNames.add(animalHive.name);
+      animalRealImage.add(getAnimalHive.realImage);
+      animalVirtualImages.add(getAnimalHive.image);
+      animalVoices.add(getAnimalHive.voice);
+      animalNames.add(getAnimalHive.name);
+      animalSpelling.add(getAnimalHive.spelling);
 
       Animal animal = Animal(
-        name: animalHive.name,
-        voice: animalHive.voice,
-        image: animalHive.image,
-        realImage: animalHive.realImage,
+        name: getAnimalHive.name,
+        voice: getAnimalHive.voice,
+        image: getAnimalHive.image,
+        realImage: getAnimalHive.realImage,
+        spelling: getAnimalHive.spelling,
       );
       animalProvider.addAnimal(animal);
     }

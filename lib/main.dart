@@ -1,8 +1,8 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:zooventure/data/models/animal_model.dart';
 import '/ui/views/widgets/games_widgets/question_games_widgets/question_games_provider.dart';
 import '/ui/views/widgets/games_widgets/spelling_bee_game_widgets/spelling_bee_game_provider.dart';
-import '/data/models/animal_hive_adapter.dart';
 import '/ui/providers/internet_connection_provider.dart';
 import '/ui/providers/language_provider.dart';
 import '/ui/views/screens/animated_splash_screen.dart';
@@ -23,15 +23,17 @@ Future<void> main() async {
   MobileAds.instance.initialize();
 
   await Hive.initFlutter();
-  Hive.registerAdapter(AnimalHiveAdapter());
-  await Hive.openBox("Animals");
+  Hive.registerAdapter(AnimalAdapter(), override: true);
+  await Hive.openBox<Animal>("animals");
   await Hive.openBox("flags");
+  await Hive.openBox("flagSpelling");
   await Hive.openBox("languages");
+  await Hive.openBox("internetConnection");
 
-
-  // await Hive.deleteBoxFromDisk("Animals");
-  // await Hive.deleteBoxFromDisk("flags");
+  // await Hive.deleteBoxFromDisk("animals");
+  //await Hive.deleteBoxFromDisk("flags");
   // await Hive.deleteBoxFromDisk("languages");
+  // await Hive.deleteBoxFromDisk("flagSpelling");
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -44,7 +46,8 @@ Future<void> main() async {
     DeviceOrientation.landscapeRight,
   ]).then(
     (value) async {
-      if (connectivityResult == ConnectivityResult.none) {
+      if (connectivityResult == ConnectivityResult.none &&
+          internetConnection.get(0) != true) {
         runApp(
           const MaterialApp(
             debugShowCheckedModeBanner: false,

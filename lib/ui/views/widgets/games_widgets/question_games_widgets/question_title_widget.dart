@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:zooventure/ui/views/screens/main_screen.dart';
+import '../../../../providers/page_changed_provider.dart';
 import '/ui/views/screens/games/know_what_type_animal_screen.dart';
 import '../../../screens/games/know_what_hear_screen.dart';
 import '../../../screens/games/know_what_real_animal_screen.dart';
@@ -26,6 +28,14 @@ class QuestionTitleWidget extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
+              Provider.of<PageChangedProvider>(context, listen: false)
+                  .pageChangedFunction(2);
+
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => MainScreen(),
+                ),
+              );
               SystemChrome.setPreferredOrientations([
                 DeviceOrientation.landscapeLeft,
                 DeviceOrientation.landscapeRight,

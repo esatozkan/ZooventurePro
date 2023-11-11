@@ -1,5 +1,4 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../data/services/application_data_service.dart';
@@ -24,7 +23,6 @@ class _GridCardWidgetState extends State<GridCardWidget> {
     final Size size = MediaQuery.of(context).size;
 
     AnimalProvider animalProvider = Provider.of<AnimalProvider>(context);
-
     return Padding(
       padding: const EdgeInsets.only(top: 5),
       child: GridView.builder(
@@ -36,30 +34,33 @@ class _GridCardWidgetState extends State<GridCardWidget> {
         itemCount: animalProvider.getAnimals.length,
         itemBuilder: (BuildContext context, index) {
           return Consumer<AnimalProvider>(
-            builder: (context, animalProvider, _) => GestureDetector(
-              onTap: () async {
+            builder: (context, animalProvider, _) => IconButton(
+              onPressed: () async {
                 pageChangedProvider.getPageChanged == 0
                     ? {
                         applicationData("Click Animal Name"),
+                        {
                         await voicePlayer.play(
-                          UrlSource(
-                            animalProvider.getAnimals[index].name,
-                          ),
+                        BytesSource(
+                          animalProvider.getAnimals[index].name,
                         ),
+                      ),
+                      }
+                        
                       }
                     : {
                         applicationData("Click Animal Listening"),
                         await voicePlayer.play(
-                          UrlSource(
+                          BytesSource(
                             animalProvider.getAnimals[index].voice,
                           ),
                         ),
                       };
               },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: CachedNetworkImage(
-                  imageUrl: animalProvider.getAnimals[index].image,
+              icon: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.memory(
+                  animalProvider.getAnimals[index].image,
                 ),
               ),
               // Image.network(animalProvider.getAnimalGif[index])),

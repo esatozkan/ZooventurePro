@@ -34,7 +34,6 @@ class InternetConnectionProvider with ChangeNotifier {
     streamSubscription = Connectivity().onConnectivityChanged.listen(
       (ConnectivityResult result) async {
         isDeviceConnected = await InternetConnectionChecker().hasConnection;
-      
       },
     );
     return streamSubscription;

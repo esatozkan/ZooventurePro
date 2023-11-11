@@ -5,9 +5,16 @@ import 'fly_in_animation_widget.dart';
 import 'spelling_bee_game_provider.dart';
 import '../../../screens/games/spelling_bee_game_screen.dart';
 
-class SpellingBeeGameTitleWidget extends StatelessWidget {
+class SpellingBeeGameTitleWidget extends StatefulWidget {
   const SpellingBeeGameTitleWidget({super.key});
 
+  @override
+  State<SpellingBeeGameTitleWidget> createState() =>
+      _SpellingBeeGameTitleWidgetState();
+}
+
+class _SpellingBeeGameTitleWidgetState
+    extends State<SpellingBeeGameTitleWidget> {
   @override
   Widget build(BuildContext context) {
     animatedCompleted() {

@@ -41,14 +41,15 @@ dependencies:
   firebase_storage: ^11.2.5
   connectivity_plus: ^4.0.2
   cloud_firestore: ^4.8.5
-  cached_network_image: ^3.2.3
   animated_splash_screen: ^1.3.0
   internet_connection_checker: ^1.0.0+1
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   purchases_flutter: ^6.0.0
   confetti: ^0.7.0
+  http: ^0.13.6
   google_mobile_ads: ^3.1.0
+
 
 dev_dependencies:
   flutter_test:
@@ -135,9 +136,9 @@ flutter:
   # example:
   # fonts:
   fonts:
-    - family: jokerman
+    - family: displayFont
       fonts:
-        - asset: assets/fonts/jokerman.ttf
+        - asset: assets/fonts/Futura Display.ttf
     - family: bubblegumSans
       fonts:
         - asset: assets/fonts/bubblegumSans.ttf

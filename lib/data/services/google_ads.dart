@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class GoogleAdsProvider extends ChangeNotifier {
+class GoogleAdsProvider extends ChangeNotifier{
   InterstitialAd? interstitialAd;
   BannerAd? bannerAd;
-  int interstitialAdIndex = 0;
-
-  incrementInterstitialAdIndex() {
-    interstitialAdIndex++;
-    ChangeNotifier();
-  }
 
   void loadInterstitialAd({bool showAfterLoad = false}) {
     InterstitialAd.load(
@@ -18,24 +12,19 @@ class GoogleAdsProvider extends ChangeNotifier {
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
           interstitialAd = ad;
-          if (showAfterLoad) showInterstitialAd();
+          if (showAfterLoad) {
+            showInterstitialAd();
+          }
         },
         onAdFailedToLoad: (LoadAdError error) {},
       ),
     );
-
-    notifyListeners();
   }
 
   void showInterstitialAd() {
-    if (interstitialAd != null && interstitialAdIndex == 1) {
+    if (interstitialAd != null) {
       interstitialAd!.show();
-      interstitialAdIndex = 0;
-      print("reklam yüklendi");
-    }
-    print("fonksiyona girildi");
-
-    notifyListeners();
+    } 
   }
 
   void loadBannerAd() {
@@ -46,13 +35,12 @@ class GoogleAdsProvider extends ChangeNotifier {
       listener: BannerAdListener(
         onAdLoaded: (ad) {
           bannerAd = ad as BannerAd;
+          notifyListeners();
         },
         onAdFailedToLoad: (ad, err) {
           ad.dispose();
         },
       ),
     )..load();
-
-    notifyListeners();
   }
 }
