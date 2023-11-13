@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-import 'package:http/http.dart' as http;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
@@ -23,8 +22,8 @@ getFlags(context) async {
 
     for (var element in listResult.items) {
       final imageUrl = await element.getDownloadURL();
-      final response = await http.get(Uri.parse(imageUrl));
-      final Uint8List imageBytes = response.bodyBytes;
+    final response = await element.getData();
+    final Uint8List imageBytes = Uint8List.fromList(response as List<int>);
 
       animalProvider.addInformation(
         languageProvider.getLanguageServiceImage,

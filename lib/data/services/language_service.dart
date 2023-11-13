@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '/ui/providers/language_provider.dart';
 import '/ui/providers/animal_provider.dart';
 import '/data/services/text_services.dart';
-import 'package:http/http.dart' as http;
 
 void getLanguageFlag(String local, BuildContext context) {
   LanguageProvider languageProvider = Provider.of(context, listen: false);
@@ -41,9 +40,8 @@ Future chanceLocal(context) async {
       "free-animals/animal-types/animal-type-${languageProvider.getLocal}");
   final listResult = await storageRef.listAll();
   for (var element in listResult.items) {
-    final imageUrl = await element.getDownloadURL();
-    final response = await http.get(Uri.parse(imageUrl));
-    final Uint8List imageBytes = response.bodyBytes;
+    final imageUrl = await element.getData();
+    final Uint8List imageBytes = Uint8List.fromList(imageUrl as List<int>);
     getUrls.add(imageBytes);
   }
 

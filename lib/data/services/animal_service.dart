@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:http/http.dart' as http;
 
 List<Uint8List> animalNames = [];
 List<Uint8List> animalVirtualImages = [];
@@ -14,9 +13,8 @@ getAnimalRealImage(context) async {
       .child("free-animals/animal-images/animal-real-images");
   final listResult = await storageRef.listAll();
   for (var element in listResult.items) {
-    final imageUrl = await element.getDownloadURL();
-    final response = await http.get(Uri.parse(imageUrl));
-    final Uint8List imageBytes = response.bodyBytes;
+    final imageUrl = await element.getData();
+    final Uint8List imageBytes = Uint8List.fromList(imageUrl as List<int>);
     animalRealImage.add(imageBytes);
   }
 }
@@ -28,8 +26,8 @@ getAnimalVirtualImage(context) async {
   final listResult = await storageRef.listAll();
   for (var element in listResult.items) {
     final imageUrl = await element.getDownloadURL();
-    final response = await http.get(Uri.parse(imageUrl));
-    final Uint8List imageBytes = response.bodyBytes;
+    final response = await element.getData();
+    final Uint8List imageBytes = Uint8List.fromList(response as List<int>);
 
     int startIndex = imageUrl.indexOf('animal-virtual-images%2F');
     int endIndex = imageUrl.indexOf('.png');
@@ -46,9 +44,8 @@ getAnimalName(String local, context) async {
 
   final listResult = await storageRef.listAll();
   for (var element in listResult.items) {
-    final imageUrl = await element.getDownloadURL();
-    final response = await http.get(Uri.parse(imageUrl));
-    final Uint8List imageBytes = response.bodyBytes;
+    final imageUrl = await element.getData();
+    final Uint8List imageBytes = Uint8List.fromList(imageUrl as List<int>);
     animalNames.add(imageBytes);
   }
 
@@ -58,9 +55,8 @@ getAnimalName(String local, context) async {
         .child("free-animals/animal-types/animal-type-en");
     final listResult = await storageRef.listAll();
     for (var element in listResult.items) {
-      final imageUrl = await element.getDownloadURL();
-      final response = await http.get(Uri.parse(imageUrl));
-      final Uint8List imageBytes = response.bodyBytes;
+      final imageUrl = await element.getData();
+      final Uint8List imageBytes = Uint8List.fromList(imageUrl as List<int>);
       animalNames.add(imageBytes);
     }
   }
@@ -72,9 +68,8 @@ getAnimalVoice(context) async {
 
   final listResult = await storageRef.listAll();
   for (var element in listResult.items) {
-    final imageUrl = await element.getDownloadURL();
-    final response = await http.get(Uri.parse(imageUrl));
-    final Uint8List imageBytes = response.bodyBytes;
+    final imageUrl = await element.getData();
+    final Uint8List imageBytes = Uint8List.fromList(imageUrl as List<int>);
     animalVoices.add(imageBytes);
   }
 }
