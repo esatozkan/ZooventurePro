@@ -30,6 +30,7 @@ class _GridCardWidgetState extends State<GridCardWidget> {
           crossAxisCount: (size.width < 1100) ? 4 : 6,
           mainAxisSpacing: 10,
           crossAxisSpacing: 10,
+          childAspectRatio: .7,
         ),
         itemCount: animalProvider.getAnimals.length,
         itemBuilder: (BuildContext context, index) {
