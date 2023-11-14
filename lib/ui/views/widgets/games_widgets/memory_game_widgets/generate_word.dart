@@ -5,7 +5,7 @@ import '../../../../providers/animal_provider.dart';
 List<WordModel> sourceWords = [];
 
 int populateSourceWords(context) {
-  AnimalProvider animalProvider = Provider.of(context);
+  AnimalProvider animalProvider = Provider.of<AnimalProvider>(context,listen: false);
 
   for (int i = 0; i < animalProvider.getAnimals.length; i++) {
     sourceWords.add(

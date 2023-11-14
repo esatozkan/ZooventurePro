@@ -6,7 +6,8 @@ import '../../../../providers/animal_provider.dart';
 List<SpellingBeeGameWordModel> allWords = [];
 
 spellingBeeGameGenerateAnimalWords(context) {
-  AnimalProvider animalProvider = Provider.of(context);
+  AnimalProvider animalProvider =
+      Provider.of<AnimalProvider>(context, listen: false);
 
   for (int i = 0; i < animalProvider.getAnimals.length; i++) {
     String animalLength = animalProvider.getAnimals[i].spelling;

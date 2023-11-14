@@ -29,6 +29,8 @@ class _MemoryGamesScreen extends State<MemoryGamesScreen> {
       [DeviceOrientation.portraitUp],
     );
 
+    populateSourceWords(context);
+
     futureCacheImages = cacheImages();
 
     super.initState();

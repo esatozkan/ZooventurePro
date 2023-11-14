@@ -3,10 +3,8 @@ import '../widgets/games_widgets/spelling_bee_game_widgets/all_words_widget.dart
 import '../widgets/on_boarding_control_widget.dart';
 import '../widgets/title_widgets/title_widget.dart';
 import '/ui/providers/language_provider.dart';
-import '../widgets/games_widgets/memory_game_widgets/generate_word.dart';
 import '/ui/providers/internet_connection_provider.dart';
 import '../../../data/repository/generate_animal.dart';
-import '../../../data/repository/generate_question.dart';
 import '/ui/providers/page_changed_provider.dart';
 import '/ui/views/screens/animal_names_screen.dart';
 import '/ui/views/screens/games_screen.dart';
@@ -35,10 +33,6 @@ class MainScreen extends StatelessWidget {
     internetConnectionProvider.getConnectivity(context);
 
     generateAnimal(context, languageProvider.getLocal);
-
-    generateQuestion(context);
-
-    populateSourceWords(context);
 
     spellingBeeGameGenerateAnimalWords(context);
 
