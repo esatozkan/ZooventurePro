@@ -22,8 +22,8 @@ getFlags(context) async {
 
     for (var element in listResult.items) {
       final imageUrl = await element.getDownloadURL();
-    final response = await element.getData();
-    final Uint8List imageBytes = Uint8List.fromList(response as List<int>);
+      final response = await element.getData();
+      final Uint8List imageBytes = Uint8List.fromList(response as List<int>);
 
       animalProvider.addInformation(
         languageProvider.getLanguageServiceImage,

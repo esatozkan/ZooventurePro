@@ -10,12 +10,12 @@ spellingBeeGameGenerateAnimalWords(context) {
       Provider.of<AnimalProvider>(context, listen: false);
 
   for (int i = 0; i < animalProvider.getAnimals.length; i++) {
-    String animalLength = animalProvider.getAnimals[i].spelling;
+    String animalLength = animalProvider.getAnimals[i].spelling!;
     if (animalLength.length < 7) {
       SpellingBeeGameWordModel spellingBeeGameWordModel =
           SpellingBeeGameWordModel(
         name: animalLength,
-        url: animalProvider.getAnimals[i].image,
+        url: animalProvider.getAnimals[i].image!,
       );
       allWords.add(spellingBeeGameWordModel);
     }

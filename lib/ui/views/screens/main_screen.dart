@@ -1,4 +1,10 @@
+import 'package:hive/hive.dart';
+import 'package:zooventure/ui/providers/animal_provider.dart';
 import '../../../data/constants/constants.dart';
+import '../../../data/models/animal_model.dart';
+import '../../../data/services/animal_service.dart';
+import '../../../data/services/flag_service.dart';
+import '../../../data/services/language_service.dart';
 import '../widgets/games_widgets/spelling_bee_game_widgets/all_words_widget.dart';
 import '../widgets/on_boarding_control_widget.dart';
 import '../widgets/title_widgets/title_widget.dart';
@@ -20,8 +26,19 @@ List<Widget> pages = const [
 
 PageController pageController = PageController(initialPage: 0);
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  @override
+  void initState() {
+    getAllInformation(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,4 +90,27 @@ class MainScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Future getAllInformation(context) async {
+  LanguageProvider languageProvider =
+      Provider.of<LanguageProvider>(context, listen: false);
+  AnimalProvider animalProvider =
+      Provider.of<AnimalProvider>(context, listen: false);
+
+  Box animalBox = Hive.box<Animal>("animals");
+
+  if (animalBox.isEmpty) {
+    await getAnimalName(languageProvider.getLocal, context);
+    await getAnimalVoice(context);
+    await getAnimalRealImage(context);
+  }
+
+  await getFlags(context);
+
+  getLanguageFlag(
+    languageProvider.getLocal,
+    context,
+  );
+  animalProvider.isAllAnimalDownloadFunction(true);
 }
