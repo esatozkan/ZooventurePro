@@ -9,7 +9,6 @@ import '../widgets/games_widgets/spelling_bee_game_widgets/all_words_widget.dart
 import '../widgets/on_boarding_control_widget.dart';
 import '../widgets/title_widgets/title_widget.dart';
 import '/ui/providers/language_provider.dart';
-import '/ui/providers/internet_connection_provider.dart';
 import '../../../data/repository/generate_animal.dart';
 import '/ui/providers/page_changed_provider.dart';
 import '/ui/views/screens/animal_names_screen.dart';
@@ -42,12 +41,8 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    InternetConnectionProvider internetConnectionProvider =
-        Provider.of<InternetConnectionProvider>(context, listen: false);
     LanguageProvider languageProvider =
         Provider.of<LanguageProvider>(context, listen: false);
-
-    internetConnectionProvider.getConnectivity(context);
 
     generateAnimal(context, languageProvider.getLocal);
 

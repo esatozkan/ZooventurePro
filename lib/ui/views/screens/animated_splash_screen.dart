@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:zooventure/data/models/animal_model.dart';
-import '../../providers/internet_connection_provider.dart';
 import '/ui/providers/language_provider.dart';
 import '../../../data/constants/constants.dart';
 import '/ui/views/screens/main_screen.dart';
@@ -13,15 +12,16 @@ import '../../../data/services/text_services.dart';
 
 final internetConnection = Hive.box("internetConnection");
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    var internetConnectionProvider =
-        Provider.of<InternetConnectionProvider>(context);
+  State<SplashScreen> createState() => _SplashScreenState();
+}
 
-    internetConnectionProvider.getConnectivity(context);
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  Widget build(BuildContext context) {
     return AnimatedSplashScreen.withScreenFunction(
       backgroundColor: itemColor.withOpacity(.8),
       splash: "assets/splash_screen.gif",

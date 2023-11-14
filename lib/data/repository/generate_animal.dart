@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 import '../models/animal_model.dart';
 
 void generateAnimal(context, String local) {
-  AnimalProvider animalProvider = Provider.of(context);
+  AnimalProvider animalProvider =
+      Provider.of<AnimalProvider>(context, listen: false);
 
   Box animalBox = Hive.box<Animal>("animals");
 

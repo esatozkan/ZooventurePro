@@ -44,7 +44,7 @@ Future chanceLocal(context) async {
     final Uint8List imageBytes = Uint8List.fromList(imageUrl as List<int>);
     getUrls.add(imageBytes);
   }
-
+  
   for (int i = 0; i < animalProvider.getAnimals.length; i++) {
     animalProvider.getAnimals[i].name = getUrls[i];
   }

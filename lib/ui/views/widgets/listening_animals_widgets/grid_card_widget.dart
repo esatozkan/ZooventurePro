@@ -2,6 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zooventure/data/services/animal_service.dart';
+import 'package:zooventure/ui/views/widgets/internet_connection_widget.dart';
 import '../../../../data/services/application_data_service.dart';
 import '../../../providers/animal_provider.dart';
 import '../../../providers/page_changed_provider.dart';
@@ -23,7 +24,8 @@ class _GridCardWidgetState extends State<GridCardWidget> {
 
     final Size size = MediaQuery.of(context).size;
 
-    AnimalProvider animalProvider = Provider.of<AnimalProvider>(context);
+    AnimalProvider animalProvider =
+        Provider.of<AnimalProvider>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.only(top: 5),
       child: GridView.builder(
@@ -60,6 +62,8 @@ class _GridCardWidgetState extends State<GridCardWidget> {
                             ),
                           ),
                         };
+                } else {
+                  showInformationSnackbar(context, "text");
                 }
               },
               icon: ClipRRect(

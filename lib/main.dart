@@ -3,7 +3,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:zooventure/data/models/animal_model.dart';
 import '/ui/views/widgets/games_widgets/question_games_widgets/question_games_provider.dart';
 import '/ui/views/widgets/games_widgets/spelling_bee_game_widgets/spelling_bee_game_provider.dart';
-import '/ui/providers/internet_connection_provider.dart';
 import '/ui/providers/language_provider.dart';
 import '/ui/views/screens/animated_splash_screen.dart';
 import '/firebase_options.dart';
@@ -69,9 +68,6 @@ Future<void> main() async {
               ),
               ListenableProvider(
                 create: (context) => LanguageProvider(),
-              ),
-              ListenableProvider(
-                create: (context) => InternetConnectionProvider(),
               ),
               ListenableProvider(
                 create: (context) => QuestionGameProvider(),

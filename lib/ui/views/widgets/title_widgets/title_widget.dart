@@ -45,7 +45,10 @@ class _TitleWidgetState extends State<TitleWidget> {
                   inAppPurchaseWidget(context);
                 } else {
                   // ignore: use_build_context_synchronously
-                  showInternetConnectionSnackbar(context);
+                  showInformationSnackbar(
+                    context,
+                    animalProvider.getUiTexts[14],
+                  );
                 }
               },
               child: Image.asset(
@@ -182,8 +185,13 @@ class _TitleWidgetState extends State<TitleWidget> {
                       );
                     } else if (connectivityResult == ConnectivityResult.none) {
                       // ignore: use_build_context_synchronously
-                      showInternetConnectionSnackbar(context);
+                      showInformationSnackbar(
+                        context,
+                        animalProvider.getUiTexts[14],
+                      );
                     }
+                  } else {
+                    showInformationSnackbar(context, "text");
                   }
                 },
                 child: Consumer<AnimalProvider>(
@@ -209,7 +217,7 @@ class _TitleWidgetState extends State<TitleWidget> {
                               child: CircleAvatar(
                                   radius: 28,
                                   backgroundColor: itemColor,
-                                  backgroundImage: AssetImage(
+                                  backgroundImage: const AssetImage(
                                       "assets/get_firebase_loading.gif")),
                             ),
                 ),
