@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 class AnimalProvider with ChangeNotifier {
   List<String> uiTexts = [];
   List<Animal> animals = [];
+  bool isAllInformationDownload = false;
 
   List<String> get getUiTexts => uiTexts;
   List<Animal> get getAnimals => animals;
+  bool get getIsAllInformationDownload => isAllInformationDownload;
 
   GameControlRepository gameControlRepository = GameControlRepository();
 
@@ -25,6 +27,11 @@ class AnimalProvider with ChangeNotifier {
 
   void updateText(String newText, int index) {
     uiTexts[index] = newText;
+    notifyListeners();
+  }
+
+  void isAllAnimalDownloadFunction(bool val) {
+    isAllInformationDownload = val;
     notifyListeners();
   }
 }

@@ -31,55 +31,58 @@ class _GameIconWidgetState extends State<GameIconWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Future.delayed(const Duration(milliseconds: 500));
-        if (widget.whichFunction == "memoryGame") {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const MemoryGamesScreen(),
-            ),
-          );
-          applicationData("Memory Game");
-        } else if (widget.whichFunction == "SpellingBeeGame") {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const SpellingBeeGameScreen(),
-            ),
-          );
-          applicationData("Spelling Bee Game");
-        } else if (widget.whichFunction == "knowWhatVirtualAnimalScreen") {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const KnowWhatVirtualAnimalScreen(),
-            ),
-          );
-          applicationData("Find Virtual Image Game");
-        } else if (widget.whichFunction == "knowWhatHearAnimalScreen") {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const KnowWhatHearAnimalScreen(),
-            ),
-          );
-          applicationData("Know Animal Sounds Game");
-        } else if (widget.whichFunction == "knowWhatRealAnimalScreen") {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const KnowWhatRealAnimalScreen(),
-            ),
-          );
-          applicationData("Find Real Image Game");
-        } else if (widget.whichFunction == "knowWhatTypeAnimalScreen") {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const KnowWhatTypeAnimalScreen(),
-            ),
-          );
-          applicationData("Know Animal Types Game");
+        if (Provider.of<AnimalProvider>(context, listen: false)
+            .getIsAllInformationDownload) {
+          Future.delayed(const Duration(milliseconds: 500));
+          if (widget.whichFunction == "memoryGame") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const MemoryGamesScreen(),
+              ),
+            );
+            applicationData("Memory Game");
+          } else if (widget.whichFunction == "SpellingBeeGame") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SpellingBeeGameScreen(),
+              ),
+            );
+            applicationData("Spelling Bee Game");
+          } else if (widget.whichFunction == "knowWhatVirtualAnimalScreen") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const KnowWhatVirtualAnimalScreen(),
+              ),
+            );
+            applicationData("Find Virtual Image Game");
+          } else if (widget.whichFunction == "knowWhatHearAnimalScreen") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const KnowWhatHearAnimalScreen(),
+              ),
+            );
+            applicationData("Know Animal Sounds Game");
+          } else if (widget.whichFunction == "knowWhatRealAnimalScreen") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const KnowWhatRealAnimalScreen(),
+              ),
+            );
+            applicationData("Find Real Image Game");
+          } else if (widget.whichFunction == "knowWhatTypeAnimalScreen") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const KnowWhatTypeAnimalScreen(),
+              ),
+            );
+            applicationData("Know Animal Types Game");
+          }
         }
       },
       child: Column(

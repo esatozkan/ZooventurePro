@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:zooventure/data/services/animal_service.dart';
 import '../../../../data/services/application_data_service.dart';
 import '../../../providers/animal_provider.dart';
 import '../../../providers/page_changed_provider.dart';
@@ -32,36 +33,41 @@ class _GridCardWidgetState extends State<GridCardWidget> {
           crossAxisSpacing: 10,
           childAspectRatio: .7,
         ),
-        itemCount: animalProvider.getAnimals.length,
+        itemCount: animalProvider.getIsAllInformationDownload == true
+            ? animalProvider.getAnimals.length
+            : animalVirtualImages.length,
         itemBuilder: (BuildContext context, index) {
           return Consumer<AnimalProvider>(
             builder: (context, animalProvider, _) => IconButton(
               onPressed: () async {
-                pageChangedProvider.getPageChanged == 0
-                    ? {
-                        applicationData("Click Animal Name"),
-                        {
-                        await voicePlayer.play(
-                        BytesSource(
-                          animalProvider.getAnimals[index].name,
-                        ),
-                      ),
-                      }
-                        
-                      }
-                    : {
-                        applicationData("Click Animal Listening"),
-                        await voicePlayer.play(
-                          BytesSource(
-                            animalProvider.getAnimals[index].voice,
+                if (animalProvider.getIsAllInformationDownload) {
+                  pageChangedProvider.getPageChanged == 0
+                      ? {
+                          applicationData("Click Animal Name"),
+                          {
+                            await voicePlayer.play(
+                              BytesSource(
+                                animalProvider.getAnimals[index].name!,
+                              ),
+                            ),
+                          }
+                        }
+                      : {
+                          applicationData("Click Animal Listening"),
+                          await voicePlayer.play(
+                            BytesSource(
+                              animalProvider.getAnimals[index].voice!,
+                            ),
                           ),
-                        ),
-                      };
+                        };
+                }
               },
               icon: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.memory(
-                  animalProvider.getAnimals[index].image,
+                  animalProvider.getIsAllInformationDownload == true
+                      ? animalProvider.getAnimals[index].image!
+                      : animalVirtualImages[index],
                 ),
               ),
               // Image.network(animalProvider.getAnimalGif[index])),

@@ -10,8 +10,8 @@ int populateSourceWords(context) {
   for (int i = 0; i < animalProvider.getAnimals.length; i++) {
     sourceWords.add(
       WordModel(
-        text: animalProvider.getAnimals[i].spelling,
-        url: animalProvider.getAnimals[i].image,
+        text: animalProvider.getAnimals[i].spelling!,
+        url: animalProvider.getAnimals[i].image!,
         displayText: false,
       ),
     );

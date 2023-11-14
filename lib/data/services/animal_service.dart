@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 List<Uint8List> animalNames = [];
 List<Uint8List> animalVirtualImages = [];
@@ -71,5 +72,18 @@ getAnimalVoice(context) async {
     final imageUrl = await element.getData();
     final Uint8List imageBytes = Uint8List.fromList(imageUrl as List<int>);
     animalVoices.add(imageBytes);
+  }
+}
+
+getError(context) async {
+  Box errorBox = Hive.box("error");
+
+  if (errorBox.isEmpty) {
+    final storageRef =
+        await FirebaseStorage.instance.ref().child("error.png").getData();
+
+    final Uint8List imageBytes = Uint8List.fromList(storageRef as List<int>);
+
+    errorBox.put(0, imageBytes);
   }
 }

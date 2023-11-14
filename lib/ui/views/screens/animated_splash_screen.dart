@@ -4,13 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:zooventure/data/models/animal_model.dart';
-import '../../../data/services/flag_service.dart';
 import '../../providers/internet_connection_provider.dart';
 import '/ui/providers/language_provider.dart';
 import '../../../data/constants/constants.dart';
 import '/ui/views/screens/main_screen.dart';
 import '../../../data/services/animal_service.dart';
-import '../../../data/services/language_service.dart';
 import '../../../data/services/text_services.dart';
 
 final internetConnection = Hive.box("internetConnection");
@@ -44,21 +42,13 @@ Future getFirebase(context) async {
   Box animalBox = Hive.box<Animal>("animals");
 
   if (animalBox.isEmpty) {
-    await getAnimalName(languageProvider.getLocal, context);
-    await getAnimalVoice(context);
-    await getAnimalRealImage(context);
     await getAnimalVirtualImage(context);
   }
-
-  await getFlags(context);
-
-  getLanguageFlag(
-    languageProvider.getLocal,
-    context,
-  );
 
   await getText(
     languageProvider.getLocal,
     context,
   );
+
+  await getError(context);
 }
