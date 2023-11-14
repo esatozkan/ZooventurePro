@@ -1,4 +1,5 @@
 import '../../../../data/services/application_data_service.dart';
+import '../internet_connection_widget.dart';
 import '/ui/views/screens/games/know_what_hear_screen.dart';
 import '/ui/views/screens/games/know_what_real_animal_screen.dart';
 import '/ui/views/screens/games/know_what_type_animal_screen.dart';
@@ -83,6 +84,8 @@ class _GameIconWidgetState extends State<GameIconWidget> {
             );
             applicationData("Know Animal Types Game");
           }
+        } else {
+          showInformationSnackbar(context, "text");
         }
       },
       child: Column(
