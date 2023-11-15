@@ -7,19 +7,19 @@ part 'animal_model.g.dart';
 @HiveType(typeId: 0)
 class Animal extends HiveObject {
   @HiveField(0)
-  late Uint8List? name;
+  late Uint8List name;
 
   @HiveField(1)
-  late Uint8List? voice;
+  late Uint8List voice;
 
   @HiveField(2)
-  late Uint8List? image;
+  late Uint8List image;
 
   @HiveField(3)
-  late Uint8List? realImage;
+  late Uint8List realImage;
 
   @HiveField(4)
-  late String? spelling;
+  late String spelling;
 
   Animal({
     required this.name,

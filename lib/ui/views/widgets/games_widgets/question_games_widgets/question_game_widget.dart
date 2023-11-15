@@ -2,7 +2,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import '/data/repository/generate_question.dart';
 import '/ui/views/widgets/games_widgets/question_games_widgets/question_games_provider.dart';
@@ -45,7 +44,7 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
           question[Provider.of<QuestionGameProvider>(context, listen: false)
                   .getQuestionIndex]
               .question
-              .name!,
+              .name,
         ),
       );
     } else if (widget.question == "KnowWhatHearAnimalScreen") {
@@ -54,7 +53,7 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
           question[Provider.of<QuestionGameProvider>(context, listen: false)
                   .getQuestionIndex]
               .question
-              .voice!,
+              .voice,
         ),
       );
     }
@@ -102,8 +101,7 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                                                   listen: false)
                                               .getQuestionIndex]
                                           .question
-                                          .image ??
-                                      Hive.box("error").get(0),
+                                          .image ,
                               fit: BoxFit.cover,
                             )
                           : Padding(
@@ -124,7 +122,7 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                                             question[questionGameProvider
                                                     .getQuestionIndex]
                                                 .question
-                                                .name!,
+                                                .name,
                                           ),
                                         );
                                       } else {
@@ -133,7 +131,7 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                                             question[questionGameProvider
                                                     .getQuestionIndex]
                                                 .question
-                                                .voice!,
+                                                .voice,
                                           ),
                                         );
                                       }
@@ -207,8 +205,7 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                                             .option
                                             .keys
                                             .toList()[index]
-                                            .realImage ??
-                                        Hive.box("error").get(0),
+                                            .realImage,
                                 height: 150,
                                 width: 150,
                                 fit: BoxFit.cover,

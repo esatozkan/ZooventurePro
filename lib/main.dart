@@ -28,13 +28,11 @@ Future<void> main() async {
   await Hive.openBox("flagSpelling");
   await Hive.openBox("languages");
   await Hive.openBox("internetConnection");
-  await Hive.openBox("error");
 
   // await Hive.deleteBoxFromDisk("animals");
   // await Hive.deleteBoxFromDisk("flags");
   // await Hive.deleteBoxFromDisk("languages");
   // await Hive.deleteBoxFromDisk("flagSpelling");
-  // await Hive.deleteBoxFromDisk("error");
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

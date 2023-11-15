@@ -37,18 +37,22 @@ class _TitleWidgetState extends State<TitleWidget> {
           children: [
             GestureDetector(
               onTap: () async {
-                var connectivityResult =
-                    await Connectivity().checkConnectivity();
-                if (connectivityResult != ConnectivityResult.none) {
-                  applicationData("Click Sale");
-                  // ignore: use_build_context_synchronously
-                  inAppPurchaseWidget(context);
+                if (animalProvider.getIsAllInformationDownload) {
+                  var connectivityResult =
+                      await Connectivity().checkConnectivity();
+                  if (connectivityResult != ConnectivityResult.none) {
+                    applicationData("Click Sale");
+                    // ignore: use_build_context_synchronously
+                    inAppPurchaseWidget(context);
+                  } else {
+                    // ignore: use_build_context_synchronously
+                    showInformationSnackbar(
+                      context,
+                      animalProvider.getUiTexts[14],
+                    );
+                  }
                 } else {
-                  // ignore: use_build_context_synchronously
-                  showInformationSnackbar(
-                    context,
-                    animalProvider.getUiTexts[14],
-                  );
+                  showInformationSnackbar(context, "text");
                 }
               },
               child: Image.asset(
@@ -77,8 +81,6 @@ class _TitleWidgetState extends State<TitleWidget> {
               padding: const EdgeInsets.only(right: 50),
               child: GestureDetector(
                 onTap: () async {
-                  AnimalProvider animalProvider =
-                      Provider.of<AnimalProvider>(context, listen: false);
                   if (animalProvider.getIsAllInformationDownload) {
                     var connectivityResult =
                         await Connectivity().checkConnectivity();
