@@ -25,7 +25,7 @@ class _GridCardWidgetState extends State<GridCardWidget> {
     final Size size = MediaQuery.of(context).size;
 
     AnimalProvider animalProvider =
-        Provider.of<AnimalProvider>(context, listen: false);
+        Provider.of<AnimalProvider>(context);
     return Padding(
       padding: const EdgeInsets.only(top: 5),
       child: GridView.builder(
@@ -49,7 +49,7 @@ class _GridCardWidgetState extends State<GridCardWidget> {
                           {
                             await voicePlayer.play(
                               BytesSource(
-                                animalProvider.getAnimals[index].name!,
+                                animalProvider.getAnimals[index].name,
                               ),
                             ),
                           }
@@ -58,7 +58,7 @@ class _GridCardWidgetState extends State<GridCardWidget> {
                           applicationData("Click Animal Listening"),
                           await voicePlayer.play(
                             BytesSource(
-                              animalProvider.getAnimals[index].voice!,
+                              animalProvider.getAnimals[index].voice,
                             ),
                           ),
                         };
@@ -70,7 +70,7 @@ class _GridCardWidgetState extends State<GridCardWidget> {
                 borderRadius: BorderRadius.circular(20),
                 child: Image.memory(
                   animalProvider.getIsAllInformationDownload == true
-                      ? animalProvider.getAnimals[index].image!
+                      ? animalProvider.getAnimals[index].image
                       : animalVirtualImages[index],
                 ),
               ),

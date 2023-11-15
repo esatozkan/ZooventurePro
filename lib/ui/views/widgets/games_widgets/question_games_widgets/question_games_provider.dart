@@ -46,13 +46,13 @@ class QuestionGameProvider extends ChangeNotifier {
         if (isVoice == "knowWhatTypeAnimalScreen" &&
             questionIndex != numberOfQuestion) {
           audioPlayer.play(
-            BytesSource(question[questionIndex].question.name!),
+            BytesSource(question[questionIndex].question.name),
           );
         }
         if (isVoice == "KnowWhatHearAnimalScreen" &&
             questionIndex != numberOfQuestion) {
           audioPlayer.play(
-            BytesSource(question[questionIndex].question.voice!),
+            BytesSource(question[questionIndex].question.voice),
           );
         }
       });

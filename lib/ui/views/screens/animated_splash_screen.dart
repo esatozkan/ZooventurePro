@@ -2,13 +2,9 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:zooventure/data/models/animal_model.dart';
-import '/ui/providers/language_provider.dart';
 import '../../../data/constants/constants.dart';
 import '/ui/views/screens/main_screen.dart';
 import '../../../data/services/animal_service.dart';
-import '../../../data/services/text_services.dart';
 
 final internetConnection = Hive.box("internetConnection");
 
@@ -35,20 +31,3 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-Future getFirebase(context) async {
-  LanguageProvider languageProvider =
-      Provider.of<LanguageProvider>(context, listen: false);
-
-  Box animalBox = Hive.box<Animal>("animals");
-
-  if (animalBox.isEmpty) {
-    await getAnimalVirtualImage(context);
-  }
-
-  await getText(
-    languageProvider.getLocal,
-    context,
-  );
-
-  await getError(context);
-}

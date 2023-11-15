@@ -1,15 +1,7 @@
-import 'package:hive/hive.dart';
-import 'package:zooventure/ui/providers/animal_provider.dart';
 import '../../../data/constants/constants.dart';
-import '../../../data/models/animal_model.dart';
 import '../../../data/services/animal_service.dart';
-import '../../../data/services/flag_service.dart';
-import '../../../data/services/language_service.dart';
-import '../widgets/games_widgets/spelling_bee_game_widgets/all_words_widget.dart';
 import '../widgets/on_boarding_control_widget.dart';
 import '../widgets/title_widgets/title_widget.dart';
-import '/ui/providers/language_provider.dart';
-import '../../../data/repository/generate_animal.dart';
 import '/ui/providers/page_changed_provider.dart';
 import '/ui/views/screens/animal_names_screen.dart';
 import '/ui/views/screens/games_screen.dart';
@@ -41,13 +33,6 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    LanguageProvider languageProvider =
-        Provider.of<LanguageProvider>(context, listen: false);
-
-    generateAnimal(context, languageProvider.getLocal);
-
-    spellingBeeGameGenerateAnimalWords(context);
-
     return Scaffold(
       body: Consumer<PageChangedProvider>(
         builder: (context, pageChangedProvider, _) => Stack(
@@ -85,27 +70,4 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
-}
-
-Future getAllInformation(context) async {
-  LanguageProvider languageProvider =
-      Provider.of<LanguageProvider>(context, listen: false);
-  AnimalProvider animalProvider =
-      Provider.of<AnimalProvider>(context, listen: false);
-
-  Box animalBox = Hive.box<Animal>("animals");
-
-  if (animalBox.isEmpty) {
-    await getAnimalName(languageProvider.getLocal, context);
-    await getAnimalVoice(context);
-    await getAnimalRealImage(context);
-  }
-
-  await getFlags(context);
-
-  getLanguageFlag(
-    languageProvider.getLocal,
-    context,
-  );
-  animalProvider.isAllAnimalDownloadFunction(true);
 }
