@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:zooventure/ui/providers/animal_provider.dart';
-import '/ui/views/screens/main_screen.dart';
-import '../../../screens/games/memory_games_screen.dart';
+import '/ui/providers/animal_provider.dart';
+import '../../../../providers/page_changed_provider.dart';
 import 'spin_animation.dart';
 
 class ReplayWidget extends StatelessWidget {
@@ -39,35 +38,14 @@ class ReplayWidget extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => const MemoryGamesScreen(),
-                  ),
-                  (route) => false,
-                );
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(animalProvider.getUiTexts[4]),
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(12),
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
                 SystemChrome.setPreferredOrientations([
                   DeviceOrientation.landscapeLeft,
                   DeviceOrientation.landscapeRight,
-                ]);
-                Navigator.of(context).pop();
-                pageController.jumpToPage(2);
-                // Navigator.pushAndRemoveUntil(
-                //     context,
-                //     PageRouteBuilder(pageBuilder: (_, __, ___) => MyApp()),
-                //     (route) => false);
+                ]).then((value) {
+                  Navigator.of(context).pop();
+                  Provider.of<PageChangedProvider>(context, listen: false)
+                      .pageChangedFunction(2);
+                });
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

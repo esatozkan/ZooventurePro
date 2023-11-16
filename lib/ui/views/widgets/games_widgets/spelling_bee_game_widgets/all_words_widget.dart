@@ -9,6 +9,8 @@ spellingBeeGameGenerateAnimalWords(context) {
   AnimalProvider animalProvider =
       Provider.of<AnimalProvider>(context, listen: false);
 
+  allWords.clear();
+
   for (int i = 0; i < animalProvider.getAnimals.length; i++) {
     String animalLength = animalProvider.getAnimals[i].spelling;
     if (animalLength.length < 7) {
@@ -23,7 +25,5 @@ spellingBeeGameGenerateAnimalWords(context) {
 
   allWords.shuffle(Random());
 
-  while (allWords.length > 6) {
-    allWords.removeLast();
-  }
+  allWords.removeRange(6, allWords.length);
 }

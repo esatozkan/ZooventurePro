@@ -4,14 +4,12 @@ import 'package:flutter/material.dart';
 class PageChangedProvider extends ChangeNotifier {
   int pageChanged = 0;
 
-  get getPageChanged => pageChanged;
+  int get getPageChanged => pageChanged;
 
-  GameControlRepository pageChangedRepository=GameControlRepository();
+  GameControlRepository pageChangedRepository = GameControlRepository();
 
-
-  void pageChangedFunction(int val){
-    pageChanged=pageChangedRepository.setIndex(val);
+  void pageChangedFunction(int val) {
+    pageChanged = pageChangedRepository.setIndex(val);
     notifyListeners();
   }
-  
 }

@@ -60,9 +60,10 @@ class QuestionGameProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  resetGame() {
+  resetGame(context) {
     questionIndex = 0;
     answerControl = false;
     onTap = true;
+
   }
 }

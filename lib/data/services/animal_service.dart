@@ -3,7 +3,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import '../../ui/providers/animal_provider.dart';
-import '../../ui/views/widgets/games_widgets/spelling_bee_game_widgets/all_words_widget.dart';
 import '../repository/generate_animal.dart';
 import '/data/services/text_services.dart';
 import '../../ui/providers/language_provider.dart';
@@ -122,8 +121,6 @@ Future getAllInformation(context) async {
   );
 
   generateAnimal(context, languageProvider.getLocal);
-
-  spellingBeeGameGenerateAnimalWords(context);
 
   animalProvider.isAllAnimalDownloadFunction(true);
 }

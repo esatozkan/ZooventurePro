@@ -17,10 +17,8 @@ void generateQuestion(context) {
   }
 
   question.shuffle(Random());
-
-  while (question.length > questionGameProvider.getNumberOfQuestion + 1) {
-    question.removeLast();
-  }
+  question.removeRange(
+      questionGameProvider.getNumberOfQuestion + 1, question.length);
 }
 
 void clearQuestion() {

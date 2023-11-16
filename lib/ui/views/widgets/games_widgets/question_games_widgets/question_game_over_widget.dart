@@ -1,11 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:zooventure/ui/providers/animal_provider.dart';
-import '/ui/views/screens/games/know_what_hear_screen.dart';
-import '../../../screens/games/know_what_type_animal_screen.dart';
-import '/ui/views/screens/games/know_what_virtual_animal_screen.dart';
-import '../../../screens/games/know_what_real_animal_screen.dart';
+import '/ui/providers/animal_provider.dart';
+import '../../../../providers/page_changed_provider.dart';
 import 'question_games_provider.dart';
 
 // ignore: must_be_immutable
@@ -21,6 +19,8 @@ class QuestionGameGameOverWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     AnimalProvider animalProvider =
         Provider.of<AnimalProvider>(context, listen: false);
+    PageChangedProvider pageChangedProvider =
+        Provider.of<PageChangedProvider>(context, listen: false);
     return Consumer<QuestionGameProvider>(
       builder: (context, questionGameProvider, _) => SingleChildScrollView(
         child: Visibility(
@@ -40,117 +40,58 @@ class QuestionGameGameOverWidget extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
                 TextButton(
-                  onPressed: () {},
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 60, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: const Color(0xff01ddb3),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        width: 2,
-                        color: const Color(0xff01ddb3),
-                      ),
-                    ),
-                    child: Text(
-                      animalProvider.getUiTexts[3],
-                      style: const TextStyle(
-                        color: Color(0xffeb92e5),
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "partyConfetti",
-                      ),
-                    ),
-                  ),
-                ),
+                    onPressed: () {},
+                    child: textButton(animalProvider.getUiTexts[3], 60)),
                 TextButton(
-                  onPressed: () {
-                    questionGameProvider.resetGame();
-                    if (question == "knowWhatRealImage") {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        PageRouteBuilder(
-                            pageBuilder: (_, __, ___) =>
-                                const KnowWhatRealAnimalScreen()),
-                        (route) => false,
-                      );
-                    } else if (question == "knowWhatVirtualImage") {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        PageRouteBuilder(
-                            pageBuilder: (_, __, ___) =>
-                                const KnowWhatVirtualAnimalScreen()),
-                        (route) => false,
-                      );
-                    } else if (question == "knowWhatTypeAnimalScreen") {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        PageRouteBuilder(
-                          pageBuilder: (_, __, ___) =>
-                              const KnowWhatTypeAnimalScreen(),
-                        ),
-                        (route) => false,
-                      );
-                    } else if (question == "KnowWhatHearAnimalScreen") {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        PageRouteBuilder(
-                          pageBuilder: (_, __, ___) =>
-                              const KnowWhatHearAnimalScreen(),
-                        ),
-                        (route) => false,
-                      );
-                    }
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: const Color(0xff01ddb3),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        width: 2,
-                        color: const Color(0xff01ddb3),
-                      ),
-                    ),
-                    child: Text(
-                      animalProvider.getUiTexts[4],
-                      style: const TextStyle(
-                        color: Color(0xffeb92e5),
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "partyConfetti",
-                      ),
-                    ),
-                  ),
-                ),
+                    onPressed: () {
+                      questionGameProvider.resetGame(context);
+                      if (question == "knowWhatRealImage") {
+                        pageChangedProvider.pageChangedFunction(4);
+                      } else if (question == "knowWhatVirtualImage") {
+                        pageChangedProvider.pageChangedFunction(6);
+                      } else if (question == "knowWhatTypeAnimalScreen") {
+                        pageChangedProvider.pageChangedFunction(5);
+                      } else if (question == "KnowWhatHearAnimalScreen") {
+                        pageChangedProvider.pageChangedFunction(3);
+                      }
+                    },
+                    child: textButton(animalProvider.getUiTexts[4], 40)),
                 TextButton(
-                  onPressed: () {},
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 60, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: const Color(0xff01ddb3),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        width: 2,
-                        color: const Color(0xff01ddb3),
-                      ),
-                    ),
-                    child: Text(
-                      animalProvider.getUiTexts[5],
-                      style: const TextStyle(
-                        color: Color(0xffeb92e5),
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "partyConfetti",
-                      ),
-                    ),
-                  ),
-                ),
+                    onPressed: () {
+                      SystemChrome.setPreferredOrientations([
+                        DeviceOrientation.landscapeLeft,
+                        DeviceOrientation.landscapeRight,
+                      ]).then((value) {
+                        pageChangedProvider.pageChangedFunction(2);
+                      });
+                    },
+                    child: textButton(animalProvider.getUiTexts[5], 60)),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget textButton(String text, double horizontal) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: horizontal, vertical: 10),
+      decoration: BoxDecoration(
+        color: const Color(0xff01ddb3),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          width: 2,
+          color: const Color(0xff01ddb3),
+        ),
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Color(0xffeb92e5),
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          fontFamily: "partyConfetti",
         ),
       ),
     );
