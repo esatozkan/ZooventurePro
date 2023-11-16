@@ -23,6 +23,11 @@ QuestionAnswerModel addQuestion(context, index) {
     generatedOptions[animalProvider.getAnimals[generatedRandomNumber]] = false;
   }
 
+  List<MapEntry<Animal, bool>> entries = generatedOptions.entries.toList();
+  entries.shuffle();
+  generatedOptions.clear();
+  generatedOptions = Map.fromEntries(entries);
+
   QuestionAnswerModel questionAnswerModel = QuestionAnswerModel(
     question: animalProvider.getAnimals[index],
     option: generatedOptions,

@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:zooventure/ui/providers/page_changed_provider.dart';
 import '../../widgets/games_widgets/memory_game_widgets/confetti_animation_widget.dart';
 import '../../widgets/games_widgets/memory_game_widgets/generate_word.dart';
 import '../../widgets/games_widgets/memory_game_widgets/memory_game_title_widget.dart';
@@ -20,19 +21,12 @@ class MemoryGamesScreen extends StatefulWidget {
 }
 
 class _MemoryGamesScreen extends State<MemoryGamesScreen> {
-  late final futureCacheImages;
-
   List<WordModel> gridWords = [];
   @override
   void initState() {
     SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp],
     );
-
-    populateSourceWords(context);
-
-    futureCacheImages = cacheImages();
-
     super.initState();
   }
 
@@ -41,14 +35,21 @@ class _MemoryGamesScreen extends State<MemoryGamesScreen> {
     final size = MediaQuery.of(context).size;
     final withPadding = size.width * .04;
 
-    setUp(context);
+    return Consumer<PageChangedProvider>(
+      builder: (context, pageChangedProvider, _) {
+        // ignore: prefer_typing_uninitialized_variables
+        late final futureCacheImages;
 
-    return Material(
-      child: ChangeNotifierProvider(
-        create: (_) => MemoryGamesProvider(),
-        child: SafeArea(
-          child: Scaffold(
-            body: Container(
+        gridWords.clear();
+
+        populateSourceWords(context);
+
+        futureCacheImages = cacheImages();
+        setUp(context);
+        return ChangeNotifierProvider(
+          create: (_) => MemoryGamesProvider(),
+          child: SafeArea(
+            child: Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
@@ -104,12 +105,14 @@ class _MemoryGamesScreen extends State<MemoryGamesScreen> {
                                   child: GridView.builder(
                                     shrinkWrap: true,
                                     padding: EdgeInsets.only(
-                                        left: withPadding, right: withPadding),
+                                        left: withPadding,
+                                        right: withPadding,
+                                        top: 10),
                                     gridDelegate:
                                         const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 3,
-                                      crossAxisSpacing: 10,
-                                      mainAxisSpacing: 10,
+                                      crossAxisSpacing: 20,
+                                      mainAxisSpacing: 5,
                                       childAspectRatio: .8,
                                     ),
                                     itemCount: 12,
@@ -132,8 +135,8 @@ class _MemoryGamesScreen extends State<MemoryGamesScreen> {
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -152,6 +155,7 @@ class _MemoryGamesScreen extends State<MemoryGamesScreen> {
 
       gridWords.add(sourceWords[i]);
     }
-    //  gridWords.shuffle(Random());
+
+    gridWords.shuffle(Random());
   }
 }

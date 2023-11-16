@@ -31,7 +31,7 @@ class MemoryGamesProvider extends ChangeNotifier {
             tappedWords.entries.elementAt(1).value.text) {
           answerWords.addAll(tappedWords.keys);
           if (answerWords.length == 12) {
-            move = (6000 / move).toInt();
+            move = 6000 ~/ move;
 
             await GameAudioWidget.playAudio("Round");
 
@@ -57,6 +57,17 @@ class MemoryGamesProvider extends ChangeNotifier {
       canFlip = false;
       ignoreTaps = false;
     }
+    notifyListeners();
+  }
+
+  resetGame() {
+    canFlip = false;
+    reserveFlip = false;
+    ignoreTaps = false;
+    roundCompleted = false;
+    move = 0;
+    answerWords.clear();
+
     notifyListeners();
   }
 }

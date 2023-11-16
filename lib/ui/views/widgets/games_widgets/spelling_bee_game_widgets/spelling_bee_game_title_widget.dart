@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:zooventure/ui/providers/page_changed_provider.dart';
 import 'fly_in_animation_widget.dart';
 import 'spelling_bee_game_provider.dart';
-import '../../../screens/games/spelling_bee_game_screen.dart';
 
 class SpellingBeeGameTitleWidget extends StatefulWidget {
   const SpellingBeeGameTitleWidget({super.key});
@@ -33,7 +33,12 @@ class _SpellingBeeGameTitleWidgetState
               SystemChrome.setPreferredOrientations([
                 DeviceOrientation.landscapeLeft,
                 DeviceOrientation.landscapeRight,
-              ]);
+              ]).then((value) {
+                Provider.of<SpellingBeeGameProvider>(context, listen: false)
+                    .resetGame();
+                Provider.of<PageChangedProvider>(context, listen: false)
+                    .pageChangedFunction(2);
+              });
             },
             child: Image.asset(
               "assets/game_control/back_icon.png",
@@ -58,26 +63,9 @@ class _SpellingBeeGameTitleWidgetState
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: GestureDetector(
-              onTap: () {
-                Provider.of<SpellingBeeGameProvider>(context, listen: false)
-                    .resetGame();
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const SpellingBeeGameScreen(),
-                  ),
-                );
-              },
-              child: Image.asset(
-                "assets/bottom_navbar_icon/gameScreenIcon.png",
-                height: 60,
-                width: 60,
-                color: Colors.amber,
-                fit: BoxFit.cover,
-              ),
-            ),
+          const SizedBox(
+            height: 60,
+            width: 60,
           ),
         ],
       ),

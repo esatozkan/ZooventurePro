@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import '../../../../providers/page_changed_provider.dart';
 import 'memory_games_provider.dart';
-import '../../../screens/games/memory_games_screen.dart';
 
 class MemoryGamesTitleWidget extends StatelessWidget {
   const MemoryGamesTitleWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    PageChangedProvider pageChangedProvider =
+        Provider.of<PageChangedProvider>(context, listen: false);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -18,6 +20,8 @@ class MemoryGamesTitleWidget extends StatelessWidget {
               DeviceOrientation.landscapeLeft,
               DeviceOrientation.landscapeRight,
             ]);
+
+            pageChangedProvider.pageChangedFunction(2);
           },
           child: Image.asset(
             "assets/game_control/back_icon.png",
@@ -37,28 +41,9 @@ class MemoryGamesTitleWidget extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: GestureDetector(
-            onTap: () {
-               Navigator.pushAndRemoveUntil(
-                   context,
-                   PageRouteBuilder(
-                     pageBuilder: (_, __, ___) => const MemoryGamesScreen(),
-                  ),
-                  (route) => false);
-
-             
-
-            },
-            child: Image.asset(
-              "assets/bottom_navbar_icon/gameScreenIcon.png",
-              height: 60,
-              width: 60,
-              color: Colors.deepPurple,
-              fit: BoxFit.cover,
-            ),
-          ),
+        const SizedBox(
+          height: 60,
+          width: 60,
         ),
       ],
     );

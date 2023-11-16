@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:zooventure/ui/providers/animal_provider.dart';
-import '../../../screens/games/spelling_bee_game_screen.dart';
+import '../../../../providers/page_changed_provider.dart';
 import '/data/constants/constants.dart';
 import '/ui/views/widgets/games_widgets/spelling_bee_game_widgets/spelling_bee_game_provider.dart';
 
@@ -17,13 +18,15 @@ class MessageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     AnimalProvider animalProvider =
         Provider.of<AnimalProvider>(context, listen: false);
+    PageChangedProvider pageChangedProvider =
+        Provider.of<PageChangedProvider>(context, listen: false);
 
     String title = "Well Done!";
     String buttonText = "New Word";
 
     if (sessionCompleted) {
       title = "All Words Completed";
-      buttonText = animalProvider.getUiTexts[3];
+      buttonText = animalProvider.getUiTexts[4];
     }
 
     return AlertDialog(
@@ -36,89 +39,59 @@ class MessageWidget extends StatelessWidget {
         style: spellingBeeGameThemeData.textTheme.displayLarge,
       ),
       actions: [
-        
-            Center(
-              child: Visibility(
-                visible: sessionCompleted,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 10, bottom: 10),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(60),
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        animalProvider.getUiTexts[4],
-                        style: spellingBeeGameThemeData.textTheme.displayLarge
-                            ?.copyWith(
-                          fontSize: 30,
-                          color: Colors.amber,
-                        ),
-                      ),
-                    ),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10, bottom: 10),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(60),
+                ),
+              ),
+              onPressed: () {
+                if (sessionCompleted) {
+                  Provider.of<SpellingBeeGameProvider>(context, listen: false)
+                      .resetGame();
+                  Navigator.of(context).pop();
+                  pageChangedProvider.pageChangedFunction(8);
+                } else {
+                  Provider.of<SpellingBeeGameProvider>(context, listen: false)
+                      .requestWord(request: true);
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  buttonText,
+                  style:
+                      spellingBeeGameThemeData.textTheme.displayLarge?.copyWith(
+                    fontSize: 30,
+                    color: Colors.amber,
                   ),
                 ),
               ),
             ),
-            Center(
-              child: Visibility(
-                visible: sessionCompleted,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 10, bottom: 10),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(60),
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        animalProvider.getUiTexts[5],
-                        style: spellingBeeGameThemeData.textTheme.displayLarge
-                            ?.copyWith(
-                          fontSize: 30,
-                          color: Colors.amber,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Center(
+          ),
+        ),
+        Center(
+          child: Visibility(
+            visible: sessionCompleted,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 10, bottom: 10),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(60),
                   ),
                 ),
-                onPressed: () {
-                  if (sessionCompleted) {
-                    Provider.of<SpellingBeeGameProvider>(context, listen: false)
-                        .resetGame();
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const SpellingBeeGameScreen(),
-                      ),
-                    );
-                  } else {
-                    Provider.of<SpellingBeeGameProvider>(context, listen: false)
-                        .requestWord(request: true);
-                    Navigator.of(context).pop();
-                  }
-                },
+                onPressed: () {},
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    buttonText,
-                    style:
-                        spellingBeeGameThemeData.textTheme.displayLarge?.copyWith(
+                    animalProvider.getUiTexts[3],
+                    style: spellingBeeGameThemeData.textTheme.displayLarge
+                        ?.copyWith(
                       fontSize: 30,
                       color: Colors.amber,
                     ),
@@ -126,7 +99,43 @@ class MessageWidget extends StatelessWidget {
                 ),
               ),
             ),
-          
+          ),
+        ),
+        Visibility(
+          visible: sessionCompleted,
+          child: Center(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(60),
+                ),
+              ),
+              onPressed: () {
+                SystemChrome.setPreferredOrientations([
+                  DeviceOrientation.landscapeLeft,
+                  DeviceOrientation.landscapeRight,
+                ]).then((value) {
+                  Provider.of<SpellingBeeGameProvider>(context, listen: false)
+                      .resetGame();
+                  Navigator.of(context).pop();
+                  Provider.of<PageChangedProvider>(context, listen: false)
+                      .pageChangedFunction(2);
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  animalProvider.getUiTexts[5],
+                  style:
+                      spellingBeeGameThemeData.textTheme.displayLarge?.copyWith(
+                    fontSize: 30,
+                    color: Colors.amber,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
