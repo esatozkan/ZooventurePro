@@ -4,7 +4,7 @@ import 'in_app_purchase_icon_widget.dart';
 import '../../../../providers/animal_provider.dart';
 import '../../../../../data/constants/constants.dart';
 
-inAppPurchaseWidget(context) {
+ inAppPurchaseWidget(context) {
   AnimalProvider animalProvider =
       Provider.of<AnimalProvider>(context, listen: false);
   showDialog(

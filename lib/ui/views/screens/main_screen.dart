@@ -1,3 +1,6 @@
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:zooventure/data/services/google_ads.dart';
+
 import '/ui/views/screens/games/know_what_hear_screen.dart';
 import '/ui/views/screens/games/know_what_real_animal_screen.dart';
 import '/ui/views/screens/games/know_what_type_animal_screen.dart';
@@ -29,6 +32,8 @@ List<Widget> pages = const [
 
 PageController pageController = PageController(initialPage: 0);
 
+GoogleAdsProvider googleAdsProvider = GoogleAdsProvider();
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -39,62 +44,81 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
+    googleAdsProvider.loadBannerAd();
+    googleAdsProvider.loadInterstitialAd();
     getAllInformation(context);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    List<int> pageIndex = [0, 1, 2];
     return Scaffold(
       body: Consumer<PageChangedProvider>(
-        builder: (context, pageChangedProvider, _) =>
-            pageChangedProvider.getPageChanged == 0 ||
-                    pageChangedProvider.getPageChanged == 1 ||
-                    pageChangedProvider.getPageChanged == 2
-                ? Stack(
-                    children: [
-                      screenBackgroundImage(
-                        pageChangedProvider.getPageChanged == 0
-                            ? "assets/bottom_navbar_icon/animalsIcon.png"
-                            : pageChangedProvider.getPageChanged == 1
-                                ? "assets/bottom_navbar_icon/animalVoiceIcon.png"
-                                : "assets/bottom_navbar_icon/gameScreenIcon.png",
-                        MediaQuery.of(context).size.height,
-                        MediaQuery.of(context).size.width,
-                      ),
-                      const OnBoardingControlWidget(),
-                      const TitleWidget(),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 100,
-                          right: 100,
-                          top: 100,
-                        ),
-                        child: PageView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: pages.length,
-                          controller: pageController,
-                          onPageChanged: (index) {
-                            pageChangedProvider.pageChangedFunction(
-                                pageChangedProvider.getPageChanged);
-                          },
-                          itemBuilder: (context, index) =>
-                              pages[pageChangedProvider.getPageChanged],
-                        ),
-                      ),
-                    ],
-                  )
-                : PageView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: pages.length,
-                    controller: pageController,
-                    onPageChanged: (index) {
-                      pageChangedProvider.pageChangedFunction(
-                          pageChangedProvider.getPageChanged);
-                    },
-                    itemBuilder: (context, index) =>
-                        pages[pageChangedProvider.getPageChanged],
+        builder: (context, pageChangedProvider, _) => pageIndex
+                .contains(pageChangedProvider.getPageChanged)
+            ? Stack(
+                children: [
+                  screenBackgroundImage(
+                    pageChangedProvider.getPageChanged == 0
+                        ? "assets/bottom_navbar_icon/animalsIcon.png"
+                        : pageChangedProvider.getPageChanged == 1
+                            ? "assets/bottom_navbar_icon/animalVoiceIcon.png"
+                            : "assets/bottom_navbar_icon/gameScreenIcon.png",
+                    MediaQuery.of(context).size.height,
+                    MediaQuery.of(context).size.width,
                   ),
+                  const OnBoardingControlWidget(),
+                  const TitleWidget(),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: 100,
+                      right: 100,
+                      top: 100,
+                      bottom: googleAdsProvider.bannerAd != null
+                          ? googleAdsProvider.bannerAd!.size.height.toDouble()
+                          : 0,
+                    ),
+                    child: PageView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: pages.length,
+                      controller: pageController,
+                      onPageChanged: (index) {
+                        pageChangedProvider.pageChangedFunction(
+                            pageChangedProvider.getPageChanged);
+                      },
+                      itemBuilder: (context, index) =>
+                          pages[pageChangedProvider.getPageChanged],
+                    ),
+                  ),
+                  Visibility(
+                    visible: googleAdsProvider.bannerAd != null ? true : false,
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: SizedBox(
+                        width: googleAdsProvider.bannerAd != null
+                            ? googleAdsProvider.bannerAd!.size.width.toDouble()
+                            : 0,
+                        height: googleAdsProvider.bannerAd != null
+                            ? googleAdsProvider.bannerAd!.size.height.toDouble()
+                            : 0,
+                        child: AdWidget(ad: googleAdsProvider.bannerAd!),
+                      ),
+                    ),
+                  )
+                ],
+              )
+            : PageView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: pages.length,
+                controller: pageController,
+                onPageChanged: (index) {
+                  pageChangedProvider
+                      .pageChangedFunction(pageChangedProvider.getPageChanged);
+                },
+                itemBuilder: (context, index) =>
+                    pages[pageChangedProvider.getPageChanged],
+              ),
       ),
     );
   }

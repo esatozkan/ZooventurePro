@@ -1,6 +1,7 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:zooventure/data/models/animal_model.dart';
+import 'package:zooventure/data/services/google_ads.dart';
 import '/ui/views/widgets/games_widgets/question_games_widgets/question_games_provider.dart';
 import '/ui/views/widgets/games_widgets/spelling_bee_game_widgets/spelling_bee_game_provider.dart';
 import '/ui/providers/language_provider.dart';
@@ -75,6 +76,9 @@ Future<void> main() async {
               ),
               ChangeNotifierProvider(
                 create: (_) => SpellingBeeGameProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (_) => GoogleAdsProvider(),
               )
             ],
             child: const MyApp(),

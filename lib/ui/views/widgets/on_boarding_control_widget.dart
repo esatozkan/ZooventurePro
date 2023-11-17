@@ -35,6 +35,8 @@ class _OnBoardingControlWidgetState extends State<OnBoardingControlWidget> {
                 );
                 pageChangedProvider.pageChangedFunction(
                     pageChangedProvider.getPageChanged == 1 ? 0 : 1);
+                Future.delayed(const Duration(milliseconds: 300))
+                    .then((value) => googleAdsProvider.showInterstitialAd());
               },
               child: Image.asset(
                 "assets/bottom_navbar_icon/left_swipe.png",
@@ -55,6 +57,9 @@ class _OnBoardingControlWidgetState extends State<OnBoardingControlWidget> {
                 );
                 pageChangedProvider.pageChangedFunction(
                     pageChangedProvider.getPageChanged == 0 ? 1 : 2);
+
+                Future.delayed(const Duration(milliseconds: 300))
+                    .then((value) => googleAdsProvider.showInterstitialAd());
               },
               child: Image.asset(
                 "assets/bottom_navbar_icon/right_swipe.png",
