@@ -78,4 +78,7 @@ flutter {
 }
 
 dependencies {
+    def billing_version = "6.1.0"
+
+    implementation "com.android.billingclient:billing:$billing_version"
 }

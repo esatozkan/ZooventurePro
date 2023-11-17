@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class GoogleAdsProvider extends ChangeNotifier{
+class GoogleAdsProvider with ChangeNotifier {
   InterstitialAd? interstitialAd;
   BannerAd? bannerAd;
+  int interstitialAdIndex = 0;
+  int showInterstitialAdIndex = 7;
 
   void loadInterstitialAd({bool showAfterLoad = false}) {
     InterstitialAd.load(
@@ -22,9 +24,15 @@ class GoogleAdsProvider extends ChangeNotifier{
   }
 
   void showInterstitialAd() {
-    if (interstitialAd != null) {
+    if (interstitialAd != null &&
+        interstitialAdIndex == showInterstitialAdIndex - 1) {
       interstitialAd!.show();
-    } 
+      interstitialAdIndex = 0;
+      loadInterstitialAd();
+    } else {
+      interstitialAdIndex++;
+    }
+    notifyListeners();
   }
 
   void loadBannerAd() {

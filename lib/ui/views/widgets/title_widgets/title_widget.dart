@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:zooventure/ui/views/screens/main_screen.dart';
 import 'package:zooventure/ui/views/widgets/internet_connection_widget.dart';
 import '/data/services/application_data_service.dart';
 import '/ui/providers/language_provider.dart';
@@ -87,6 +88,9 @@ class _TitleWidgetState extends State<TitleWidget> {
                     if (pageChangedProvider.getPageChanged != 2 &&
                         connectivityResult != ConnectivityResult.none) {
                       applicationData("Click Language Button");
+
+                      googleAdsProvider.showInterstitialAd();
+
                       // ignore: use_build_context_synchronously
                       showDialog(
                         context: context,
