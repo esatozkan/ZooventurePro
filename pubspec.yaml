@@ -48,6 +48,8 @@ dependencies:
   purchases_flutter: ^6.0.0
   confetti: ^0.7.0
   google_mobile_ads: ^3.1.0
+  onepref: ^0.0.15
+  in_app_purchase: ^3.1.11
 
 
 dev_dependencies:
@@ -112,6 +114,7 @@ flutter:
     - assets/bottom_navbar_icon/
     - assets/game_control/
     - assets/purchases_icon/
+    - assets/gem_images/
     - assets/games/
     - assets/games/spelling_bee_games/
     - assets/games/spelling_bee_games/spelling_bee_game_sounds/

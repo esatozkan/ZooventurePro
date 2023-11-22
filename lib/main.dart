@@ -1,5 +1,6 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:onepref/onepref.dart';
 import 'package:zooventure/data/models/animal_model.dart';
 import 'package:zooventure/data/services/google_ads.dart';
 import '/ui/views/widgets/games_widgets/question_games_widgets/question_games_provider.dart';
@@ -15,12 +16,15 @@ import 'package:flutter/services.dart';
 import '/ui/providers/animal_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'ui/providers/in_app_purchase_provider.dart';
 import 'ui/views/widgets/games_widgets/memory_game_widgets/memory_games_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   MobileAds.instance.initialize();
+
+  await OnePref.init();
 
   await Hive.initFlutter();
   Hive.registerAdapter(AnimalAdapter(), override: true);
@@ -79,7 +83,10 @@ Future<void> main() async {
               ),
               ChangeNotifierProvider(
                 create: (_) => GoogleAdsProvider(),
-              )
+              ),
+              ChangeNotifierProvider(
+                create: (_) => InAppPurchaseProvider(),
+              ),
             ],
             child: const MyApp(),
           ),

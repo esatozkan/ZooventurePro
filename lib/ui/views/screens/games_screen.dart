@@ -12,7 +12,6 @@ class GamesScreen extends StatelessWidget {
     AnimalProvider animalProvider = Provider.of(context, listen: false);
     LanguageProvider languageProvider =
         Provider.of<LanguageProvider>(context, listen: false);
-
     return Builder(
       builder: (context) {
         return SafeArea(

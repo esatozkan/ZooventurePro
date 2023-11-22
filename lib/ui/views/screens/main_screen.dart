@@ -1,6 +1,6 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:zooventure/data/services/google_ads.dart';
-
+import '../../../data/services/get_information.dart';
+import '/data/services/google_ads.dart';
 import '/ui/views/screens/games/know_what_hear_screen.dart';
 import '/ui/views/screens/games/know_what_real_animal_screen.dart';
 import '/ui/views/screens/games/know_what_type_animal_screen.dart';
@@ -8,7 +8,6 @@ import '/ui/views/screens/games/know_what_virtual_animal_screen.dart';
 import '/ui/views/screens/games/memory_games_screen.dart';
 import '/ui/views/screens/games/spelling_bee_game_screen.dart';
 import '../../../data/constants/constants.dart';
-import '../../../data/services/animal_service.dart';
 import '../widgets/on_boarding_control_widget.dart';
 import '../widgets/title_widgets/title_widget.dart';
 import '/ui/providers/page_changed_provider.dart';
@@ -44,8 +43,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
-    googleAdsProvider.loadBannerAd();
-    googleAdsProvider.loadInterstitialAd();
+    // googleAdsProvider.loadBannerAd();
+    // googleAdsProvider.loadInterstitialAd();
     getAllInformation(context);
     super.initState();
   }
@@ -102,7 +101,9 @@ class _MainScreenState extends State<MainScreen> {
                         height: googleAdsProvider.bannerAd != null
                             ? googleAdsProvider.bannerAd!.size.height.toDouble()
                             : 0,
-                        child: AdWidget(ad: googleAdsProvider.bannerAd!),
+                        child: googleAdsProvider.bannerAd != null
+                            ? AdWidget(ad: googleAdsProvider.bannerAd!)
+                            : const Text(""),
                       ),
                     ),
                   )
