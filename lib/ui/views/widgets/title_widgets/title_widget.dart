@@ -45,7 +45,7 @@ class _TitleWidgetState extends State<TitleWidget> {
                   if (connectivityResult != ConnectivityResult.none) {
                     applicationData("Click Sale");
                     // ignore: use_build_context_synchronously
-                    inAppPurchaseWidget(context);
+                      inAppPurchaseWidget(context);
                   } else {
                     // ignore: use_build_context_synchronously
                     showInformationSnackbar(

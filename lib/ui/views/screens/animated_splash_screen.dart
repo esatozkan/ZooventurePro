@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../../data/constants/constants.dart';
+import '../../../data/services/get_information.dart';
 import '/ui/views/screens/main_screen.dart';
-import '../../../data/services/animal_service.dart';
 
 final internetConnection = Hive.box("internetConnection");
 
@@ -23,11 +23,10 @@ class _SplashScreenState extends State<SplashScreen> {
       splash: "assets/splash_screen.gif",
       splashIconSize: 300,
       screenFunction: () async {
-        await getFirebase(context);
+        await getSomeInformation(context);
         internetConnection.put(0, true);
         return const MainScreen();
       },
     );
   }
 }
-
