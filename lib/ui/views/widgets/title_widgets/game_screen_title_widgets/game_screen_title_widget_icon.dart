@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:zooventure/ui/providers/lives_provider.dart';
 
 class GameScreenTitleWidgetIcon extends StatelessWidget {
   final Icon icon;
@@ -16,35 +18,40 @@ class GameScreenTitleWidgetIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 30,
-      width: 100,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: color,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              icon,
-              isChance == true
-                  ?const Text(
-                      "5",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                    )
-                  : const Text(""),
-            ],
-          ),
-          Text(
-            text.length > 6 ? text.substring(0, 8) : text,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          )
-        ],
+    return GestureDetector(
+      onTap: () {
+        Provider.of<LivesProvider>(context, listen: false).incrementLive();
+      },
+      child: Container(
+        height: 30,
+        width: 100,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: color,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                icon,
+                isChance == true
+                    ? Text(
+                        Provider.of<LivesProvider>(context).getLive.toString(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                      )
+                    : const Text(""),
+              ],
+            ),
+            Text(
+               text,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zooventure/ui/providers/in_app_purchase_provider.dart';
+import 'package:zooventure/ui/providers/lives_provider.dart';
 import '../../../../providers/animal_provider.dart';
 import '../../internet_connection_widget.dart';
 import '../in_app_purchase_widgets/buy_gem_widget.dart';
@@ -51,15 +52,19 @@ class GameScreenTitleWidget extends StatelessWidget {
         const SizedBox(
           width: 10,
         ),
-        const GameScreenTitleWidgetIcon(
-          icon: Icon(
-            Icons.favorite,
-            size: 30,
-            color: Colors.red,
+        Consumer<LivesProvider>(
+          builder: (context, livesProvider, _) => GameScreenTitleWidgetIcon(
+            icon: const Icon(
+              Icons.favorite,
+              size: 30,
+              color: Colors.red,
+            ),
+            text: livesProvider.getLive == 5
+                ? "full"
+                : "${livesProvider.getRemainingMinutes} : ${livesProvider.getRemainingSeconds}",
+            isChance: true,
+            color: Colors.black12,
           ),
-          text: "full",
-          isChance: true,
-          color: Colors.black12,
         )
       ],
     );

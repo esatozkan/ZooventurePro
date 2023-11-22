@@ -70,7 +70,7 @@ buyGemWidget(context) {
                           fit: BoxFit.cover,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

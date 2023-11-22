@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onepref/onepref.dart';
-import 'package:zooventure/data/models/animal_model.dart';
-import 'package:zooventure/data/services/google_ads.dart';
+import '/ui/providers/lives_provider.dart';
+import '/data/models/animal_model.dart';
+import '/data/services/google_ads.dart';
 import '/ui/views/widgets/games_widgets/question_games_widgets/question_games_provider.dart';
 import '/ui/views/widgets/games_widgets/spelling_bee_game_widgets/spelling_bee_game_provider.dart';
 import '/ui/providers/language_provider.dart';
@@ -33,11 +35,13 @@ Future<void> main() async {
   await Hive.openBox("flagSpelling");
   await Hive.openBox("languages");
   await Hive.openBox("internetConnection");
+  await Hive.openBox("lives");
 
   // await Hive.deleteBoxFromDisk("animals");
   // await Hive.deleteBoxFromDisk("flags");
   // await Hive.deleteBoxFromDisk("languages");
   // await Hive.deleteBoxFromDisk("flagSpelling");
+  //await Hive.deleteBoxFromDisk("lives");
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -80,6 +84,9 @@ Future<void> main() async {
               ),
               ChangeNotifierProvider(
                 create: (_) => SpellingBeeGameProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (_) => LivesProvider(),
               ),
               ChangeNotifierProvider(
                 create: (_) => GoogleAdsProvider(),

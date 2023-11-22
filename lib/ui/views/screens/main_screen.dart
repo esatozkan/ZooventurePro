@@ -1,4 +1,5 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:zooventure/ui/providers/lives_provider.dart';
 import '../../../data/services/get_information.dart';
 import '/data/services/google_ads.dart';
 import '/ui/views/screens/games/know_what_hear_screen.dart';
@@ -46,6 +47,7 @@ class _MainScreenState extends State<MainScreen> {
     // googleAdsProvider.loadBannerAd();
     // googleAdsProvider.loadInterstitialAd();
     getAllInformation(context);
+    Provider.of<LivesProvider>(context,listen: false).startCountDown();
     super.initState();
   }
 
