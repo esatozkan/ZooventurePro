@@ -30,8 +30,9 @@ buyGemWidget(context) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
-                      child: GestureDetector(
-                        child: GameScreenTitleWidgetIcon(
+                      child: Consumer<InAppPurchaseProvider>(
+                        builder: (context, inAppPurchaseProvider, _) =>
+                            GameScreenTitleWidgetIcon(
                           icon: Icon(
                             Icons.diamond,
                             size: 30,
@@ -78,7 +79,7 @@ buyGemWidget(context) {
                 height: (gemIconHeight * 2) + 20,
                 width: (gemIconWidth * 3) + 60,
                 child: GridView.builder(
-                  itemCount: 6,
+                  itemCount: inAppPurchaseProvider.getProductsList.length,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,

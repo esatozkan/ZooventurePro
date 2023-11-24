@@ -55,73 +55,75 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     List<int> pageIndex = [0, 1, 2];
     return Scaffold(
-      body: Consumer<PageChangedProvider>(
-        builder: (context, pageChangedProvider, _) => pageIndex
-                .contains(pageChangedProvider.getPageChanged)
-            ? Stack(
-                children: [
-                  screenBackgroundImage(
-                    pageChangedProvider.getPageChanged == 0
-                        ? "assets/bottom_navbar_icon/animalsIcon.png"
-                        : pageChangedProvider.getPageChanged == 1
-                            ? "assets/bottom_navbar_icon/animalVoiceIcon.png"
-                            : "assets/bottom_navbar_icon/gameScreenIcon.png",
-                    MediaQuery.of(context).size.height,
-                    MediaQuery.of(context).size.width,
-                  ),
-                  const OnBoardingControlWidget(),
-                  const TitleWidget(),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 100,
-                      right: 100,
-                      top: 100,
-                      bottom: googleAdsProvider.bannerAd != null
-                          ? googleAdsProvider.bannerAd!.size.height.toDouble()
-                          : 0,
+      body: SafeArea(
+        child: Consumer<PageChangedProvider>(
+          builder: (context, pageChangedProvider, _) => pageIndex
+                  .contains(pageChangedProvider.getPageChanged)
+              ? Stack(
+                  children: [
+                    screenBackgroundImage(
+                      pageChangedProvider.getPageChanged == 0
+                          ? "assets/bottom_navbar_icon/animalsIcon.png"
+                          : pageChangedProvider.getPageChanged == 1
+                              ? "assets/bottom_navbar_icon/animalVoiceIcon.png"
+                              : "assets/bottom_navbar_icon/gameScreenIcon.png",
+                      MediaQuery.of(context).size.height,
+                      MediaQuery.of(context).size.width,
                     ),
-                    child: PageView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: pages.length,
-                      controller: pageController,
-                      onPageChanged: (index) {
-                        pageChangedProvider.pageChangedFunction(
-                            pageChangedProvider.getPageChanged);
-                      },
-                      itemBuilder: (context, index) =>
-                          pages[pageChangedProvider.getPageChanged],
-                    ),
-                  ),
-                  Visibility(
-                    visible: googleAdsProvider.bannerAd != null ? true : false,
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: SizedBox(
-                        width: googleAdsProvider.bannerAd != null
-                            ? googleAdsProvider.bannerAd!.size.width.toDouble()
-                            : 0,
-                        height: googleAdsProvider.bannerAd != null
+                    const OnBoardingControlWidget(),
+                    const TitleWidget(),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 100,
+                        right: 100,
+                        top: 100,
+                        bottom: googleAdsProvider.bannerAd != null
                             ? googleAdsProvider.bannerAd!.size.height.toDouble()
                             : 0,
-                        child: googleAdsProvider.bannerAd != null
-                            ? AdWidget(ad: googleAdsProvider.bannerAd!)
-                            : const Text(""),
+                      ),
+                      child: PageView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: pages.length,
+                        controller: pageController,
+                        onPageChanged: (index) {
+                          pageChangedProvider.pageChangedFunction(
+                              pageChangedProvider.getPageChanged);
+                        },
+                        itemBuilder: (context, index) =>
+                            pages[pageChangedProvider.getPageChanged],
                       ),
                     ),
-                  )
-                ],
-              )
-            : PageView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: pages.length,
-                controller: pageController,
-                onPageChanged: (index) {
-                  pageChangedProvider
-                      .pageChangedFunction(pageChangedProvider.getPageChanged);
-                },
-                itemBuilder: (context, index) =>
-                    pages[pageChangedProvider.getPageChanged],
-              ),
+                    Visibility(
+                      visible: googleAdsProvider.bannerAd != null ? true : false,
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SizedBox(
+                          width: googleAdsProvider.bannerAd != null
+                              ? googleAdsProvider.bannerAd!.size.width.toDouble()
+                              : 0,
+                          height: googleAdsProvider.bannerAd != null
+                              ? googleAdsProvider.bannerAd!.size.height.toDouble()
+                              : 0,
+                          child: googleAdsProvider.bannerAd != null
+                              ? AdWidget(ad: googleAdsProvider.bannerAd!)
+                              : const Text(""),
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              : PageView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: pages.length,
+                  controller: pageController,
+                  onPageChanged: (index) {
+                    pageChangedProvider
+                        .pageChangedFunction(pageChangedProvider.getPageChanged);
+                  },
+                  itemBuilder: (context, index) =>
+                      pages[pageChangedProvider.getPageChanged],
+                ),
+        ),
       ),
     );
   }

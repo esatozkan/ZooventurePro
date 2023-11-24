@@ -48,91 +48,89 @@ class _MemoryGamesScreen extends State<MemoryGamesScreen> {
         setUp(context);
         return ChangeNotifierProvider(
           create: (_) => MemoryGamesProvider(),
-          child: SafeArea(
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                      "assets/games/memory_games/word_picture_memory_game_background.png"),
-                  fit: BoxFit.cover,
-                ),
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                    "assets/games/memory_games/word_picture_memory_game_background.png"),
+                fit: BoxFit.cover,
               ),
-              child: FutureBuilder(
-                future: futureCacheImages,
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Container(
-                      color: Colors.deepPurple,
-                      child: const Center(
-                        child: Text(
-                          "Error :( \n Check Your internet connection",
-                          style: TextStyle(
-                            fontFamily: "bubblegumSans",
-                            fontSize: 40,
-                            color: Colors.white,
-                          ),
-                          textDirection: TextDirection.ltr,
-                          textAlign: TextAlign.center,
+            ),
+            child: FutureBuilder(
+              future: futureCacheImages,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Container(
+                    color: Colors.deepPurple,
+                    child: const Center(
+                      child: Text(
+                        "Error :( \n Check Your internet connection",
+                        style: TextStyle(
+                          fontFamily: "bubblegumSans",
+                          fontSize: 40,
+                          color: Colors.white,
                         ),
+                        textDirection: TextDirection.ltr,
+                        textAlign: TextAlign.center,
                       ),
+                    ),
+                  );
+                }
+                return Selector<MemoryGamesProvider, bool>(
+                  selector: (_, wordPictureMemoryGameProvider) =>
+                      wordPictureMemoryGameProvider.roundCompleted,
+                  builder: (_, roundCompleted, __) {
+                    WidgetsBinding.instance.addPostFrameCallback(
+                      (timeStamp) async {
+                        if (roundCompleted) {
+                          await showDialog(
+                              barrierColor: Colors.transparent,
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (context) => const ReplayWidget());
+                        }
+                      },
                     );
-                  }
-                  return Selector<MemoryGamesProvider, bool>(
-                    selector: (_, wordPictureMemoryGameProvider) =>
-                        wordPictureMemoryGameProvider.roundCompleted,
-                    builder: (_, roundCompleted, __) {
-                      WidgetsBinding.instance.addPostFrameCallback(
-                        (timeStamp) async {
-                          if (roundCompleted) {
-                            await showDialog(
-                                barrierColor: Colors.transparent,
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) => const ReplayWidget());
-                          }
-                        },
-                      );
-
-                      return SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            const MemoryGamesTitleWidget(),
-                            Stack(
-                              children: [
-                                Center(
-                                  child: GridView.builder(
-                                    shrinkWrap: true,
-                                    padding: EdgeInsets.only(
-                                        left: withPadding,
-                                        right: withPadding,
-                                        top: 10),
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3,
-                                      crossAxisSpacing: 20,
-                                      mainAxisSpacing: 5,
-                                      childAspectRatio: .8,
-                                    ),
-                                    itemCount: 12,
-                                    itemBuilder: (context, index) =>
-                                        WordTileWidget(
-                                      index: index,
-                                      word: gridWords[index],
-                                    ),
+          
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          const MemoryGamesTitleWidget(),
+                          Stack(
+                            children: [
+                              Center(
+                                child: GridView.builder(
+                                  shrinkWrap: true,
+                                  padding: EdgeInsets.only(
+                                      left: withPadding,
+                                      right: withPadding,
+                                      top: 10),
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3,
+                                    crossAxisSpacing: 20,
+                                    mainAxisSpacing: 5,
+                                    childAspectRatio: .8,
+                                  ),
+                                  itemCount: 12,
+                                  itemBuilder: (context, index) =>
+                                      WordTileWidget(
+                                    index: index,
+                                    word: gridWords[index],
                                   ),
                                 ),
-                                ConfettiAnimationWidget(animate: roundCompleted)
-                              ],
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
+                              ),
+                              ConfettiAnimationWidget(animate: roundCompleted)
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
         );

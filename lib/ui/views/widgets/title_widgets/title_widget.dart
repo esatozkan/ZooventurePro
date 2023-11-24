@@ -45,7 +45,7 @@ class _TitleWidgetState extends State<TitleWidget> {
                   if (connectivityResult != ConnectivityResult.none) {
                     applicationData("Click Sale");
                     // ignore: use_build_context_synchronously
-                      inAppPurchaseWidget(context);
+                    inAppPurchaseWidget(context);
                   } else {
                     // ignore: use_build_context_synchronously
                     showInformationSnackbar(
@@ -89,9 +89,9 @@ class _TitleWidgetState extends State<TitleWidget> {
                               await Connectivity().checkConnectivity();
                           if (connectivityResult != ConnectivityResult.none) {
                             applicationData("Click Language Button");
-
+        
                             googleAdsProvider.showInterstitialAd();
-
+        
                             // ignore: use_build_context_synchronously
                             showDialog(
                               context: context,
@@ -162,10 +162,10 @@ class _TitleWidgetState extends State<TitleWidget> {
                                                     // ignore: use_build_context_synchronously
                                                     await loadingWidget(
                                                         context);
-
+        
                                                     // ignore: use_build_context_synchronously
                                                     Navigator.pop(context);
-
+        
                                                     setState(
                                                       () {
                                                         animalProvider
