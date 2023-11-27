@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:zooventure/ui/providers/in_app_purchase_provider.dart';
+import 'package:zooventure/ui/views/widgets/title_widgets/in_app_purchase_widgets/buy_gem_widget.dart';
 import '../../../../data/constants/constants.dart';
 import '../../../providers/lives_provider.dart';
 
@@ -8,8 +10,12 @@ noLiveWidget(context) {
     context: context,
     builder: (_) => Center(
       child: Container(
-        height: (MediaQuery.of(context).size.height * 7) / 8,
-        width: (MediaQuery.of(context).size.width * 7) / 10,
+        height: MediaQuery.of(context).orientation == Orientation.portrait
+            ? (MediaQuery.of(context).size.height * 7) / 10
+            : (MediaQuery.of(context).size.height * 7) / 8,
+        width: MediaQuery.of(context).orientation == Orientation.portrait
+            ? (MediaQuery.of(context).size.width * 7) / 8
+            : (MediaQuery.of(context).size.width * 7) / 10,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
           color: const Color(0xfffef5cc),
@@ -78,93 +84,202 @@ noLiveWidget(context) {
                             fontSize: 32,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 20,
-                    ),
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: const Color(0xff7dd505),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        right: 20,
-                        top: 10,
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Image.asset(
-                          "assets/close_icon.png",
-                          color: Colors.white,
-                          height: 50,
-                          width: 50,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 30,
-                        vertical: 20,
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 40,
-                        vertical: 20,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: const Color(0xff7dd505),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "Refill Lives",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Icon(
-                              Icons.diamond,
-                              size: 30,
-                              color: itemColor,
-                            ),
-                          ),
-                          const Text(
-                            "200",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              )
+              MediaQuery.of(context).orientation == Orientation.portrait
+                  ? isNotPortrait(context)
+                  : isPortrait(context),
             ],
           ),
         ),
       ),
     ),
+  );
+}
+
+Widget isPortrait(context) {
+  InAppPurchaseProvider inAppPurchaseProvider =
+      Provider.of<InAppPurchaseProvider>(context, listen: false);
+  LivesProvider livesProvider = Provider.of(context, listen: false);
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Container(
+        margin: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 20,
+        ),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: const Color(0xff7dd505),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(
+            right: 20,
+            top: 10,
+          ),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Image.asset(
+              "assets/close_icon.png",
+              color: Colors.white,
+              height: 50,
+              width: 50,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          if (inAppPurchaseProvider.getGems > 200) {
+            inAppPurchaseProvider.setGems(inAppPurchaseProvider.getGems - 200);
+            livesProvider.setLive(5);
+            Navigator.of(context).pop();
+          } else {
+            Navigator.of(context).pop();
+            buyGemWidget(context);
+          }
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(
+            horizontal: 30,
+            vertical: 20,
+          ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 40,
+            vertical: 20,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: const Color(0xff7dd505),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Refill Lives",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Icon(
+                  Icons.diamond,
+                  size: 30,
+                  color: itemColor,
+                ),
+              ),
+              const Text(
+                "200",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+Widget isNotPortrait(context) {
+  InAppPurchaseProvider inAppPurchaseProvider =
+      Provider.of<InAppPurchaseProvider>(context, listen: false);
+  LivesProvider livesProvider = Provider.of(context, listen: false);
+  return Column(
+    children: [
+      GestureDetector(
+        onTap: () {
+          if (inAppPurchaseProvider.getGems > 200) {
+            inAppPurchaseProvider.setGems(inAppPurchaseProvider.getGems - 200);
+            livesProvider.setLive(5);
+            Navigator.of(context).pop();
+          } else {
+            Navigator.of(context).pop();
+            buyGemWidget(context);
+          }
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(
+            horizontal: 30,
+            vertical: 10,
+          ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 40,
+            vertical: 15,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: const Color(0xff7dd505),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Refill Lives",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Icon(
+                  Icons.diamond,
+                  size: 25,
+                  color: itemColor,
+                ),
+              ),
+              const Text(
+                "200",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
+            ],
+          ),
+        ),
+      ),
+      GestureDetector(
+        child: Container(
+          margin: const EdgeInsets.symmetric(
+            horizontal: 30,
+            vertical: 10,
+          ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 40,
+            vertical: 15,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: const Color(0xff7dd505),
+          ),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Image.asset(
+              "assets/close_icon.png",
+              color: Colors.white,
+              height: 50,
+              width: 50,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ),
+    ],
   );
 }

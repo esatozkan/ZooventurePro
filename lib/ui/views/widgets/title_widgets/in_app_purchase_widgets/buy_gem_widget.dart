@@ -54,35 +54,48 @@ buyGemWidget(context) {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        right: 20,
-                        top: 10,
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Image.asset(
-                          "assets/close_icon.png",
-                          color: itemColor,
-                          height: 50,
-                          width: 50,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
+                    MediaQuery.of(context).orientation ==
+                            Orientation.portrait
+                        ? const Text("")
+                        : Padding(
+                            padding: const EdgeInsets.only(
+                              right: 20,
+                              top: 10,
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Image.asset(
+                                "assets/close_icon.png",
+                                color: itemColor,
+                                height: 50,
+                                width: 50,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
                   ],
                 ),
               ),
-              SizedBox(
-                height: (gemIconHeight * 2) + 20,
+              Container(
+                margin: MediaQuery.of(context).orientation ==
+                        Orientation.portrait
+                    ? const EdgeInsets.only(top: 20)
+                    : const EdgeInsets.all(0),
+                height: MediaQuery.of(context).orientation ==
+                        Orientation.portrait
+                    ? (gemIconHeight * 3) + 40
+                    : (gemIconHeight * 2) + 20,
                 width: (gemIconWidth * 3) + 60,
                 child: GridView.builder(
                   itemCount: inAppPurchaseProvider.getProductsList.length,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
+                    crossAxisCount: MediaQuery.of(context).orientation ==
+                            Orientation.portrait
+                        ? 2
+                        : 3,
                     crossAxisSpacing: 30,
                     mainAxisSpacing: 10,
                     childAspectRatio: gemIconWidth / gemIconHeight,
@@ -105,13 +118,38 @@ buyGemWidget(context) {
                           inAppPurchaseProvider.getProductsList[index].id
                               .indexOf("_"),
                         ),
-                        price:
-                            inAppPurchaseProvider.getProductsList[index].price,
+                        price: inAppPurchaseProvider
+                            .getProductsList[index].price,
                       ),
                     );
                   },
                 ),
               ),
+              MediaQuery.of(context).orientation == Orientation.portrait
+                  ? Container(
+                      margin: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 60,
+                        vertical: 20,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color(0xff7dd507),
+                      ),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Image.asset(
+                          "assets/close_icon.png",
+                          color: itemColor,
+                          height: 50,
+                          width: 50,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                  : const Text("")
             ],
           ),
         ),

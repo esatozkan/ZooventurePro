@@ -31,9 +31,6 @@ class _TitleWidgetState extends State<TitleWidget> {
 
     return Column(
       children: [
-        const SizedBox(
-          height: 10,
-        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -243,6 +240,9 @@ class _TitleWidgetState extends State<TitleWidget> {
                   : const GameScreenTitleWidget(),
             ),
           ],
+        ),
+        const SizedBox(
+          height: 10,
         ),
       ],
     );

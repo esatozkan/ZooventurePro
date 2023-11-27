@@ -23,7 +23,6 @@ Future getSomeInformation(context) async {
       .listen((list) {
     inAppPurchaseProvider.listenPurchases(list);
   });
-  inAppPurchaseProvider.setGems();
 
   if (animalBox.isEmpty) {
     await getAnimalVirtualImage(context);

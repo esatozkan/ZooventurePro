@@ -2,6 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:zooventure/ui/providers/lives_provider.dart';
+import 'package:zooventure/ui/views/widgets/games_widgets/no_live_widget.dart';
+import 'package:zooventure/ui/views/widgets/title_widgets/in_app_purchase_widgets/buy_gem_widget.dart';
 import '/ui/providers/animal_provider.dart';
 import '../../../../providers/page_changed_provider.dart';
 import 'question_games_provider.dart';
@@ -21,6 +24,8 @@ class QuestionGameGameOverWidget extends StatelessWidget {
         Provider.of<AnimalProvider>(context, listen: false);
     PageChangedProvider pageChangedProvider =
         Provider.of<PageChangedProvider>(context, listen: false);
+    LivesProvider livesProvider =
+        Provider.of<LivesProvider>(context, listen: false);
     return Consumer<QuestionGameProvider>(
       builder: (context, questionGameProvider, _) => SingleChildScrollView(
         child: Visibility(
@@ -40,19 +45,26 @@ class QuestionGameGameOverWidget extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
                 TextButton(
-                    onPressed: () {},
-                    child: textButton(animalProvider.getUiTexts[3], 60)),
+                  onPressed: () {
+                    buyGemWidget(context);
+                  },
+                  child: textButton(animalProvider.getUiTexts[3], 60),
+                ),
                 TextButton(
                     onPressed: () {
-                      questionGameProvider.resetGame(context);
-                      if (question == "knowWhatRealImage") {
-                        pageChangedProvider.pageChangedFunction(4);
-                      } else if (question == "knowWhatVirtualImage") {
-                        pageChangedProvider.pageChangedFunction(6);
-                      } else if (question == "knowWhatTypeAnimalScreen") {
-                        pageChangedProvider.pageChangedFunction(5);
-                      } else if (question == "KnowWhatHearAnimalScreen") {
-                        pageChangedProvider.pageChangedFunction(3);
+                      if (livesProvider.getLive > 0) {
+                        questionGameProvider.resetGame(context);
+                        if (question == "knowWhatRealImage") {
+                          pageChangedProvider.pageChangedFunction(4);
+                        } else if (question == "knowWhatVirtualImage") {
+                          pageChangedProvider.pageChangedFunction(6);
+                        } else if (question == "knowWhatTypeAnimalScreen") {
+                          pageChangedProvider.pageChangedFunction(5);
+                        } else if (question == "KnowWhatHearAnimalScreen") {
+                          pageChangedProvider.pageChangedFunction(3);
+                        }
+                      } else {
+                        noLiveWidget(context);
                       }
                     },
                     child: textButton(animalProvider.getUiTexts[4], 40)),

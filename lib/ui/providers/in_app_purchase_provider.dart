@@ -30,9 +30,21 @@ class InAppPurchaseProvider with ChangeNotifier {
       if (value) {
         await iApEngine.queryProducts(storeProductIds).then((response) {
           products.addAll(response.productDetails);
+          products.sort(
+            (a, b) => int.parse(a.id.substring(
+              0,
+              a.id.indexOf("_"),
+            )).compareTo(int.parse(
+              b.id.substring(
+                0,
+                b.id.indexOf("_"),
+              ),
+            )),
+          );
         });
       }
     });
+    gems = OnePref.getInt("gems") ?? 0;
     notifyListeners();
   }
 
@@ -72,8 +84,8 @@ class InAppPurchaseProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setGems() {
-    gems = OnePref.getInt("gems") ?? 0;
+  void setGems(int value) {
+    gems = value;
     notifyListeners();
   }
 }

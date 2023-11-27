@@ -27,6 +27,7 @@ class GameScreenTitleWidget extends StatelessWidget {
                   Provider.of<InAppPurchaseProvider>(context, listen: false)
                       .getProductsList
                       .isNotEmpty) {
+                        
                 // ignore: use_build_context_synchronously
                 buyGemWidget(context);
               } else if (connectivityResult == ConnectivityResult.none) {
