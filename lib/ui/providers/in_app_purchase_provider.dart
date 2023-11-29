@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
@@ -5,13 +6,10 @@ import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:onepref/onepref.dart';
 
 class InAppPurchaseProvider with ChangeNotifier {
-  int gems = 0;
-  // List Products
-  late List<ProductDetails> products = <ProductDetails>[];
-  //IapEngine
-  IApEngine iApEngine = IApEngine();
-  //List Of Product Ids
-  List<ProductId> storeProductIds = <ProductId>[
+  //GEMS
+  late int gems;
+  late List<ProductDetails> gemProducts = <ProductDetails>[];
+  final List<ProductId> _gemStoreProductIds = <ProductId>[
     ProductId(id: "500_diamond", isConsumable: true, reward: 500),
     ProductId(id: "1500_diamond", isConsumable: true, reward: 1500),
     ProductId(id: "3500_diamond", isConsumable: true, reward: 3500),
@@ -20,29 +18,69 @@ class InAppPurchaseProvider with ChangeNotifier {
     ProductId(id: "36000_diamond", isConsumable: true, reward: 36000),
   ];
 
-  List<ProductDetails> get getProductsList => products;
-  IApEngine get getIApEngine => iApEngine;
-  List<ProductId> get getStoreProductIds => storeProductIds;
+//REMOVE AD
+  bool removeAdIsSubscribed = OnePref.getRemoveAds() ?? false;
+  bool removeAdSubExisting = false;
+  bool isRestore = false;
+  late PurchaseDetails removeAdOldPurchaseDetails;
+  late final List<ProductDetails> removeAdProducts = <ProductDetails>[];
+  final List<ProductId> _removeAdProductIds = <ProductId>[
+    ProductId(id: "remove_ad_weekly", isConsumable: false),
+    ProductId(id: "remove_ad_monthly", isConsumable: false),
+    ProductId(id: "remove_ad_yearly", isConsumable: false),
+  ];
+
+  IApEngine iApEngine = IApEngine();
+
+  List<ProductDetails> get getGemProductsList => gemProducts;
+  List<ProductId> get getGemStoreProductIds => _gemStoreProductIds;
   int get getGems => gems;
+
+  List<ProductDetails> get getRemoveAdProducts => removeAdProducts;
+  List<ProductId> get getRemoveAdProductIds => _removeAdProductIds;
+  PurchaseDetails get getRemoveAdOldPurchaseDetails =>
+      removeAdOldPurchaseDetails;
+  bool get getRemoveAdIsSubscribed => removeAdIsSubscribed;
+  bool get getRemoveAdSubExisting => removeAdSubExisting;
+
+  IApEngine get getIApEngine => iApEngine;
 
   Future<void> getProducts() async {
     await iApEngine.getIsAvailable().then((value) async {
       if (value) {
-        await iApEngine.queryProducts(storeProductIds).then((response) {
-          products.addAll(response.productDetails);
+        await iApEngine.queryProducts(_gemStoreProductIds).then((response) {
+          gemProducts.addAll(response.productDetails);
+          gemProducts.sort(
+            (a, b) => int.parse(a.id.substring(
+              0,
+              a.id.indexOf("_"),
+            )).compareTo(
+              int.parse(
+                b.id.substring(
+                  0,
+                  b.id.indexOf("_"),
+                ),
+              ),
+            ),
+          );
+        });
+        await iApEngine.queryProducts(_removeAdProductIds).then((response) {
+          removeAdProducts.clear();
+          removeAdProducts.addAll(response.productDetails);
         });
       }
     });
+    gems = OnePref.getInt("gems") ?? 0;
     notifyListeners();
   }
 
-  Future<void> listenPurchases(List<PurchaseDetails> list) async {
+  Future<void> listenGemPurchases(List<PurchaseDetails> list) async {
     for (PurchaseDetails purchase in list) {
       if (purchase.status == PurchaseStatus.restored ||
           purchase.status == PurchaseStatus.purchased) {
         if (Platform.isAndroid &&
             iApEngine
-                .getProductIdsOnly(storeProductIds)
+                .getProductIdsOnly(_gemStoreProductIds)
                 .contains(purchase.productID)) {
           final InAppPurchaseAndroidPlatformAddition androidAddition = iApEngine
               .inAppPurchase
@@ -60,10 +98,58 @@ class InAppPurchaseProvider with ChangeNotifier {
     }
   }
 
+  Future<void> listenRemoveAdSubscribe(List<PurchaseDetails> list) async {
+    if (list.isNotEmpty) {
+      for (PurchaseDetails purchaseDetails in list) {
+        if (purchaseDetails.status == PurchaseStatus.restored ||
+            purchaseDetails.status == PurchaseStatus.purchased) {
+          Map purchaseData = json
+              .decode(purchaseDetails.verificationData.localVerificationData);
+
+          if (purchaseData["acknowledged"]) {
+            removeAdIsSubscribed = true;
+            OnePref.setRemoveAds(removeAdIsSubscribed);
+          } else {
+            //first time purchase
+
+            if (Platform.isAndroid) {
+              final InAppPurchaseAndroidPlatformAddition androidAddition =
+                  iApEngine.inAppPurchase.getPlatformAddition<
+                      InAppPurchaseAndroidPlatformAddition>();
+
+              await androidAddition
+                  .consumePurchase(purchaseDetails)
+                  .then((value) {
+                updateIsRemoveAdSubscribe(true);
+              });
+            }
+
+            //complete the purchase
+            if (purchaseDetails.pendingCompletePurchase) {
+              await iApEngine.inAppPurchase
+                  .completePurchase(purchaseDetails)
+                  .then((value) {
+                updateIsRemoveAdSubscribe(true);
+              });
+            }
+          }
+        }
+      }
+    } else {
+      updateIsRemoveAdSubscribe(false);
+    }
+  }
+
+  void updateIsRemoveAdSubscribe(bool value) {
+    removeAdIsSubscribed = value;
+    OnePref.setRemoveAds(removeAdIsSubscribed);
+    notifyListeners();
+  }
+
   void giveUserGems(PurchaseDetails purchaseDetails) {
     gems = OnePref.getInt("gems") ?? 0;
 
-    for (var product in storeProductIds) {
+    for (var product in _gemStoreProductIds) {
       if (product.id == purchaseDetails.productID) {
         gems += product.reward!;
         OnePref.setInt("gems", gems);
@@ -72,8 +158,29 @@ class InAppPurchaseProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setGems() {
-    gems = OnePref.getInt("gems") ?? 0;
+  void setGemsValue(int value) {
+    gems = value;
+    OnePref.setInt("gems", gems);
     notifyListeners();
+  }
+
+  void setRemoveAdSubExisting(bool value) {
+    removeAdSubExisting = value;
+    notifyListeners();
+  }
+
+  void setOldPurchaseDetails(PurchaseDetails value) {
+    removeAdOldPurchaseDetails = value;
+    notifyListeners();
+  }
+
+  void setIsRestore(bool val) {
+    isRestore = val;
+    notifyListeners();
+  }
+
+  void restoreSubscription() {
+    iApEngine.inAppPurchase.restorePurchases();
+    
   }
 }

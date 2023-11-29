@@ -6,8 +6,6 @@ class AnimalNamesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
-      child: GridCardWidget(),
-    );
+    return const GridCardWidget();
   }
 }

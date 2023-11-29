@@ -22,7 +22,11 @@ class GameScreenTitleWidget extends StatelessWidget {
           onTap: () async {
             var connectivityResult = await Connectivity().checkConnectivity();
             if (animalProvider.getIsAllInformationDownload) {
-              if (connectivityResult != ConnectivityResult.none) {
+              if (connectivityResult != ConnectivityResult.none ||
+                  // ignore: use_build_context_synchronously
+                  Provider.of<InAppPurchaseProvider>(context, listen: false)
+                      .getGemProductsList
+                      .isNotEmpty) {
                 // ignore: use_build_context_synchronously
                 buyGemWidget(context);
               } else if (connectivityResult == ConnectivityResult.none) {
@@ -37,16 +41,22 @@ class GameScreenTitleWidget extends StatelessWidget {
               showInformationSnackbar(context, "text");
             }
           },
-          child: GameScreenTitleWidgetIcon(
-            icon: Icon(
-              Icons.diamond,
-              size: 30,
-              color: itemColor,
+          child: Consumer<InAppPurchaseProvider>(
+            builder: (context, inAppPurchaseProvider, _) =>
+                GameScreenTitleWidgetIcon(
+              icon: Icon(
+                Icons.diamond,
+                size: 30,
+                color: itemColor,
+              ),
+              text: inAppPurchaseProvider.getGems < 1000
+                  ? inAppPurchaseProvider.getGems.toString()
+                  : (inAppPurchaseProvider.getGems > 999 &&
+                          inAppPurchaseProvider.getGems < 1000000)
+                      ? "${(inAppPurchaseProvider.getGems / 1000.0).toStringAsFixed(1)} K"
+                      : "${(inAppPurchaseProvider.getGems / 1000000.0).toStringAsFixed(1)} B",
+              color: Colors.black12,
             ),
-            text: Provider.of<InAppPurchaseProvider>(context, listen: false)
-                .getGems
-                .toString(),
-            color: Colors.black12,
           ),
         ),
         const SizedBox(

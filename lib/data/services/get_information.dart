@@ -21,9 +21,18 @@ Future getSomeInformation(context) async {
   await inAppPurchaseProvider.getProducts();
   inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
       .listen((list) {
-    inAppPurchaseProvider.listenPurchases(list);
+    inAppPurchaseProvider.listenGemPurchases(list);
   });
-  inAppPurchaseProvider.setGems();
+  inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
+      .listen((listOfPurchaseDetails) {
+    if (listOfPurchaseDetails.isNotEmpty) {
+      inAppPurchaseProvider.setRemoveAdSubExisting(true);
+      //yalnız bir abonelik varsa geçerli
+      inAppPurchaseProvider.setOldPurchaseDetails(listOfPurchaseDetails[0]);
+    }
+
+    inAppPurchaseProvider.listenRemoveAdSubscribe(listOfPurchaseDetails);
+  });
 
   if (animalBox.isEmpty) {
     await getAnimalVirtualImage(context);

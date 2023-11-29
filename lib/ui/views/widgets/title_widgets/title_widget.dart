@@ -31,9 +31,6 @@ class _TitleWidgetState extends State<TitleWidget> {
 
     return Column(
       children: [
-        const SizedBox(
-          height: 10,
-        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -45,7 +42,7 @@ class _TitleWidgetState extends State<TitleWidget> {
                   if (connectivityResult != ConnectivityResult.none) {
                     applicationData("Click Sale");
                     // ignore: use_build_context_synchronously
-                      inAppPurchaseWidget(context);
+                    inAppPurchaseWidget(context);
                   } else {
                     // ignore: use_build_context_synchronously
                     showInformationSnackbar(
@@ -90,7 +87,8 @@ class _TitleWidgetState extends State<TitleWidget> {
                           if (connectivityResult != ConnectivityResult.none) {
                             applicationData("Click Language Button");
 
-                            googleAdsProvider.showInterstitialAd();
+                            // ignore: use_build_context_synchronously
+                            googleAdsProvider.showInterstitialAd(context);
 
                             // ignore: use_build_context_synchronously
                             showDialog(
@@ -243,6 +241,9 @@ class _TitleWidgetState extends State<TitleWidget> {
                   : const GameScreenTitleWidget(),
             ),
           ],
+        ),
+        const SizedBox(
+          height: 10,
         ),
       ],
     );

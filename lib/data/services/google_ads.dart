@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
+
+import '../../ui/providers/in_app_purchase_provider.dart';
 
 class GoogleAdsProvider with ChangeNotifier {
   InterstitialAd? interstitialAd;
@@ -7,7 +10,7 @@ class GoogleAdsProvider with ChangeNotifier {
   int interstitialAdIndex = 0;
   int showInterstitialAdIndex = 7;
 
-  void loadInterstitialAd({bool showAfterLoad = false}) {
+  void loadInterstitialAd({bool showAfterLoad = false, required context}) {
     InterstitialAd.load(
       adUnitId: "ca-app-pub-3940256099942544/1033173712",
       request: const AdRequest(),
@@ -15,7 +18,7 @@ class GoogleAdsProvider with ChangeNotifier {
         onAdLoaded: (ad) {
           interstitialAd = ad;
           if (showAfterLoad) {
-            showInterstitialAd();
+            showInterstitialAd(context);
           }
         },
         onAdFailedToLoad: (LoadAdError error) {},
@@ -23,14 +26,21 @@ class GoogleAdsProvider with ChangeNotifier {
     );
   }
 
-  void showInterstitialAd() {
+  void showInterstitialAd(context) {
     if (interstitialAd != null &&
-        interstitialAdIndex == showInterstitialAdIndex - 1) {
+        interstitialAdIndex == showInterstitialAdIndex - 1 &&
+        Provider.of<InAppPurchaseProvider>(context, listen: false)
+                .getRemoveAdIsSubscribed ==
+            false) {
       interstitialAd!.show();
       interstitialAdIndex = 0;
-      loadInterstitialAd();
+      loadInterstitialAd(context: context);
     } else {
-      interstitialAdIndex++;
+      if (Provider.of<InAppPurchaseProvider>(context, listen: false)
+              .getRemoveAdIsSubscribed ==
+          false) {
+        interstitialAdIndex++;
+      }
     }
     notifyListeners();
   }

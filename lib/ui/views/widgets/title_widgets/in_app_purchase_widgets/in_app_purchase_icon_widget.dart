@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:zooventure/ui/views/widgets/title_widgets/in_app_purchase_widgets/subscribe_remove_ad_widget.dart';
 import '../../../../../data/constants/constants.dart';
 
 class PurchaseIconWidget extends StatefulWidget {
@@ -21,10 +23,18 @@ class _PurchaseIconWidget extends State<PurchaseIconWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top:10),
+      padding: const EdgeInsets.only(top: 10),
       child: GestureDetector(
-         
-        onTap: () {},
+        onTap: () {
+          if (widget.whichFunction == "removeAds") {
+            SystemChrome.setPreferredOrientations([
+              DeviceOrientation.portraitUp,
+              DeviceOrientation.portraitDown
+            ]).then(
+              (value) => subscribeRemoveAdWidget(context),
+            );
+          }
+        },
         child: Column(
           children: [
             ClipRRect(
@@ -43,7 +53,7 @@ class _PurchaseIconWidget extends State<PurchaseIconWidget> {
                 style: TextStyle(
                   fontFamily: "displayFont",
                   fontSize: 20,
-                 // fontWeight: FontWeight.w400,
+                  // fontWeight: FontWeight.w400,
                   color: itemColor,
                 ),
               ),

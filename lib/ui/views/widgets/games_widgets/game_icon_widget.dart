@@ -29,11 +29,14 @@ class _GameIconWidgetState extends State<GameIconWidget> {
   Widget build(BuildContext context) {
     PageChangedProvider pageChangedProvider =
         Provider.of<PageChangedProvider>(context, listen: false);
+    LivesProvider livesProvider =
+        Provider.of<LivesProvider>(context, listen: false);
     return GestureDetector(
       onTap: () {
         if (Provider.of<AnimalProvider>(context, listen: false)
             .getIsAllInformationDownload) {
-          if (Provider.of<LivesProvider>(context,listen: false).getLive == 5) {
+          if (livesProvider.getLive != 0) {
+            livesProvider.decrementLive();
             Future.delayed(const Duration(milliseconds: 500)).then((value) {
               if (widget.whichFunction == "memoryGame") {
                 applicationData("Memory Game");

@@ -101,7 +101,7 @@ import '../../../../../data/constants/constants.dart';
                   PurchaseIconWidget(
                     icon: "assets/purchases_icon/play_with_ads.gif",
                     text: animalProvider.getUiTexts[6],
-                    whichFunction: "",
+                    whichFunction: "removeAds",
                   ),
                 ],
               ),

@@ -68,69 +68,67 @@ class _SpellingBeeGameScreenState extends State<SpellingBeeGameScreen> {
               generateWord();
             }
           }
-          return SafeArea(
-            child: Stack(
-              children: [
-                Container(
-                  color: Colors.lightBlue,
-                ),
-                Column(
-                  children: [
-                    const Expanded(
-                        flex: 3, child: SpellingBeeGameTitleWidget()),
-                    Expanded(
-                      flex: 4,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: dropWord.characters
-                            .map(
-                              (e) => FlyInAnimationWidget(
-                                animate: true,
-                                child: DropWidget(
-                                  letter: e,
-                                ),
+          return Stack(
+            children: [
+              Container(
+                color: Colors.lightBlue,
+              ),
+              Column(
+                children: [
+                  const Expanded(
+                      flex: 3, child: SpellingBeeGameTitleWidget()),
+                  Expanded(
+                    flex: 4,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: dropWord.characters
+                          .map(
+                            (e) => FlyInAnimationWidget(
+                              animate: true,
+                              child: DropWidget(
+                                letter: e,
                               ),
-                            )
-                            .toList(),
-                      ),
+                            ),
+                          )
+                          .toList(),
                     ),
-                    Expanded(
-                      flex: 4,
-                      child: FlyInAnimationWidget(
-                        animate: true,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(30),
-                          child: Image.memory(
-                            image,
-                            fit: BoxFit.cover,
-                          ),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: FlyInAnimationWidget(
+                      animate: true,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: Image.memory(
+                          image,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                    Expanded(
-                      flex: 4,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: word.characters
-                            .map(
-                              (e) => FlyInAnimationWidget(
-                                animate: true,
-                                child: DragWidget(
-                                  letter: e,
-                                ),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: word.characters
+                          .map(
+                            (e) => FlyInAnimationWidget(
+                              animate: true,
+                              child: DragWidget(
+                                letter: e,
                               ),
-                            )
-                            .toList(),
-                      ),
+                            ),
+                          )
+                          .toList(),
                     ),
-                    const Expanded(
-                      flex: 1,
-                      child: ProgressBarWidget(),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  const Expanded(
+                    flex: 1,
+                    child: ProgressBarWidget(),
+                  ),
+                ],
+              ),
+            ],
           );
         },
       );

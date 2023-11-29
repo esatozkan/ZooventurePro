@@ -26,9 +26,11 @@ class ReplayWidget extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+              },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
+                //buy
                 child: Text(animalProvider.getUiTexts[3]),
               ),
             ),
@@ -49,6 +51,7 @@ class ReplayWidget extends StatelessWidget {
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
+                //quit
                 child: Text(animalProvider.getUiTexts[5]),
               ),
             ),
