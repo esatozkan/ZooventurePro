@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onepref/onepref.dart';
+import '/ui/providers/subscription_provider.dart';
 import '/ui/providers/lives_provider.dart';
 import '/data/models/animal_model.dart';
 import '/data/services/google_ads.dart';
@@ -94,6 +95,9 @@ Future<void> main() async {
               ChangeNotifierProvider(
                 create: (_) => InAppPurchaseProvider(),
               ),
+              ChangeNotifierProvider(
+                create: (_) => SubscriptionProvider(),
+              )
             ],
             child: const MyApp(),
           ),
@@ -131,7 +135,155 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const SplashScreen(),
+      home:
+
+          //SplashScreenDeneme()
+          const SplashScreen(),
+    );
+  }
+}
+
+class Deneme extends StatefulWidget {
+  const Deneme({super.key});
+
+  @override
+  State<Deneme> createState() => _DenemeState();
+}
+
+class _DenemeState extends State<Deneme> {
+  @override
+  void initState() {
+    SubscriptionProvider subscriptionProvider =
+        Provider.of<SubscriptionProvider>(context, listen: false);
+    // TODO: implement initState
+    super.initState();
+
+    subscriptionProvider.getIApEngine.inAppPurchase.purchaseStream
+        .listen((listOfPurchaseDetails) {
+      if (listOfPurchaseDetails.isNotEmpty) {
+        subscriptionProvider.updateSubExisting(true);
+        subscriptionProvider.setOldPurchaseDetails(listOfPurchaseDetails[0]);
+      }
+      subscriptionProvider.listenPurchases(listOfPurchaseDetails);
+    });
+
+    subscriptionProvider.getProducts();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    SubscriptionProvider subscriptionProvider =
+        Provider.of<SubscriptionProvider>(context, listen: false);
+    return Scaffold(
+      body: Column(
+        children: [
+          Consumer<SubscriptionProvider>(
+              builder: (context, subscriptionProvider, _) => Text(
+                  "is subscriped ${subscriptionProvider.getIsSubscribeRemoveAd}")),
+          Consumer<SubscriptionProvider>(
+            builder: (context, subscriptionProvider, _) => Visibility(
+                visible: !subscriptionProvider.getIsSubscribeRemoveAd,
+                child: Text("showing ad")),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(27.0),
+            child: GestureDetector(
+                onTap: () {
+                  subscriptionProvider.getIApEngine.inAppPurchase
+                      .restorePurchases();
+                },
+                child: Text("Restore Subscription")),
+          ),
+          Expanded(
+            child: ListView.builder(
+                itemCount: subscriptionProvider.getProductsList.length,
+                itemBuilder: ((context, index) {
+                  return GestureDetector(
+                    onTap: () async {
+                      subscriptionProvider.setRestore(false);
+                      await subscriptionProvider.getIApEngine.inAppPurchase
+                          .restorePurchases()
+                          .whenComplete(() async {
+                        await Future.delayed(Duration(seconds: 1))
+                            .then((value) async {
+                          if (subscriptionProvider.getSubExisting &&
+                              subscriptionProvider
+                                      .getOldPurchaseDetails.productID !=
+                                  subscriptionProvider
+                                      .getProductsList[index].id) {
+                            await subscriptionProvider.getIApEngine
+                                .upgradeOrDowngradeSubscription(
+                                    subscriptionProvider.getOldPurchaseDetails,
+                                    subscriptionProvider.getProductsList[index])
+                                .then((value) {
+                              subscriptionProvider.updateSubExisting(false);
+                            });
+                          } else {
+                            subscriptionProvider.getIApEngine.handlePurchase(
+                                subscriptionProvider.getProductsList[index],
+                                subscriptionProvider.getStoreProductIds);
+                          }
+                        });
+                      });
+                    },
+                    child: ListTile(
+                      title: Text(subscriptionProvider
+                          .getProductsList[index].description),
+                      trailing: Text(
+                          subscriptionProvider.getProductsList[index].price),
+                    ),
+                  );
+                })),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SplashScreenDeneme extends StatefulWidget {
+  const SplashScreenDeneme({super.key});
+
+  @override
+  State<SplashScreenDeneme> createState() => _SplashScreenDenemeState();
+}
+
+class _SplashScreenDenemeState extends State<SplashScreenDeneme> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Provider.of<SubscriptionProvider>(context, listen: false)
+        .restoreSubscription();
+
+    Provider.of<SubscriptionProvider>(context, listen: false)
+        .getIApEngine
+        .inAppPurchase
+        .purchaseStream
+        .listen((list) {
+      if (list.isNotEmpty) {
+        for (int i = 0; i < list.length; i++) {
+          print(list[i].verificationData.localVerificationData);
+        }
+        OnePref.setRemoveAds(true);
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (builder) => Deneme()));
+      } else {
+        //abonelik iptali ya da bitmesi durumu buraya yazılıcak
+        OnePref.setRemoveAds(false);
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (builder) => Deneme()));
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text("loading..."),
+      ),
     );
   }
 }

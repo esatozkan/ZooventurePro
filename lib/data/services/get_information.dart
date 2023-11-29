@@ -21,8 +21,12 @@ Future getSomeInformation(context) async {
   await inAppPurchaseProvider.getProducts();
   inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
       .listen((list) {
-    inAppPurchaseProvider.listenPurchases(list);
+    inAppPurchaseProvider.listenGemPurchases(list);
   });
+inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream.listen((listOfPurchaseDetails) {
+  inAppPurchaseProvider.listenRemoveAdSubscribe(listOfPurchaseDetails);
+
+});
 
   if (animalBox.isEmpty) {
     await getAnimalVirtualImage(context);

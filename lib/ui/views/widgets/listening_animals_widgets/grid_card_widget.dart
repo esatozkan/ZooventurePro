@@ -51,7 +51,7 @@ class _GridCardWidgetState extends State<GridCardWidget> {
                                 ),
                               )
                               .then((value) =>
-                                  googleAdsProvider.showInterstitialAd()),
+                                  googleAdsProvider.showInterstitialAd(context)),
                         }
                       }
                     : {
@@ -63,7 +63,7 @@ class _GridCardWidgetState extends State<GridCardWidget> {
                               ),
                             )
                             .then((value) =>
-                                googleAdsProvider.showInterstitialAd()),
+                                googleAdsProvider.showInterstitialAd(context)),
                       };
               } else {
                 showInformationSnackbar(context, "text");

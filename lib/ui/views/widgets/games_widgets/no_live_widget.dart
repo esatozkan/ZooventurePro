@@ -18,7 +18,12 @@ noLiveWidget(context) {
             : (MediaQuery.of(context).size.width * 7) / 10,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          color: const Color(0xfffef5cc),
+          image: DecorationImage(
+              image: AssetImage(
+                  MediaQuery.of(context).orientation == Orientation.portrait
+                      ? "assets/in_app_purchase_background/no_live_horizontal.png"
+                      : "assets/in_app_purchase_background/no_live_vertical.png"),
+              fit: BoxFit.cover),
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -26,13 +31,6 @@ noLiveWidget(context) {
               Container(
                 padding: const EdgeInsets.only(top: 5),
                 margin: const EdgeInsets.only(bottom: 40),
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                  color: Color(0xff42cc9c),
-                ),
                 child: Center(
                   child: Text(
                     "Refill Lives",
@@ -139,7 +137,8 @@ Widget isPortrait(context) {
       GestureDetector(
         onTap: () {
           if (inAppPurchaseProvider.getGems > 200) {
-            inAppPurchaseProvider.setGems(inAppPurchaseProvider.getGems - 200);
+            inAppPurchaseProvider
+                .setGemsValue(inAppPurchaseProvider.getGems - 200);
             livesProvider.setLive(5);
             Navigator.of(context).pop();
           } else {
@@ -202,7 +201,8 @@ Widget isNotPortrait(context) {
       GestureDetector(
         onTap: () {
           if (inAppPurchaseProvider.getGems > 200) {
-            inAppPurchaseProvider.setGems(inAppPurchaseProvider.getGems - 200);
+            inAppPurchaseProvider
+                .setGemsValue(inAppPurchaseProvider.getGems - 200);
             livesProvider.setLive(5);
             Navigator.of(context).pop();
           } else {

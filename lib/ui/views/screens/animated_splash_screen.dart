@@ -2,6 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:onepref/onepref.dart';
 import '../../../data/constants/constants.dart';
 import '../../../data/services/get_information.dart';
 import '/ui/views/screens/main_screen.dart';
@@ -16,6 +17,29 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  IApEngine iApEngine = IApEngine();
+
+  @override
+  void initState() {
+    super.initState();
+
+    restoreSubscription();
+
+    iApEngine.inAppPurchase.purchaseStream.listen((list) {
+      if (list.isNotEmpty) {
+        //aboneliği yükle
+        OnePref.setRemoveAds(true);
+      } else {
+        // abonelik bulunmuyor ya da iptal edilmiş
+        OnePref.setRemoveAds(false);
+      }
+    });
+  }
+
+  void restoreSubscription() {
+    iApEngine.inAppPurchase.restorePurchases();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen.withScreenFunction(

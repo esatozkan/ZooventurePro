@@ -1,4 +1,5 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:zooventure/ui/providers/in_app_purchase_provider.dart';
 import 'package:zooventure/ui/providers/lives_provider.dart';
 import '../../../data/services/get_information.dart';
 import '/data/services/google_ads.dart';
@@ -44,10 +45,10 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
-    // googleAdsProvider.loadBannerAd();
-    // googleAdsProvider.loadInterstitialAd();
+    googleAdsProvider.loadBannerAd();
+    googleAdsProvider.loadInterstitialAd(context: context);
     getAllInformation(context);
-    Provider.of<LivesProvider>(context,listen: false).startCountDown();
+    Provider.of<LivesProvider>(context, listen: false).startCountDown();
     super.initState();
   }
 
@@ -77,7 +78,10 @@ class _MainScreenState extends State<MainScreen> {
                         left: 100,
                         right: 100,
                         top: 100,
-                        bottom: googleAdsProvider.bannerAd != null
+                        bottom: (googleAdsProvider.bannerAd != null &&
+                                !Provider.of<InAppPurchaseProvider>(context,
+                                        listen: false)
+                                    .getRemoveAdIsSubscribed)
                             ? googleAdsProvider.bannerAd!.size.height.toDouble()
                             : 0,
                       ),
@@ -94,15 +98,22 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ),
                     Visibility(
-                      visible: googleAdsProvider.bannerAd != null ? true : false,
+                      visible: (googleAdsProvider.bannerAd != null &&
+                              !Provider.of<InAppPurchaseProvider>(context,
+                                      listen: false)
+                                  .getRemoveAdIsSubscribed)
+                          ? true
+                          : false,
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: SizedBox(
                           width: googleAdsProvider.bannerAd != null
-                              ? googleAdsProvider.bannerAd!.size.width.toDouble()
+                              ? googleAdsProvider.bannerAd!.size.width
+                                  .toDouble()
                               : 0,
                           height: googleAdsProvider.bannerAd != null
-                              ? googleAdsProvider.bannerAd!.size.height.toDouble()
+                              ? googleAdsProvider.bannerAd!.size.height
+                                  .toDouble()
                               : 0,
                           child: googleAdsProvider.bannerAd != null
                               ? AdWidget(ad: googleAdsProvider.bannerAd!)
@@ -117,8 +128,8 @@ class _MainScreenState extends State<MainScreen> {
                   itemCount: pages.length,
                   controller: pageController,
                   onPageChanged: (index) {
-                    pageChangedProvider
-                        .pageChangedFunction(pageChangedProvider.getPageChanged);
+                    pageChangedProvider.pageChangedFunction(
+                        pageChangedProvider.getPageChanged);
                   },
                   itemBuilder: (context, index) =>
                       pages[pageChangedProvider.getPageChanged],

@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class LivesProvider extends ChangeNotifier {
-  // int live = Hive.box("lives").get("live") ?? 5;
-  int live = 1;
+  int live = Hive.box("lives").get("live") ?? 5;
   int remainingMinutes = 19;
   int remainingSeconds = 59;
   String remainingMinutesToString = "";
@@ -32,6 +31,7 @@ class LivesProvider extends ChangeNotifier {
 
   void setLive(int value) {
     live = value;
+    Hive.box("lives").put("live", live);
     notifyListeners();
   }
 
@@ -58,4 +58,5 @@ class LivesProvider extends ChangeNotifier {
       });
     }
   }
+  
 }

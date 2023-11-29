@@ -25,9 +25,8 @@ class GameScreenTitleWidget extends StatelessWidget {
               if (connectivityResult != ConnectivityResult.none ||
                   // ignore: use_build_context_synchronously
                   Provider.of<InAppPurchaseProvider>(context, listen: false)
-                      .getProductsList
+                      .getGemProductsList
                       .isNotEmpty) {
-                        
                 // ignore: use_build_context_synchronously
                 buyGemWidget(context);
               } else if (connectivityResult == ConnectivityResult.none) {
@@ -50,7 +49,12 @@ class GameScreenTitleWidget extends StatelessWidget {
                 size: 30,
                 color: itemColor,
               ),
-              text: inAppPurchaseProvider.getGems.toString(),
+              text: inAppPurchaseProvider.getGems < 1000
+                  ? inAppPurchaseProvider.getGems.toString()
+                  : (inAppPurchaseProvider.getGems > 999 &&
+                          inAppPurchaseProvider.getGems < 1000000)
+                      ? "${(inAppPurchaseProvider.getGems / 1000.0).toStringAsFixed(1)} K"
+                      : "${(inAppPurchaseProvider.getGems / 1000000.0).toStringAsFixed(1)} B",
               color: Colors.black12,
             ),
           ),
