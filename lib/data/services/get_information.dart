@@ -23,10 +23,16 @@ Future getSomeInformation(context) async {
       .listen((list) {
     inAppPurchaseProvider.listenGemPurchases(list);
   });
-inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream.listen((listOfPurchaseDetails) {
-  inAppPurchaseProvider.listenRemoveAdSubscribe(listOfPurchaseDetails);
+  inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
+      .listen((listOfPurchaseDetails) {
+    if (listOfPurchaseDetails.isNotEmpty) {
+      inAppPurchaseProvider.setRemoveAdSubExisting(true);
+      //yalnız bir abonelik varsa geçerli
+      inAppPurchaseProvider.setOldPurchaseDetails(listOfPurchaseDetails[0]);
+    }
 
-});
+    inAppPurchaseProvider.listenRemoveAdSubscribe(listOfPurchaseDetails);
+  });
 
   if (animalBox.isEmpty) {
     await getAnimalVirtualImage(context);

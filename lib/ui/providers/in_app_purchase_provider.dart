@@ -20,6 +20,9 @@ class InAppPurchaseProvider with ChangeNotifier {
 
 //REMOVE AD
   bool removeAdIsSubscribed = OnePref.getRemoveAds() ?? false;
+  bool removeAdSubExisting = false;
+  bool isRestore = false;
+  late PurchaseDetails removeAdOldPurchaseDetails;
   late final List<ProductDetails> removeAdProducts = <ProductDetails>[];
   final List<ProductId> _removeAdProductIds = <ProductId>[
     ProductId(id: "remove_ad_weekly", isConsumable: false),
@@ -35,7 +38,10 @@ class InAppPurchaseProvider with ChangeNotifier {
 
   List<ProductDetails> get getRemoveAdProducts => removeAdProducts;
   List<ProductId> get getRemoveAdProductIds => _removeAdProductIds;
+  PurchaseDetails get getRemoveAdOldPurchaseDetails =>
+      removeAdOldPurchaseDetails;
   bool get getRemoveAdIsSubscribed => removeAdIsSubscribed;
+  bool get getRemoveAdSubExisting => removeAdSubExisting;
 
   IApEngine get getIApEngine => iApEngine;
 
@@ -156,5 +162,25 @@ class InAppPurchaseProvider with ChangeNotifier {
     gems = value;
     OnePref.setInt("gems", gems);
     notifyListeners();
+  }
+
+  void setRemoveAdSubExisting(bool value) {
+    removeAdSubExisting = value;
+    notifyListeners();
+  }
+
+  void setOldPurchaseDetails(PurchaseDetails value) {
+    removeAdOldPurchaseDetails = value;
+    notifyListeners();
+  }
+
+  void setIsRestore(bool val) {
+    isRestore = val;
+    notifyListeners();
+  }
+
+  void restoreSubscription() {
+    iApEngine.inAppPurchase.restorePurchases();
+    
   }
 }

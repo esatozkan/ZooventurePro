@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
+import 'package:in_app_purchase_android/billing_client_wrappers.dart';
 import 'package:provider/provider.dart';
 import 'package:zooventure/ui/providers/in_app_purchase_provider.dart';
 import '../../../../../data/constants/constants.dart';
@@ -63,11 +66,54 @@ subscribeRemoveAdWidget(context) {
                           inAppPurchaseProvider.getRemoveAdProducts.length,
                       itemBuilder: ((context, index) {
                         return GestureDetector(
-                          onTap: () => {
-                            inAppPurchaseProvider.getIApEngine.handlePurchase(
-                                inAppPurchaseProvider
-                                    .getRemoveAdProducts[index],
-                                inAppPurchaseProvider.getRemoveAdProductIds),
+                          onTap: () async {
+                            inAppPurchaseProvider.setIsRestore(false);
+
+                            await inAppPurchaseProvider
+                                .getIApEngine.inAppPurchase
+                                .restorePurchases()
+                                .whenComplete(() async {
+                              await Future.delayed(const Duration(seconds: 1))
+                                  .then((value) async {
+                                if (inAppPurchaseProvider
+                                        .getRemoveAdSubExisting &&
+                                    inAppPurchaseProvider
+                                            .getRemoveAdOldPurchaseDetails
+                                            .productID !=
+                                        inAppPurchaseProvider
+                                            .getRemoveAdProducts[index].id) {
+                                  // await inAppPurchaseProvider.getIApEngine
+                                  //     .upgradeOrDowngradeSubscription(
+                                  //         inAppPurchaseProvider
+                                  //             .getRemoveAdOldPurchaseDetails,
+                                  //         inAppPurchaseProvider
+                                  //             .getRemoveAdProducts[index])
+                                  //     .then((value) {
+                                  //   inAppPurchaseProvider
+                                  //       .setRemoveAdSubExisting(false);
+                                  // });
+
+                                  PurchaseParam purchaseParam = GooglePlayPurchaseParam(
+                                      productDetails: inAppPurchaseProvider
+                                          .getRemoveAdProducts[index],
+                                      changeSubscriptionParam: ChangeSubscriptionParam(
+                                          oldPurchaseDetails: inAppPurchaseProvider
+                                                  .getRemoveAdOldPurchaseDetails
+                                              as GooglePlayPurchaseDetails,
+                                          prorationMode: ProrationMode
+                                              .immediateWithTimeProration));
+                                  InAppPurchase.instance.buyNonConsumable(
+                                      purchaseParam: purchaseParam);
+                                } else {
+                                  inAppPurchaseProvider.getIApEngine
+                                      .handlePurchase(
+                                          inAppPurchaseProvider
+                                              .getRemoveAdProducts[index],
+                                          inAppPurchaseProvider
+                                              .getRemoveAdProductIds);
+                                }
+                              });
+                            });
                           },
                           child: Container(
                             margin: const EdgeInsets.symmetric(
@@ -100,60 +146,5 @@ subscribeRemoveAdWidget(context) {
                 ],
               ),
             ),
-          )
-
-      // Container(
-      //   height: MediaQuery.of(context).size.height,
-      //   width: MediaQuery.of(context).size.width,
-      //   decoration: const BoxDecoration(
-      //     image: DecorationImage(
-      //       image: AssetImage(
-      //           "assets/in_app_purchase_background/no_live_vertical.png"),
-      //       fit: BoxFit.cover,
-      //     ),
-      //   ),
-      //   child: Column(
-      //     children: [
-      //       Row(
-      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //         children: [
-      //           GestureDetector(
-      //             onTap: () {
-      //               SystemChrome.setPreferredOrientations([
-      //                 DeviceOrientation.landscapeLeft,
-      //                 DeviceOrientation.landscapeRight,
-      //               ]).then(
-      //                 (value) => Navigator.of(context).pop(),
-      //               );
-      //             },
-      //             child: Image.asset(
-      //               "assets/bottom_navbar_icon/left_swipe.png",
-      //               height: 70,
-      //               width: 70,
-      //               fit: BoxFit.cover,
-      //             ),
-      //           ),
-      //           Text(
-      //             "Remove Ads",
-      //             style: TextStyle(
-      //               fontSize: 32,
-      //               fontFamily: "displayFont",
-      //               color: itemColor,
-      //             ),
-      //           ),
-      //           Visibility(
-      //             visible: false,
-      //             child: Image.asset(
-      //               "assets/bottom_navbar_icon/left_swipe.png",
-      //               height: 70,
-      //               width: 70,
-      //               fit: BoxFit.cover,
-      //             ),
-      //           )
-      //         ],
-      //       )
-      //     ],
-      //   ),
-      // ),
-      );
+          ));
 }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onepref/onepref.dart';
+import 'package:provider/provider.dart';
+import '/ui/providers/in_app_purchase_provider.dart';
 import '../../../data/constants/constants.dart';
 import '../../../data/services/get_information.dart';
 import '/ui/views/screens/main_screen.dart';
@@ -23,7 +25,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    restoreSubscription();
+    Provider.of<InAppPurchaseProvider>(context, listen: false)
+        .restoreSubscription();
 
     iApEngine.inAppPurchase.purchaseStream.listen((list) {
       if (list.isNotEmpty) {
@@ -34,10 +37,6 @@ class _SplashScreenState extends State<SplashScreen> {
         OnePref.setRemoveAds(false);
       }
     });
-  }
-
-  void restoreSubscription() {
-    iApEngine.inAppPurchase.restorePurchases();
   }
 
   @override
