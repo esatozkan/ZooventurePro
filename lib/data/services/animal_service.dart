@@ -7,10 +7,12 @@ List<Uint8List> animalRealImage = [];
 List<Uint8List> animalVoices = [];
 List<String> animalSpelling = [];
 
-getAnimalRealImage(context) async {
-  final storageRef = FirebaseStorage.instance
-      .ref()
-      .child("free-animals/animal-images/animal-real-images");
+getAnimalRealImage(context, {int animalType = 0}) async {
+  final storageRef = FirebaseStorage.instance.ref().child(animalType == 24
+      ? "buy-24-animals/animal-images/animal-real-images"
+      : animalType == 36
+          ? "buy-36-animals/animal-images/animal-real-images"
+          : "free-animals/animal-images/animal-real-images");
   final listResult = await storageRef.listAll();
   for (var element in listResult.items) {
     final imageUrl = await element.getData();
@@ -19,10 +21,12 @@ getAnimalRealImage(context) async {
   }
 }
 
-getAnimalVirtualImage(context) async {
-  final storageRef = FirebaseStorage.instance
-      .ref()
-      .child("free-animals/animal-images/animal-virtual-images");
+getAnimalVirtualImage(context, {int animalType = 0}) async {
+  final storageRef = FirebaseStorage.instance.ref().child(animalType == 24
+      ? "buy-24-animals/animal-images/animal-virtual-images"
+      : animalType == 36
+          ? "buy-36-animals/animal-images/animal-virtual-images"
+          : "free-animals/animal-images/animal-virtual-images");
   final listResult = await storageRef.listAll();
   for (var element in listResult.items) {
     final imageUrl = await element.getDownloadURL();
@@ -37,10 +41,12 @@ getAnimalVirtualImage(context) async {
   }
 }
 
-getAnimalName(String local, context) async {
-  final storageRef = FirebaseStorage.instance
-      .ref()
-      .child("free-animals/animal-types/animal-type-$local");
+getAnimalName(String local, context, {int animalType = 0}) async {
+  final storageRef = FirebaseStorage.instance.ref().child(animalType == 24
+      ? "buy-24-animals/animal-types/animal-type-$local"
+      : animalType == 36
+          ? "buy-36-animals/animal-types/animal-type-$local"
+          : "free-animals/animal-types/animal-type-$local");
 
   final listResult = await storageRef.listAll();
   for (var element in listResult.items) {
@@ -50,9 +56,11 @@ getAnimalName(String local, context) async {
   }
 
   if (animalNames.isEmpty) {
-    final storageRef = FirebaseStorage.instance
-        .ref()
-        .child("free-animals/animal-types/animal-type-en");
+    final storageRef = FirebaseStorage.instance.ref().child(animalType == 24
+        ? "buy-24-animals/animal-types/animal-type-en"
+        : animalType == 36
+            ? "buy-36-animals/animal-types/animal-type-en"
+            : "free-animals/animal-types/animal-type-en");
     final listResult = await storageRef.listAll();
     for (var element in listResult.items) {
       final imageUrl = await element.getData();
@@ -62,9 +70,12 @@ getAnimalName(String local, context) async {
   }
 }
 
-getAnimalVoice(context) async {
-  final storageRef =
-      FirebaseStorage.instance.ref().child("free-animals/animal-voices");
+getAnimalVoice(context, {int animalType = 0}) async {
+  final storageRef = FirebaseStorage.instance.ref().child(animalType == 24
+      ? "buy-24-animals/animal-voices"
+      : animalType == 36
+          ? "buy-36-animals/animal-voices"
+          : "free-animals/animal-voices");
 
   final listResult = await storageRef.listAll();
   for (var element in listResult.items) {
@@ -73,4 +84,3 @@ getAnimalVoice(context) async {
     animalVoices.add(imageBytes);
   }
 }
-

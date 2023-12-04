@@ -45,8 +45,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
-    googleAdsProvider.loadBannerAd();
-    googleAdsProvider.loadInterstitialAd(context: context);
+    // googleAdsProvider.loadBannerAd();
+    // googleAdsProvider.loadInterstitialAd(context: context);
     getAllInformation(context);
     Provider.of<LivesProvider>(context, listen: false).startCountDown();
     super.initState();

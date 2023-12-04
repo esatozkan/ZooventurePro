@@ -41,7 +41,7 @@ Future<void> main() async {
   // await Hive.deleteBoxFromDisk("flags");
   // await Hive.deleteBoxFromDisk("languages");
   // await Hive.deleteBoxFromDisk("flagSpelling");
-  //await Hive.deleteBoxFromDisk("lives");
+ // await Hive.deleteBoxFromDisk("lives");
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -131,10 +131,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:
-
-          //SplashScreenDeneme()
-          const SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

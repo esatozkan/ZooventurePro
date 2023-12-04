@@ -81,7 +81,7 @@ import '../../../../../data/constants/constants.dart';
                   PurchaseIconWidget(
                     icon: "assets/purchases_icon/buy_24_animals.png",
                     text: animalProvider.getUiTexts[16],
-                    whichFunction: "",
+                    whichFunction: "buy_24_animals",
                   ),
                   PurchaseIconWidget(
                     icon: "assets/purchases_icon/buy_36_animals.gif",
