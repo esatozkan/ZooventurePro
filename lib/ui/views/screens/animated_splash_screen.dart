@@ -24,9 +24,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    InAppPurchaseProvider inAppPurchaseProvider =
+        Provider.of<InAppPurchaseProvider>(context, listen: false);
 
-    Provider.of<InAppPurchaseProvider>(context, listen: false)
-        .restoreSubscription();
+    inAppPurchaseProvider.restoreSubscription();
 
     iApEngine.inAppPurchase.purchaseStream.listen((list) {
       if (list.isNotEmpty) {

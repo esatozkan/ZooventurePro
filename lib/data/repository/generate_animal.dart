@@ -44,3 +44,23 @@ void generateAnimal(context, String local) {
     }
   }
 }
+
+void addAnimal(context, String local, int animalType) {
+  AnimalProvider animalProvider =
+      Provider.of<AnimalProvider>(context, listen: false);
+
+  Box animalBox = Hive.box<Animal>("animals");
+
+  for (int i = animalNames.length - animalType; i < animalNames.length; i++) {
+    Animal animal = Animal(
+      name: animalNames[i],
+      voice: animalVoices[i],
+      image: animalVirtualImages[i],
+      realImage: animalRealImage[i],
+      spelling: animalSpelling[i],
+    );
+    animalProvider.addAnimal(animal);
+
+    animalBox.put(i, animal);
+  }
+}

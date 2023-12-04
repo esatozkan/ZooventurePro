@@ -30,6 +30,16 @@ class InAppPurchaseProvider with ChangeNotifier {
     ProductId(id: "remove_ad_yearly", isConsumable: false),
   ];
 
+  //BUY 24 ANİMALS
+  bool isBuyRestoreAnimals = false;
+  late final List<ProductDetails> buy24Products = <ProductDetails>[];
+  final List<ProductId> _buy24ProductIds = <ProductId>[
+    ProductId(
+        id: "buy_24_animals", isConsumable: true, isOneTimePurchase: true),
+    ProductId(
+        id: "buy_36_animals", isConsumable: true, isOneTimePurchase: true),
+  ];
+
   IApEngine iApEngine = IApEngine();
 
   List<ProductDetails> get getGemProductsList => gemProducts;
@@ -181,6 +191,5 @@ class InAppPurchaseProvider with ChangeNotifier {
 
   void restoreSubscription() {
     iApEngine.inAppPurchase.restorePurchases();
-    
   }
 }

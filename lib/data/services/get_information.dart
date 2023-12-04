@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
+import 'package:zooventure/data/services/user_service.dart';
 import '../../ui/providers/animal_provider.dart';
 import '../../ui/providers/in_app_purchase_provider.dart';
 import '../../ui/providers/language_provider.dart';
@@ -16,6 +17,8 @@ Future getSomeInformation(context) async {
   InAppPurchaseProvider inAppPurchaseProvider =
       Provider.of<InAppPurchaseProvider>(context, listen: false);
 
+  getUserInformation(context);
+
   Box animalBox = Hive.box<Animal>("animals");
 
   await inAppPurchaseProvider.getProducts();
@@ -23,6 +26,7 @@ Future getSomeInformation(context) async {
       .listen((list) {
     inAppPurchaseProvider.listenGemPurchases(list);
   });
+
   inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
       .listen((listOfPurchaseDetails) {
     if (listOfPurchaseDetails.isNotEmpty) {

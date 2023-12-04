@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:zooventure/ui/views/widgets/title_widgets/in_app_purchase_widgets/subscribe_remove_ad_widget.dart';
+import '/ui/views/widgets/title_widgets/in_app_purchase_widgets/subscribe_remove_ad_widget.dart';
 import '../../../../../data/constants/constants.dart';
 
 class PurchaseIconWidget extends StatefulWidget {
@@ -30,10 +30,11 @@ class _PurchaseIconWidget extends State<PurchaseIconWidget> {
             SystemChrome.setPreferredOrientations([
               DeviceOrientation.portraitUp,
               DeviceOrientation.portraitDown
-            ]).then(
-              (value) => subscribeRemoveAdWidget(context),
-            );
-          }
+            ]).then((value) {
+              //  Navigator.of(context).pop();
+              subscribeRemoveAdWidget(context);
+            });
+          } else if (widget.whichFunction == "buy_24_animals") {}
         },
         child: Column(
           children: [

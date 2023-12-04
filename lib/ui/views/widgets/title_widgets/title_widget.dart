@@ -1,4 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:zooventure/data/models/user_model.dart';
+import 'package:zooventure/ui/views/widgets/title_widgets/google_sign_in_widget.dart';
+import '../../../../data/services/user_service.dart';
 import '/ui/views/screens/main_screen.dart';
 import '/ui/views/widgets/internet_connection_widget.dart';
 import '/ui/views/widgets/title_widgets/game_screen_title_widgets/game_screen_title_widget.dart';
@@ -36,13 +40,21 @@ class _TitleWidgetState extends State<TitleWidget> {
           children: [
             GestureDetector(
               onTap: () async {
+                final FirebaseAuth auth = FirebaseAuth.instance;
                 if (animalProvider.getIsAllInformationDownload) {
                   var connectivityResult =
                       await Connectivity().checkConnectivity();
                   if (connectivityResult != ConnectivityResult.none) {
-                    applicationData("Click Sale");
-                    // ignore: use_build_context_synchronously
-                    inAppPurchaseWidget(context);
+                    if (auth.currentUser != null) {
+                      applicationData("Click Sale");
+                      // ignore: use_build_context_synchronously
+                      inAppPurchaseWidget(context);
+                    } else {
+                      signInWithGoogle();
+                      if (auth.currentUser != null) {
+                        setUserInformation();
+                      }
+                    }
                   } else {
                     // ignore: use_build_context_synchronously
                     showInformationSnackbar(
@@ -78,7 +90,7 @@ class _TitleWidgetState extends State<TitleWidget> {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 50),
-              child: pageChangedProvider.getPageChanged != 2
+              child: pageChangedProvider.getPageChanged == 0
                   ? GestureDetector(
                       onTap: () async {
                         if (animalProvider.getIsAllInformationDownload) {
@@ -238,7 +250,9 @@ class _TitleWidgetState extends State<TitleWidget> {
                                   ),
                       ),
                     )
-                  : const GameScreenTitleWidget(),
+                  : pageChangedProvider.getPageChanged == 1
+                      ? const GoogleSignInWidget()
+                      : const GameScreenTitleWidget(),
             ),
           ],
         ),
