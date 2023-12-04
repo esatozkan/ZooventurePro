@@ -29,6 +29,11 @@ Future getSomeInformation(context) async {
 
   inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
       .listen((listOfPurchaseDetails) {
+    inAppPurchaseProvider.listenBuy24Animals(listOfPurchaseDetails);
+  });
+
+  inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
+      .listen((listOfPurchaseDetails) {
     if (listOfPurchaseDetails.isNotEmpty) {
       inAppPurchaseProvider.setRemoveAdSubExisting(true);
       //yalnız bir abonelik varsa geçerli

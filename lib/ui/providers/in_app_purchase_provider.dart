@@ -31,7 +31,7 @@ class InAppPurchaseProvider with ChangeNotifier {
   ];
 
   //BUY 24 ANİMALS
-  bool isBuyRestoreAnimals = false;
+  bool isBuy24Animals = false;
   late final List<ProductDetails> buy24Products = <ProductDetails>[];
   final List<ProductId> _buy24ProductIds = <ProductId>[
     ProductId(
@@ -52,6 +52,10 @@ class InAppPurchaseProvider with ChangeNotifier {
       removeAdOldPurchaseDetails;
   bool get getRemoveAdIsSubscribed => removeAdIsSubscribed;
   bool get getRemoveAdSubExisting => removeAdSubExisting;
+
+  bool get getIsBuy24Animals => isBuy24Animals;
+  List<ProductDetails> get getBuy24Product => buy24Products;
+  List<ProductId> get getBuy24ProductIds => _buy24ProductIds;
 
   IApEngine get getIApEngine => iApEngine;
 
@@ -77,6 +81,10 @@ class InAppPurchaseProvider with ChangeNotifier {
         await iApEngine.queryProducts(_removeAdProductIds).then((response) {
           removeAdProducts.clear();
           removeAdProducts.addAll(response.productDetails);
+        });
+        await iApEngine.queryProducts(_buy24ProductIds).then((response) {
+          buy24Products.clear();
+          buy24Products.addAll(response.productDetails);
         });
       }
     });
@@ -105,6 +113,16 @@ class InAppPurchaseProvider with ChangeNotifier {
         //deliver the product
         giveUserGems(purchase);
       }
+    }
+  }
+
+  Future<void> listenBuy24Animals(List<PurchaseDetails> list) async {
+    if (list.isNotEmpty) {
+      for (PurchaseDetails purchaseDetails in list) {
+        //part 3 20.24 dk
+      }
+    } else {
+      isBuy24Animals = false;
     }
   }
 

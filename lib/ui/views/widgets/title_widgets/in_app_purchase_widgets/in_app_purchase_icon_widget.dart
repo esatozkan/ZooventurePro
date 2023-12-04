@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:zooventure/ui/providers/in_app_purchase_provider.dart';
 import '/ui/views/widgets/title_widgets/in_app_purchase_widgets/subscribe_remove_ad_widget.dart';
 import '../../../../../data/constants/constants.dart';
 
@@ -22,6 +24,8 @@ class PurchaseIconWidget extends StatefulWidget {
 class _PurchaseIconWidget extends State<PurchaseIconWidget> {
   @override
   Widget build(BuildContext context) {
+    InAppPurchaseProvider inAppPurchaseProvider =
+        Provider.of(context, listen: false);
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: GestureDetector(
@@ -31,10 +35,13 @@ class _PurchaseIconWidget extends State<PurchaseIconWidget> {
               DeviceOrientation.portraitUp,
               DeviceOrientation.portraitDown
             ]).then((value) {
-              //  Navigator.of(context).pop();
               subscribeRemoveAdWidget(context);
             });
-          } else if (widget.whichFunction == "buy_24_animals") {}
+          } else if (widget.whichFunction == "buy_24_animals") {
+            inAppPurchaseProvider.getIApEngine.handlePurchase(
+                inAppPurchaseProvider.getBuy24Product[0],
+                inAppPurchaseProvider.getBuy24ProductIds);
+          }
         },
         child: Column(
           children: [
