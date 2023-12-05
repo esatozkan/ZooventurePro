@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
-import 'package:zooventure/data/services/user_service.dart';
+import '/data/services/user_service.dart';
 import '../../ui/providers/animal_provider.dart';
 import '../../ui/providers/in_app_purchase_provider.dart';
 import '../../ui/providers/language_provider.dart';

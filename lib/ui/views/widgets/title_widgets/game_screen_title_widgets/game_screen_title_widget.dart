@@ -2,7 +2,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/data/models/user_model.dart';
 import '/ui/providers/in_app_purchase_provider.dart';
 import '/ui/providers/lives_provider.dart';
 import '../../../../../data/services/user_service.dart';
@@ -35,10 +34,7 @@ class GameScreenTitleWidget extends StatelessWidget {
                   // ignore: use_build_context_synchronously
                   buyGemWidget(context);
                 } else {
-                  signInWithGoogle();
-                  if (auth.currentUser != null) {
-                    setUserInformation();
-                  }
+                  createUserInformationData();
                 }
               } else if (connectivityResult == ConnectivityResult.none) {
                 // ignore: use_build_context_synchronously

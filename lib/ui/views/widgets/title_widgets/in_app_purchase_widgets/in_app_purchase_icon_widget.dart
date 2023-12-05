@@ -31,10 +31,10 @@ class _PurchaseIconWidget extends State<PurchaseIconWidget> {
               DeviceOrientation.portraitUp,
               DeviceOrientation.portraitDown
             ]).then((value) {
-              //  Navigator.of(context).pop();
               subscribeRemoveAdWidget(context);
             });
-          } else if (widget.whichFunction == "buy_24_animals") {}
+          } else if (widget.whichFunction == "buy_24_animals") {
+          }
         },
         child: Column(
           children: [

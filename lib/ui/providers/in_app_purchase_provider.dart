@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:onepref/onepref.dart';
+import 'package:zooventure/data/services/user_service.dart';
 
 class InAppPurchaseProvider with ChangeNotifier {
   //GEMS
@@ -28,16 +30,6 @@ class InAppPurchaseProvider with ChangeNotifier {
     ProductId(id: "remove_ad_weekly", isConsumable: false),
     ProductId(id: "remove_ad_monthly", isConsumable: false),
     ProductId(id: "remove_ad_yearly", isConsumable: false),
-  ];
-
-  //BUY 24 ANİMALS
-  bool isBuyRestoreAnimals = false;
-  late final List<ProductDetails> buy24Products = <ProductDetails>[];
-  final List<ProductId> _buy24ProductIds = <ProductId>[
-    ProductId(
-        id: "buy_24_animals", isConsumable: true, isOneTimePurchase: true),
-    ProductId(
-        id: "buy_36_animals", isConsumable: true, isOneTimePurchase: true),
   ];
 
   IApEngine iApEngine = IApEngine();
@@ -80,7 +72,6 @@ class InAppPurchaseProvider with ChangeNotifier {
         });
       }
     });
-    gems = OnePref.getInt("gems") ?? 0;
     notifyListeners();
   }
 
@@ -157,20 +148,23 @@ class InAppPurchaseProvider with ChangeNotifier {
   }
 
   void giveUserGems(PurchaseDetails purchaseDetails) {
-    gems = OnePref.getInt("gems") ?? 0;
-
     for (var product in _gemStoreProductIds) {
       if (product.id == purchaseDetails.productID) {
         gems += product.reward!;
+        setUserInformation("gems", gems);
         OnePref.setInt("gems", gems);
       }
     }
     notifyListeners();
   }
 
-  void setGemsValue(int value) {
+  void setGemsValue(int value) async {
+    var connectivityResult = await Connectivity().checkConnectivity();
     gems = value;
     OnePref.setInt("gems", gems);
+    if (connectivityResult != ConnectivityResult.none) {
+      setUserInformation("gems", gems);
+    }
     notifyListeners();
   }
 

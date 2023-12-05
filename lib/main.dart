@@ -41,7 +41,7 @@ Future<void> main() async {
   // await Hive.deleteBoxFromDisk("flags");
   // await Hive.deleteBoxFromDisk("languages");
   // await Hive.deleteBoxFromDisk("flagSpelling");
- // await Hive.deleteBoxFromDisk("lives");
+  // await Hive.deleteBoxFromDisk("lives");
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
