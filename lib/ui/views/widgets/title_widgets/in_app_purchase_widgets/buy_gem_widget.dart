@@ -116,6 +116,14 @@ buyGemWidget(context) {
                   itemBuilder: (BuildContext context, index) {
                     return GestureDetector(
                       onTap: () {
+                        // showDialog(
+                        //   context: context,
+                        //   builder: (_) => Container(
+                        //     height: MediaQuery.of(context).size.height,
+                        //     width: MediaQuery.of(context).size.width,
+                        //     color: itemColor,
+                        //   ),
+                        // );
                         inAppPurchaseProvider.getIApEngine.handlePurchase(
                             inAppPurchaseProvider.getGemProductsList[index],
                             inAppPurchaseProvider.getGemStoreProductIds);
