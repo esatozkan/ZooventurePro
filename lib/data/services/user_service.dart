@@ -38,8 +38,9 @@ setUserInformation(String key, dynamic value) async {
   DatabaseReference ref = FirebaseDatabase.instance.ref();
   Map<String, dynamic> updates = {};
   updates[key] = value;
-
-  await ref.child("users").child(auth.currentUser!.uid).update(updates);
+  if (auth.currentUser != null) {
+    await ref.child("users").child(auth.currentUser!.uid).update(updates);
+  }
 }
 
 createUserInformationData() async {
