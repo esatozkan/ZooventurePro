@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:onepref/onepref.dart';
+import 'package:zooventure/data/services/user_service.dart';
 
 class InAppPurchaseProvider with ChangeNotifier {
   //GEMS
@@ -30,16 +32,6 @@ class InAppPurchaseProvider with ChangeNotifier {
     ProductId(id: "remove_ad_yearly", isConsumable: false),
   ];
 
-  //BUY 24 ANİMALS
-  bool isBuy24Animals = false;
-  late final List<ProductDetails> buy24Products = <ProductDetails>[];
-  final List<ProductId> _buy24ProductIds = <ProductId>[
-    ProductId(
-        id: "buy_24_animals", isConsumable: true, isOneTimePurchase: true),
-    ProductId(
-        id: "buy_36_animals", isConsumable: true, isOneTimePurchase: true),
-  ];
-
   IApEngine iApEngine = IApEngine();
 
   List<ProductDetails> get getGemProductsList => gemProducts;
@@ -52,10 +44,6 @@ class InAppPurchaseProvider with ChangeNotifier {
       removeAdOldPurchaseDetails;
   bool get getRemoveAdIsSubscribed => removeAdIsSubscribed;
   bool get getRemoveAdSubExisting => removeAdSubExisting;
-
-  bool get getIsBuy24Animals => isBuy24Animals;
-  List<ProductDetails> get getBuy24Product => buy24Products;
-  List<ProductId> get getBuy24ProductIds => _buy24ProductIds;
 
   IApEngine get getIApEngine => iApEngine;
 
@@ -82,13 +70,8 @@ class InAppPurchaseProvider with ChangeNotifier {
           removeAdProducts.clear();
           removeAdProducts.addAll(response.productDetails);
         });
-        await iApEngine.queryProducts(_buy24ProductIds).then((response) {
-          buy24Products.clear();
-          buy24Products.addAll(response.productDetails);
-        });
       }
     });
-    gems = OnePref.getInt("gems") ?? 0;
     notifyListeners();
   }
 
@@ -113,16 +96,6 @@ class InAppPurchaseProvider with ChangeNotifier {
         //deliver the product
         giveUserGems(purchase);
       }
-    }
-  }
-
-  Future<void> listenBuy24Animals(List<PurchaseDetails> list) async {
-    if (list.isNotEmpty) {
-      for (PurchaseDetails purchaseDetails in list) {
-        //part 3 20.24 dk
-      }
-    } else {
-      isBuy24Animals = false;
     }
   }
 
@@ -175,20 +148,23 @@ class InAppPurchaseProvider with ChangeNotifier {
   }
 
   void giveUserGems(PurchaseDetails purchaseDetails) {
-    gems = OnePref.getInt("gems") ?? 0;
-
     for (var product in _gemStoreProductIds) {
       if (product.id == purchaseDetails.productID) {
         gems += product.reward!;
+        setUserInformation("gems", gems);
         OnePref.setInt("gems", gems);
       }
     }
     notifyListeners();
   }
 
-  void setGemsValue(int value) {
+  void setGemsValue(int value) async {
+    var connectivityResult = await Connectivity().checkConnectivity();
     gems = value;
     OnePref.setInt("gems", gems);
+    if (connectivityResult != ConnectivityResult.none) {
+      setUserInformation("gems", gems);
+    }
     notifyListeners();
   }
 

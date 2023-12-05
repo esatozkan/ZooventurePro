@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
-import 'package:zooventure/data/services/user_service.dart';
+import '/data/services/user_service.dart';
 import '../../ui/providers/animal_provider.dart';
 import '../../ui/providers/in_app_purchase_provider.dart';
 import '../../ui/providers/language_provider.dart';
@@ -25,11 +25,6 @@ Future getSomeInformation(context) async {
   inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
       .listen((list) {
     inAppPurchaseProvider.listenGemPurchases(list);
-  });
-
-  inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
-      .listen((listOfPurchaseDetails) {
-    inAppPurchaseProvider.listenBuy24Animals(listOfPurchaseDetails);
   });
 
   inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
