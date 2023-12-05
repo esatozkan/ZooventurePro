@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:zooventure/data/services/user_service.dart';
+import '../../../../data/services/user_service.dart';
 
 class GoogleSignInWidget extends StatelessWidget {
   const GoogleSignInWidget({super.key});

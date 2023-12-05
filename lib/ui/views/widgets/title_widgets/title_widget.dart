@@ -1,7 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:zooventure/data/services/user_service.dart';
 import '/ui/views/widgets/title_widgets/google_sign_in_widget.dart';
-import '../../../../data/services/user_service.dart';
 import '/ui/views/screens/main_screen.dart';
 import '/ui/views/widgets/internet_connection_widget.dart';
 import '/ui/views/widgets/title_widgets/game_screen_title_widgets/game_screen_title_widget.dart';
@@ -32,6 +32,8 @@ class _TitleWidgetState extends State<TitleWidget> {
     LanguageProvider languageProvider =
         Provider.of<LanguageProvider>(context, listen: false);
 
+    FirebaseAuth auth = FirebaseAuth.instance;
+
     return Column(
       children: [
         Row(
@@ -39,7 +41,6 @@ class _TitleWidgetState extends State<TitleWidget> {
           children: [
             GestureDetector(
               onTap: () async {
-                final FirebaseAuth auth = FirebaseAuth.instance;
                 if (animalProvider.getIsAllInformationDownload) {
                   var connectivityResult =
                       await Connectivity().checkConnectivity();

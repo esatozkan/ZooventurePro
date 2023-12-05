@@ -17,9 +17,9 @@ Future getSomeInformation(context) async {
   InAppPurchaseProvider inAppPurchaseProvider =
       Provider.of<InAppPurchaseProvider>(context, listen: false);
 
-  getUserInformation(context);
-
   Box animalBox = Hive.box<Animal>("animals");
+
+ // getUserInformation(context);
 
   await inAppPurchaseProvider.getProducts();
   inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
