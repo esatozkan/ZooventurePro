@@ -40,15 +40,26 @@ getUserInformation(context) async {
 // }
 
 createUserInformationData() async {
+// kullanıcıyı başta kaydetme ya da uygulamayı silip tekrar yüklerse verilerini yükleme, uygulama içi verileri atama yap burda
+
   await signInWithGoogle();
+
   if (auth.currentUser != null) {
-    final firebaseFirestore = FirebaseFirestore.instance
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    DocumentSnapshot snapshot = await firebaseFirestore
         .collection("users")
-        .doc(auth.currentUser!.uid);
-    await firebaseFirestore.set({
-      "gems": 0,
-      "buy 24 animals": false,
-      "buy 36 animals": false,
-    });
+        .doc(auth.currentUser!.uid)
+        .get();
+    if (snapshot != null) {
+    } else {
+      final firebaseFirestore = FirebaseFirestore.instance
+          .collection("users")
+          .doc(auth.currentUser!.uid);
+      await firebaseFirestore.set({
+        "gems": 0,
+        "buy 24 animals": false,
+        "buy 36 animals": false,
+      });
+    }
   }
 }
