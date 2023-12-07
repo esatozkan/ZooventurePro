@@ -50,7 +50,8 @@ class _TitleWidgetState extends State<TitleWidget> {
                       // ignore: use_build_context_synchronously
                       inAppPurchaseWidget(context);
                     } else {
-                      createUserInformationData();
+                      // ignore: use_build_context_synchronously
+                      createUserInformationData(context);
                     }
                   } else {
                     // ignore: use_build_context_synchronously
