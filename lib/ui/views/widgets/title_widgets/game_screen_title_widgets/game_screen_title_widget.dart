@@ -2,9 +2,9 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:zooventure/data/services/user_service.dart';
 import '/ui/providers/in_app_purchase_provider.dart';
 import '/ui/providers/lives_provider.dart';
-import '../../../../../data/services/user_service.dart';
 import '../../../../providers/animal_provider.dart';
 import '../../internet_connection_widget.dart';
 import '../in_app_purchase_widgets/buy_gem_widget.dart';
@@ -18,6 +18,7 @@ class GameScreenTitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     AnimalProvider animalProvider =
         Provider.of<AnimalProvider>(context, listen: false);
+    FirebaseAuth auth = FirebaseAuth.instance;
     return Row(
       children: [
         GestureDetector(
@@ -29,7 +30,6 @@ class GameScreenTitleWidget extends StatelessWidget {
                   Provider.of<InAppPurchaseProvider>(context, listen: false)
                       .getGemProductsList
                       .isNotEmpty) {
-                final FirebaseAuth auth = FirebaseAuth.instance;
                 if (auth.currentUser != null) {
                   // ignore: use_build_context_synchronously
                   buyGemWidget(context);

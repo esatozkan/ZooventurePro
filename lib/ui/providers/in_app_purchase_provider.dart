@@ -1,15 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:onepref/onepref.dart';
-import 'package:zooventure/data/services/user_service.dart';
 
 class InAppPurchaseProvider with ChangeNotifier {
   //GEMS
-  late int gems;
+  //late int gems;
+  late int gems=0;
   late List<ProductDetails> gemProducts = <ProductDetails>[];
   final List<ProductId> _gemStoreProductIds = <ProductId>[
     ProductId(id: "500_diamond", isConsumable: true, reward: 500),
@@ -151,7 +150,6 @@ class InAppPurchaseProvider with ChangeNotifier {
     for (var product in _gemStoreProductIds) {
       if (product.id == purchaseDetails.productID) {
         gems += product.reward!;
-        setUserInformation("gems", gems);
         OnePref.setInt("gems", gems);
       }
     }
@@ -159,12 +157,8 @@ class InAppPurchaseProvider with ChangeNotifier {
   }
 
   void setGemsValue(int value) async {
-    var connectivityResult = await Connectivity().checkConnectivity();
     gems = value;
     OnePref.setInt("gems", gems);
-    if (connectivityResult != ConnectivityResult.none) {
-      setUserInformation("gems", gems);
-    }
     notifyListeners();
   }
 

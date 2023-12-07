@@ -1,57 +1,65 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:onepref/onepref.dart';
 import 'package:provider/provider.dart';
 import '/ui/providers/in_app_purchase_provider.dart';
 import '../models/user_model.dart';
 
+final FirebaseAuth auth = FirebaseAuth.instance;
+
 getUserInformation(context) async {
-  final DatabaseReference database = FirebaseDatabase.instance.reference();
   InAppPurchaseProvider inAppPurchaseProvider =
       Provider.of(context, listen: false);
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  var connectivityResult = await Connectivity().checkConnectivity();
 
-  if (auth.currentUser != null) {
-    if (connectivityResult == ConnectivityResult.none) {
-      inAppPurchaseProvider.setGemsValue(OnePref.getInt("gems") ?? 0);
-    } else {
-      DataSnapshot snapshot =
-          await database.child("users").child(auth.currentUser!.uid).get();
-      Map<dynamic, dynamic>? values = snapshot.value as Map<dynamic, dynamic>?;
+  inAppPurchaseProvider.setGemsValue(0);
 
-      if (values!["gems"] > OnePref.getInt("gems")) {
-        inAppPurchaseProvider.setGemsValue(OnePref.getInt("gems") ?? 0);
-        setUserInformation("gems", OnePref.getInt("gems"));
-      } else {
-        inAppPurchaseProvider.setGemsValue(values["gems"]);
-      }
-    }
+  if (auth.currentUser == null) {
+    await createUserInformationData();
   } else {
-    inAppPurchaseProvider.setGemsValue(OnePref.getInt("gems") ?? 0);
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    DocumentSnapshot snapshot = await firebaseFirestore
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .get();
+    if (snapshot.exists) {
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      inAppPurchaseProvider.setGemsValue(data["gems"]);
+    }
   }
 }
 
-setUserInformation(String key, dynamic value) async {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  DatabaseReference ref = FirebaseDatabase.instance.ref();
-  Map<String, dynamic> updates = {};
-  updates[key] = value;
-  if (auth.currentUser != null) {
-    await ref.child("users").child(auth.currentUser!.uid).update(updates);
-  }
-}
+// setUserInformation(String key, dynamic value) async {
+//   FirebaseAuth auth = FirebaseAuth.instance;
+//   final firebaseFirestore =
+//       FirebaseFirestore.instance.collection("users").doc(auth.currentUser!.uid);
+
+//   await firebaseFirestore.set(
+//     {
+//       key: value,
+//     },
+//   );
+// }
 
 createUserInformationData() async {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  DatabaseReference ref = FirebaseDatabase.instance.ref();
-  signInWithGoogle();
+// kullanıcıyı başta kaydetme ya da uygulamayı silip tekrar yüklerse verilerini yükleme, uygulama içi verileri atama yap burda
+
+  await signInWithGoogle();
+
   if (auth.currentUser != null) {
-    await ref.child("users").child(auth.currentUser!.uid).set({
-      'gems': 0,
-      'buy 24 animals': false,
-      'buy 36 animals': false,
-    });
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    DocumentSnapshot snapshot = await firebaseFirestore
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .get();
+    if (snapshot != null) {
+    } else {
+      final firebaseFirestore = FirebaseFirestore.instance
+          .collection("users")
+          .doc(auth.currentUser!.uid);
+      await firebaseFirestore.set({
+        "gems": 0,
+        "buy 24 animals": false,
+        "buy 36 animals": false,
+      });
+    }
   }
 }
