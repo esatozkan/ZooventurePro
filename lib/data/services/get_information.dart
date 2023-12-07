@@ -19,7 +19,7 @@ Future getSomeInformation(context) async {
 
   Box animalBox = Hive.box<Animal>("animals");
 
- // getUserInformation(context);
+  getUserInformation(context);
 
   await inAppPurchaseProvider.getProducts();
   inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream

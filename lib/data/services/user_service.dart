@@ -40,7 +40,7 @@ getUserInformation(context) async {
 // }
 
 createUserInformationData(context) async {
-    InAppPurchaseProvider inAppPurchaseProvider =
+  InAppPurchaseProvider inAppPurchaseProvider =
       Provider.of(context, listen: false);
 
   await signInWithGoogle();
@@ -51,11 +51,11 @@ createUserInformationData(context) async {
         .collection("users")
         .doc(auth.currentUser!.uid)
         .get();
-    if (snapshot != null) {
-          if (snapshot.exists) {
-      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-      inAppPurchaseProvider.setGemsValue(data["gems"]);
-    }
+    if (snapshot.exists) {
+      if (snapshot.exists) {
+        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        inAppPurchaseProvider.setGemsValue(data["gems"]);
+      }
     } else {
       final firebaseFirestore = FirebaseFirestore.instance
           .collection("users")
