@@ -34,7 +34,8 @@ class GameScreenTitleWidget extends StatelessWidget {
                   // ignore: use_build_context_synchronously
                   buyGemWidget(context);
                 } else {
-                  createUserInformationData();
+                  // ignore: use_build_context_synchronously
+                  createUserInformationData(context);
                 }
               } else if (connectivityResult == ConnectivityResult.none) {
                 // ignore: use_build_context_synchronously

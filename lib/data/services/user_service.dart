@@ -13,7 +13,7 @@ getUserInformation(context) async {
   inAppPurchaseProvider.setGemsValue(0);
 
   if (auth.currentUser == null) {
-    await createUserInformationData();
+    await createUserInformationData(context);
   } else {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     DocumentSnapshot snapshot = await firebaseFirestore
@@ -39,8 +39,9 @@ getUserInformation(context) async {
 //   );
 // }
 
-createUserInformationData() async {
-// kullanıcıyı başta kaydetme ya da uygulamayı silip tekrar yüklerse verilerini yükleme, uygulama içi verileri atama yap burda
+createUserInformationData(context) async {
+    InAppPurchaseProvider inAppPurchaseProvider =
+      Provider.of(context, listen: false);
 
   await signInWithGoogle();
 
@@ -51,6 +52,10 @@ createUserInformationData() async {
         .doc(auth.currentUser!.uid)
         .get();
     if (snapshot != null) {
+          if (snapshot.exists) {
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      inAppPurchaseProvider.setGemsValue(data["gems"]);
+    }
     } else {
       final firebaseFirestore = FirebaseFirestore.instance
           .collection("users")

@@ -11,7 +11,7 @@ class GoogleSignInWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         if (auth.currentUser == null) {
-          createUserInformationData();
+          createUserInformationData(context);
         }
       },
       child: CircleAvatar(
