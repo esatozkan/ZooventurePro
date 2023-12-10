@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:onepref/onepref.dart';
 import 'package:provider/provider.dart';
 import '/ui/providers/in_app_purchase_provider.dart';
 import '../models/user_model.dart';
@@ -10,8 +11,6 @@ getUserInformation(context) async {
   InAppPurchaseProvider inAppPurchaseProvider =
       Provider.of(context, listen: false);
 
-  inAppPurchaseProvider.setGemsValue(0);
-
   if (auth.currentUser == null) {
     await createUserInformationData(context);
   } else {
@@ -20,24 +19,23 @@ getUserInformation(context) async {
         .collection("users")
         .doc(auth.currentUser!.uid)
         .get();
+
     if (snapshot.exists) {
       Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-      inAppPurchaseProvider.setGemsValue(data["gems"]);
+      if (OnePref.getInt("gems")! < data["gems"]) {
+        inAppPurchaseProvider.setGemsValue(OnePref.getInt("gems")!);
+        firebaseFirestore
+            .collection("users")
+            .doc(auth.currentUser!.uid)
+            .update({
+          "gems": OnePref.getInt("gems"),
+        });
+      } else {
+        inAppPurchaseProvider.setGemsValue(data["gems"]);
+      }
     }
   }
 }
-
-// setUserInformation(String key, dynamic value) async {
-//   FirebaseAuth auth = FirebaseAuth.instance;
-//   final firebaseFirestore =
-//       FirebaseFirestore.instance.collection("users").doc(auth.currentUser!.uid);
-
-//   await firebaseFirestore.set(
-//     {
-//       key: value,
-//     },
-//   );
-// }
 
 createUserInformationData(context) async {
   InAppPurchaseProvider inAppPurchaseProvider =
@@ -52,10 +50,8 @@ createUserInformationData(context) async {
         .doc(auth.currentUser!.uid)
         .get();
     if (snapshot.exists) {
-      if (snapshot.exists) {
-        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-        inAppPurchaseProvider.setGemsValue(data["gems"]);
-      }
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      inAppPurchaseProvider.setGemsValue(data["gems"]);
     } else {
       final firebaseFirestore = FirebaseFirestore.instance
           .collection("users")

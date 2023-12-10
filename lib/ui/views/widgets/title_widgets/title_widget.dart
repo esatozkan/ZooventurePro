@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:zooventure/data/services/user_service.dart';
 import '/ui/views/widgets/title_widgets/google_sign_in_widget.dart';
@@ -42,23 +41,13 @@ class _TitleWidgetState extends State<TitleWidget> {
             GestureDetector(
               onTap: () async {
                 if (animalProvider.getIsAllInformationDownload) {
-                  var connectivityResult =
-                      await Connectivity().checkConnectivity();
-                  if (connectivityResult != ConnectivityResult.none) {
-                    if (auth.currentUser != null) {
-                      applicationData("Click Sale");
-                      // ignore: use_build_context_synchronously
-                      inAppPurchaseWidget(context);
-                    } else {
-                      // ignore: use_build_context_synchronously
-                      createUserInformationData(context);
-                    }
+                  if (auth.currentUser != null) {
+                    applicationData("Click Sale");
+                    // ignore: use_build_context_synchronously
+                    inAppPurchaseWidget(context);
                   } else {
                     // ignore: use_build_context_synchronously
-                    showInformationSnackbar(
-                      context,
-                      animalProvider.getUiTexts[14],
-                    );
+                    createUserInformationData(context);
                   }
                 } else {
                   showInformationSnackbar(context, "text");
@@ -92,131 +81,115 @@ class _TitleWidgetState extends State<TitleWidget> {
                   ? GestureDetector(
                       onTap: () async {
                         if (animalProvider.getIsAllInformationDownload) {
-                          var connectivityResult =
-                              await Connectivity().checkConnectivity();
-                          if (connectivityResult != ConnectivityResult.none) {
-                            applicationData("Click Language Button");
+                          applicationData("Click Language Button");
 
-                            // ignore: use_build_context_synchronously
-                            googleAdsProvider.showInterstitialAd(context);
+                          // ignore: use_build_context_synchronously
+                          googleAdsProvider.showInterstitialAd(context);
 
-                            // ignore: use_build_context_synchronously
-                            showDialog(
-                              context: context,
-                              builder: (_) => Center(
-                                child: Container(
-                                  color: Colors.transparent,
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            const Spacer(),
-                                            GestureDetector(
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                  right: 20,
-                                                  top: 10,
-                                                ),
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Image.asset(
-                                                    "assets/close_icon.png",
-                                                    color: itemColor,
-                                                    height: 50,
-                                                    width: 50,
-                                                    fit: BoxFit.cover,
-                                                  ),
+                          // ignore: use_build_context_synchronously
+                          showDialog(
+                            context: context,
+                            builder: (_) => Center(
+                              child: Container(
+                                color: Colors.transparent,
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const Spacer(),
+                                          GestureDetector(
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                right: 20,
+                                                top: 10,
+                                              ),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Image.asset(
+                                                  "assets/close_icon.png",
+                                                  color: itemColor,
+                                                  height: 50,
+                                                  width: 50,
+                                                  fit: BoxFit.cover,
                                                 ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          color: Colors.transparent,
-                                          height: (MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  7) /
-                                              8,
-                                          width: (MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  7) /
-                                              8,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(40.0),
-                                            child: GridView.builder(
-                                              gridDelegate:
-                                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 3,
-                                                crossAxisSpacing: 120,
-                                                mainAxisSpacing: 20,
-                                              ),
-                                              itemCount: languageProvider
-                                                  .getLanguageService.length,
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      index) {
-                                                return GestureDetector(
-                                                  onTap: () async {
-                                                    languageProvider
-                                                        .setFlagIndex(index);
-                                                    // ignore: use_build_context_synchronously
-                                                    await loadingWidget(
-                                                        context);
-
-                                                    // ignore: use_build_context_synchronously
-                                                    Navigator.pop(context);
-
-                                                    setState(
-                                                      () {
-                                                        animalProvider
-                                                                .getUiTexts[2] =
-                                                            animalProvider
-                                                                .getUiTexts[2];
-                                                        animalProvider
-                                                                .getUiTexts[3] =
-                                                            animalProvider
-                                                                .getUiTexts[3];
-                                                        animalProvider
-                                                                .getUiTexts[4] =
-                                                            animalProvider
-                                                                .getUiTexts[4];
-                                                      },
-                                                    );
-                                                  },
-                                                  child: Image.network(
-                                                    languageProvider
-                                                            .getLanguageService[
-                                                        index],
-                                                  ),
-                                                );
-                                              },
                                             ),
                                           ),
+                                        ],
+                                      ),
+                                      Container(
+                                        color: Colors.transparent,
+                                        height: (MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                7) /
+                                            8,
+                                        width:
+                                            (MediaQuery.of(context).size.width *
+                                                    7) /
+                                                8,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(40.0),
+                                          child: GridView.builder(
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 3,
+                                              crossAxisSpacing: 120,
+                                              mainAxisSpacing: 20,
+                                            ),
+                                            itemCount: languageProvider
+                                                .getLanguageService.length,
+                                            itemBuilder:
+                                                (BuildContext context, index) {
+                                              return GestureDetector(
+                                                onTap: () async {
+                                                  languageProvider
+                                                      .setFlagIndex(index);
+                                                  // ignore: use_build_context_synchronously
+                                                  await loadingWidget(context);
+
+                                                  // ignore: use_build_context_synchronously
+                                                  Navigator.pop(context);
+
+                                                  setState(
+                                                    () {
+                                                      animalProvider
+                                                              .getUiTexts[2] =
+                                                          animalProvider
+                                                              .getUiTexts[2];
+                                                      animalProvider
+                                                              .getUiTexts[3] =
+                                                          animalProvider
+                                                              .getUiTexts[3];
+                                                      animalProvider
+                                                              .getUiTexts[4] =
+                                                          animalProvider
+                                                              .getUiTexts[4];
+                                                    },
+                                                  );
+                                                },
+                                                child: Image.network(
+                                                  languageProvider
+                                                          .getLanguageService[
+                                                      index],
+                                                ),
+                                              );
+                                            },
+                                          ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-                            );
-                          } else if (connectivityResult ==
-                              ConnectivityResult.none) {
-                            // ignore: use_build_context_synchronously
-                            showInformationSnackbar(
-                              context,
-                              animalProvider.getUiTexts[14],
-                            );
-                          }
-                        } else {
-                          showInformationSnackbar(context, "text");
+                            ),
+                          );
                         }
                       },
                       child: Consumer<AnimalProvider>(
