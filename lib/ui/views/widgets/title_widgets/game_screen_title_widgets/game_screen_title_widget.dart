@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,9 +22,8 @@ class GameScreenTitleWidget extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () async {
-            var connectivityResult = await Connectivity().checkConnectivity();
             if (animalProvider.getIsAllInformationDownload) {
-              if (connectivityResult != ConnectivityResult.none ||
+              if (
                   // ignore: use_build_context_synchronously
                   Provider.of<InAppPurchaseProvider>(context, listen: false)
                       .getGemProductsList
@@ -37,12 +35,6 @@ class GameScreenTitleWidget extends StatelessWidget {
                   // ignore: use_build_context_synchronously
                   createUserInformationData(context);
                 }
-              } else if (connectivityResult == ConnectivityResult.none) {
-                // ignore: use_build_context_synchronously
-                showInformationSnackbar(
-                  context,
-                  animalProvider.getUiTexts[14],
-                );
               }
             } else {
               // ignore: use_build_context_synchronously
