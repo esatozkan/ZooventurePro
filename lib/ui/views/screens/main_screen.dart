@@ -1,6 +1,6 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:zooventure/ui/providers/in_app_purchase_provider.dart';
-import 'package:zooventure/ui/providers/lives_provider.dart';
+import '/ui/providers/in_app_purchase_provider.dart';
+import '/ui/providers/lives_provider.dart';
 import '../../../data/services/get_information.dart';
 import '/data/services/google_ads.dart';
 import '/ui/views/screens/games/know_what_hear_screen.dart';
@@ -54,6 +54,8 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    InAppPurchaseProvider inAppPurchaseProvider =
+        Provider.of<InAppPurchaseProvider>(context, listen: false);
     List<int> pageIndex = [0, 1, 2];
     return Scaffold(
       body: SafeArea(
@@ -79,9 +81,9 @@ class _MainScreenState extends State<MainScreen> {
                         right: 100,
                         top: 100,
                         bottom: (googleAdsProvider.bannerAd != null &&
-                                !Provider.of<InAppPurchaseProvider>(context,
-                                        listen: false)
-                                    .getRemoveAdIsSubscribed)
+                                !inAppPurchaseProvider
+                                    .getRemoveAdIsSubscribed &&
+                                !inAppPurchaseProvider.getIsPremiumSubscribed)
                             ? googleAdsProvider.bannerAd!.size.height.toDouble()
                             : 0,
                       ),
@@ -99,9 +101,8 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     Visibility(
                       visible: (googleAdsProvider.bannerAd != null &&
-                              !Provider.of<InAppPurchaseProvider>(context,
-                                      listen: false)
-                                  .getRemoveAdIsSubscribed)
+                              !inAppPurchaseProvider.getRemoveAdIsSubscribed &&
+                              !inAppPurchaseProvider.getIsPremiumSubscribed)
                           ? true
                           : false,
                       child: Align(

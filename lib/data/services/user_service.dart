@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:onepref/onepref.dart';
 import 'package:provider/provider.dart';
 import '/ui/providers/in_app_purchase_provider.dart';
 import '../models/user_model.dart';
@@ -22,17 +21,10 @@ getUserInformation(context) async {
 
     if (snapshot.exists) {
       Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-      if (OnePref.getInt("gems")! < data["gems"]) {
-        inAppPurchaseProvider.setGemsValue(OnePref.getInt("gems")!);
-        firebaseFirestore
-            .collection("users")
-            .doc(auth.currentUser!.uid)
-            .update({
-          "gems": OnePref.getInt("gems"),
-        });
-      } else {
-        inAppPurchaseProvider.setGemsValue(data["gems"]);
-      }
+
+      inAppPurchaseProvider.is24AnimalsDownloadFunction(data["buy 24 animals"]);
+      inAppPurchaseProvider.is36AnimalsDownloadFunction(data["buy 36 animals"]);
+      inAppPurchaseProvider.setGemsValue(data["gems"]);
     }
   }
 }
@@ -51,6 +43,9 @@ createUserInformationData(context) async {
         .get();
     if (snapshot.exists) {
       Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+
+      inAppPurchaseProvider.is24AnimalsDownloadFunction(data["buy 24 animals"]);
+      inAppPurchaseProvider.is36AnimalsDownloadFunction(data["buy 36 animals"]);
       inAppPurchaseProvider.setGemsValue(data["gems"]);
     } else {
       final firebaseFirestore = FirebaseFirestore.instance
@@ -61,6 +56,9 @@ createUserInformationData(context) async {
         "buy 24 animals": false,
         "buy 36 animals": false,
       });
+      inAppPurchaseProvider.is24AnimalsDownloadFunction(false);
+      inAppPurchaseProvider.is36AnimalsDownloadFunction(false);
+      inAppPurchaseProvider.setGemsValue(0);
     }
   }
 }

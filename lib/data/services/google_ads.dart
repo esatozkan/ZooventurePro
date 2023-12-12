@@ -27,18 +27,18 @@ class GoogleAdsProvider with ChangeNotifier {
   }
 
   void showInterstitialAd(context) {
+    InAppPurchaseProvider inAppPurchaseProvider =
+        Provider.of<InAppPurchaseProvider>(context, listen: false);
     if (interstitialAd != null &&
         interstitialAdIndex == showInterstitialAdIndex - 1 &&
-        Provider.of<InAppPurchaseProvider>(context, listen: false)
-                .getRemoveAdIsSubscribed ==
-            false) {
+        inAppPurchaseProvider.getRemoveAdIsSubscribed == false &&
+        inAppPurchaseProvider.getIsPremiumSubscribed == false) {
       interstitialAd!.show();
       interstitialAdIndex = 0;
       loadInterstitialAd(context: context);
     } else {
-      if (Provider.of<InAppPurchaseProvider>(context, listen: false)
-              .getRemoveAdIsSubscribed ==
-          false) {
+      if (inAppPurchaseProvider.getRemoveAdIsSubscribed == false &&
+          inAppPurchaseProvider.getIsPremiumSubscribed == false) {
         interstitialAdIndex++;
       }
     }

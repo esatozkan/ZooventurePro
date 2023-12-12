@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:zooventure/ui/providers/in_app_purchase_provider.dart';
 import 'in_app_purchase_icon_widget.dart';
 import '../../../../providers/animal_provider.dart';
 import '../../../../../data/constants/constants.dart';
 
- inAppPurchaseWidget(context) {
+inAppPurchaseWidget(context) {
   AnimalProvider animalProvider =
       Provider.of<AnimalProvider>(context, listen: false);
   showDialog(
@@ -78,15 +79,25 @@ import '../../../../../data/constants/constants.dart';
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  PurchaseIconWidget(
-                    icon: "assets/purchases_icon/buy_24_animals.png",
-                    text: animalProvider.getUiTexts[16],
-                    whichFunction: "buy_24_animals",
+                  Consumer<InAppPurchaseProvider>(
+                    builder: (context, inAppPurchaseProvider, _) =>
+                        PurchaseIconWidget(
+                      icon: "assets/purchases_icon/buy_24_animals.png",
+                      text: animalProvider.getUiTexts[16],
+                      whichFunction: "buy_24_animals",
+                      isLoading: !inAppPurchaseProvider
+                          .getIsAll24AnimalInformationDownload,
+                    ),
                   ),
-                  PurchaseIconWidget(
-                    icon: "assets/purchases_icon/buy_36_animals.gif",
-                    text: animalProvider.getUiTexts[17],
-                    whichFunction: "",
+                  Consumer<InAppPurchaseProvider>(
+                    builder: (context, inAppPurchaseProvider, _) =>
+                        PurchaseIconWidget(
+                      icon: "assets/purchases_icon/buy_36_animals.gif",
+                      text: animalProvider.getUiTexts[17],
+                      whichFunction: "buy_36_animals",
+                      isLoading: !inAppPurchaseProvider
+                          .getIsAll36AnimalInformationDownload,
+                    ),
                   ),
                 ],
               ),
@@ -96,7 +107,7 @@ import '../../../../../data/constants/constants.dart';
                   PurchaseIconWidget(
                     icon: "assets/purchases_icon/premium_icon.png",
                     text: animalProvider.getUiTexts[0],
-                    whichFunction: "",
+                    whichFunction: "premium",
                   ),
                   PurchaseIconWidget(
                     icon: "assets/purchases_icon/play_with_ads.gif",

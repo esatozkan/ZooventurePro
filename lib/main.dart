@@ -31,17 +31,21 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(AnimalAdapter(), override: true);
   await Hive.openBox<Animal>("animals");
+  await Hive.openBox<Animal>("buy24animals");
+  await Hive.openBox<Animal>("buy36animals");
   await Hive.openBox("flags");
   await Hive.openBox("flagSpelling");
   await Hive.openBox("languages");
   await Hive.openBox("internetConnection");
   await Hive.openBox("lives");
 
-  // await Hive.deleteBoxFromDisk("animals");
+  //await Hive.deleteBoxFromDisk("animals");
   // await Hive.deleteBoxFromDisk("flags");
   // await Hive.deleteBoxFromDisk("languages");
   // await Hive.deleteBoxFromDisk("flagSpelling");
   // await Hive.deleteBoxFromDisk("lives");
+  //  await Hive.deleteBoxFromDisk("buy24animals");
+  //  await Hive.deleteBoxFromDisk("buy36animals");
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
