@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:zooventure/ui/providers/in_app_purchase_provider.dart';
-import 'package:zooventure/ui/views/widgets/title_widgets/in_app_purchase_widgets/buy_gem_widget.dart';
+import '/ui/providers/in_app_purchase_provider.dart';
+import '/ui/views/widgets/internet_connection_widget.dart';
+import '/ui/views/widgets/title_widgets/in_app_purchase_widgets/buy_gem_widget.dart';
 import '../../../../data/constants/constants.dart';
 import '../../../providers/lives_provider.dart';
 
@@ -19,10 +23,10 @@ noLiveWidget(context) {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
           image: DecorationImage(
-              image: AssetImage(
-                  MediaQuery.of(context).orientation == Orientation.portrait
-                      ? "assets/in_app_purchase_background/no_live_horizontal.png"
-                      : "assets/in_app_purchase_background/no_live_vertical.png"),
+              image: AssetImage(MediaQuery.of(context).orientation ==
+                      Orientation.portrait
+                  ? "assets/in_app_purchase_background/no_live_horizontal.png"
+                  : "assets/in_app_purchase_background/no_live_vertical.png"),
               fit: BoxFit.cover),
         ),
         child: SingleChildScrollView(
@@ -135,15 +139,24 @@ Widget isPortrait(context) {
         ),
       ),
       GestureDetector(
-        onTap: () {
-          if (inAppPurchaseProvider.getGems > 200) {
-            inAppPurchaseProvider
-                .setGemsValue(inAppPurchaseProvider.getGems - 200);
-            livesProvider.setLive(5);
-            Navigator.of(context).pop();
+        onTap: () async {
+          var connectivityResult = await Connectivity().checkConnectivity();
+          if (connectivityResult != ConnectivityResult.none) {
+            if (inAppPurchaseProvider.getGems > 200) {
+              inAppPurchaseProvider
+                  .setGemsValue(inAppPurchaseProvider.getGems - 200);
+              final firebaseFirestore = FirebaseFirestore.instance
+                  .collection("users")
+                  .doc(FirebaseAuth.instance.currentUser!.uid);
+              firebaseFirestore.update({"gems": inAppPurchaseProvider.getGems});
+              livesProvider.setLive(5);
+              Navigator.of(context).pop();
+            } else {
+              Navigator.of(context).pop();
+              buyGemWidget(context);
+            }
           } else {
-            Navigator.of(context).pop();
-            buyGemWidget(context);
+            showInformationSnackbar(context, "internet Bağlantısı yok");
           }
         },
         child: Container(
@@ -199,15 +212,24 @@ Widget isNotPortrait(context) {
   return Column(
     children: [
       GestureDetector(
-        onTap: () {
-          if (inAppPurchaseProvider.getGems > 200) {
-            inAppPurchaseProvider
-                .setGemsValue(inAppPurchaseProvider.getGems - 200);
-            livesProvider.setLive(5);
-            Navigator.of(context).pop();
+        onTap: () async {
+          var connectivityResult = await Connectivity().checkConnectivity();
+          if (connectivityResult != ConnectivityResult.none) {
+            if (inAppPurchaseProvider.getGems > 200) {
+              inAppPurchaseProvider.setGemsValue(inAppPurchaseProvider.getGems);
+              final firebaseFirestore = FirebaseFirestore.instance
+                  .collection("users")
+                  .doc(FirebaseAuth.instance.currentUser!.uid);
+              firebaseFirestore
+                  .update({"gems": inAppPurchaseProvider.getGems - 200});
+              livesProvider.setLive(5);
+              Navigator.of(context).pop();
+            } else {
+              Navigator.of(context).pop();
+              buyGemWidget(context);
+            }
           } else {
-            Navigator.of(context).pop();
-            buyGemWidget(context);
+            showInformationSnackbar(context, "İnternet Bağlantısı yok");
           }
         },
         child: Container(

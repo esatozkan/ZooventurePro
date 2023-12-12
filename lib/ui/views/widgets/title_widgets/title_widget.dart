@@ -214,10 +214,11 @@ class _TitleWidgetState extends State<TitleWidget> {
                                     radius: 30,
                                     backgroundColor: Colors.black,
                                     child: CircleAvatar(
-                                        radius: 28,
-                                        backgroundColor: itemColor,
-                                        backgroundImage: const AssetImage(
-                                            "assets/get_firebase_loading.gif")),
+                                      radius: 28,
+                                      backgroundColor: itemColor,
+                                      backgroundImage: const AssetImage(
+                                          "assets/get_firebase_loading.gif"),
+                                    ),
                                   ),
                       ),
                     )

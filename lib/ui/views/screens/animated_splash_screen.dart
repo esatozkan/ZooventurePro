@@ -30,6 +30,10 @@ class _SplashScreenState extends State<SplashScreen> {
     inAppPurchaseProvider.restoreSubscription();
 
     iApEngine.inAppPurchase.purchaseStream.listen((list) {
+      list.forEach((element) {
+        print(element.productID);
+        print("********");
+      });
       if (list.isNotEmpty) {
         //aboneliği yükle
         OnePref.setRemoveAds(true);

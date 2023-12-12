@@ -1,18 +1,22 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '/ui/views/widgets/title_widgets/in_app_purchase_widgets/subscribe_remove_ad_widget.dart';
+import 'package:provider/provider.dart';
+import '/ui/providers/in_app_purchase_provider.dart';
+import 'subscribe_widget.dart';
 import '../../../../../data/constants/constants.dart';
 
 class PurchaseIconWidget extends StatefulWidget {
   final String icon;
   final String text;
   final String whichFunction;
+  final bool isLoading;
   const PurchaseIconWidget({
     Key? key,
     required this.icon,
     required this.text,
     required this.whichFunction,
+    this.isLoading = false,
   }) : super(key: key);
 
   @override
@@ -22,6 +26,8 @@ class PurchaseIconWidget extends StatefulWidget {
 class _PurchaseIconWidget extends State<PurchaseIconWidget> {
   @override
   Widget build(BuildContext context) {
+    InAppPurchaseProvider inAppPurchaseProvider =
+        Provider.of(context, listen: false);
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: GestureDetector(
@@ -31,9 +37,37 @@ class _PurchaseIconWidget extends State<PurchaseIconWidget> {
               DeviceOrientation.portraitUp,
               DeviceOrientation.portraitDown
             ]).then((value) {
-              subscribeRemoveAdWidget(context);
+              subscribeWidget(
+                context,
+                "Remove Ads",
+                "assets/in_app_purchase_background/no_live_vertical.png",
+                "removeAd",
+              );
             });
           } else if (widget.whichFunction == "buy_24_animals") {
+            inAppPurchaseProvider.getIApEngine.handlePurchase(
+                inAppPurchaseProvider.getBuyAnimalProducts[inAppPurchaseProvider
+                    .getBuyAnimalProducts
+                    .indexWhere((element) => element.id == "buy_24_animals")],
+                inAppPurchaseProvider.getBuyAnimalProductIds);
+          } else if (widget.whichFunction == "buy_36_animals") {
+            inAppPurchaseProvider.getIApEngine.handlePurchase(
+                inAppPurchaseProvider.getBuyAnimalProducts[inAppPurchaseProvider
+                    .getBuyAnimalProducts
+                    .indexWhere((element) => element.id == "buy_36_animals")],
+                inAppPurchaseProvider.getBuyAnimalProductIds);
+          } else if (widget.whichFunction == "premium") {
+            SystemChrome.setPreferredOrientations([
+              DeviceOrientation.portraitUp,
+              DeviceOrientation.portraitDown
+            ]).then((value) {
+              subscribeWidget(
+                context,
+                "Premium",
+                "assets/in_app_purchase_background/no_live_vertical.png",
+                "premium",
+              );
+            });
           }
         },
         child: Column(
@@ -41,10 +75,13 @@ class _PurchaseIconWidget extends State<PurchaseIconWidget> {
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.asset(
-                widget.icon,
+                widget.isLoading == true
+                    ? "assets/get_firebase_loading.gif"
+                    : widget.icon,
                 height: 80,
                 width: 80,
                 fit: BoxFit.cover,
+                color: widget.isLoading == true ? itemColor : null,
               ),
             ),
             Padding(
@@ -54,7 +91,6 @@ class _PurchaseIconWidget extends State<PurchaseIconWidget> {
                 style: TextStyle(
                   fontFamily: "displayFont",
                   fontSize: 20,
-                  // fontWeight: FontWeight.w400,
                   color: itemColor,
                 ),
               ),

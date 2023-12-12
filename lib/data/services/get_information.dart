@@ -28,6 +28,11 @@ Future getSomeInformation(context) async {
   });
 
   inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
+      .listen((list) {
+    inAppPurchaseProvider.listenBuyAnimal(list, context);
+  });
+
+  inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
       .listen((listOfPurchaseDetails) {
     if (listOfPurchaseDetails.isNotEmpty) {
       inAppPurchaseProvider.setRemoveAdSubExisting(true);
@@ -36,6 +41,10 @@ Future getSomeInformation(context) async {
     }
 
     inAppPurchaseProvider.listenRemoveAdSubscribe(listOfPurchaseDetails);
+  });
+
+  inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream.listen((listOfPurchaseDetails) {
+    inAppPurchaseProvider.listenPremiumSubscribe(listOfPurchaseDetails);
   });
 
   if (animalBox.isEmpty) {
@@ -53,8 +62,12 @@ Future getAllInformation(context) async {
       Provider.of<LanguageProvider>(context, listen: false);
   AnimalProvider animalProvider =
       Provider.of<AnimalProvider>(context, listen: false);
+  InAppPurchaseProvider inAppPurchaseProvider =
+      Provider.of<InAppPurchaseProvider>(context, listen: false);
 
-  Box animalBox = Hive.box<Animal>("animals");
+  Box animalBox = Hive.box<Animal>("buy36animals");
+  Box animal24Box = Hive.box<Animal>("buy24animals");
+  Box animal36Box = Hive.box<Animal>("buy36animals");
 
   if (animalBox.isEmpty) {
     await getAnimalName(languageProvider.getLocal, context);
@@ -72,4 +85,26 @@ Future getAllInformation(context) async {
   generateAnimal(context, languageProvider.getLocal);
 
   animalProvider.isAllAnimalDownloadFunction(true);
+
+  if (animal24Box.isEmpty) {
+    await getAnimalVirtualImage(context, animalType: 24);
+    await getAnimalRealImage(context, animalType: 24);
+    await getAnimalName(languageProvider.getLocal, context, animalType: 24);
+    await getAnimalVoice(context, animalType: 24);
+
+    generateBuyAnimal(24);
+  }
+
+  inAppPurchaseProvider.is24AnimalsDownloadFunction(true);
+
+  if (animal36Box.isEmpty) {
+    await getAnimalVirtualImage(context, animalType: 36);
+    await getAnimalRealImage(context, animalType: 36);
+    await getAnimalName(languageProvider.getLocal, context, animalType: 36);
+    await getAnimalVoice(context, animalType: 36);
+
+    generateBuyAnimal(36);
+  }
+
+  inAppPurchaseProvider.is36AnimalsDownloadFunction(true);
 }

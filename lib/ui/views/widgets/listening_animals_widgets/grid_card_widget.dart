@@ -50,8 +50,8 @@ class _GridCardWidgetState extends State<GridCardWidget> {
                                   animalProvider.getAnimals[index].name,
                                 ),
                               )
-                              .then((value) =>
-                                  googleAdsProvider.showInterstitialAd(context)),
+                              .then((value) => googleAdsProvider
+                                  .showInterstitialAd(context)),
                         }
                       }
                     : {
