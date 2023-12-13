@@ -216,7 +216,7 @@ Widget isNotPortrait(context) {
           var connectivityResult = await Connectivity().checkConnectivity();
           if (connectivityResult != ConnectivityResult.none) {
             if (inAppPurchaseProvider.getGems > 200) {
-              inAppPurchaseProvider.setGemsValue(inAppPurchaseProvider.getGems);
+             inAppPurchaseProvider.setGemsValue(inAppPurchaseProvider.getGems);
               final firebaseFirestore = FirebaseFirestore.instance
                   .collection("users")
                   .doc(FirebaseAuth.instance.currentUser!.uid);

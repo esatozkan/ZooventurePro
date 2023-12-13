@@ -102,7 +102,7 @@ buyGemWidget(context) {
                         : (gemIconHeight * 2) + 20,
                 width: (gemIconWidth * 3) + 60,
                 child: GridView.builder(
-                  itemCount: inAppPurchaseProvider.getGemProductsList.length,
+                  itemCount: 6,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: MediaQuery.of(context).orientation ==
@@ -125,22 +125,22 @@ buyGemWidget(context) {
                         //   ),
                         // );
                         inAppPurchaseProvider.getIApEngine.handlePurchase(
-                            inAppPurchaseProvider.getGemProductsList[index],
-                            inAppPurchaseProvider.getGemStoreProductIds);
+                            inAppPurchaseProvider.getProductsList[index],
+                            inAppPurchaseProvider.getStoreProductIds);
                       },
                       child: BuyGemIconWidget(
                         imageAsset: images[index],
                         text: inAppPurchaseProvider
-                            .getGemProductsList[index].description,
+                            .getProductsList[index].description,
                         gemCount: inAppPurchaseProvider
-                            .getGemProductsList[index].id
+                            .getProductsList[index].id
                             .substring(
                           0,
-                          inAppPurchaseProvider.getGemProductsList[index].id
+                          inAppPurchaseProvider.getProductsList[index].id
                               .indexOf("_"),
                         ),
-                        price: inAppPurchaseProvider
-                            .getGemProductsList[index].price,
+                        price:
+                            inAppPurchaseProvider.getProductsList[index].price,
                       ),
                     );
                   },

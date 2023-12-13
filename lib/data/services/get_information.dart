@@ -24,27 +24,7 @@ Future getSomeInformation(context) async {
   await inAppPurchaseProvider.getProducts();
   inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
       .listen((list) {
-    inAppPurchaseProvider.listenGemPurchases(list);
-  });
-
-  inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
-      .listen((list) {
-    inAppPurchaseProvider.listenBuyAnimal(list, context);
-  });
-
-  inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
-      .listen((listOfPurchaseDetails) {
-    if (listOfPurchaseDetails.isNotEmpty) {
-      inAppPurchaseProvider.setRemoveAdSubExisting(true);
-      //yalnız bir abonelik varsa geçerli
-      inAppPurchaseProvider.setOldPurchaseDetails(listOfPurchaseDetails[0]);
-    }
-
-    inAppPurchaseProvider.listenRemoveAdSubscribe(listOfPurchaseDetails);
-  });
-
-  inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream.listen((listOfPurchaseDetails) {
-    inAppPurchaseProvider.listenPremiumSubscribe(listOfPurchaseDetails);
+    inAppPurchaseProvider.listenPurchases(list, context);
   });
 
   if (animalBox.isEmpty) {

@@ -22,8 +22,8 @@ getUserInformation(context) async {
     if (snapshot.exists) {
       Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
 
-      inAppPurchaseProvider.is24AnimalsDownloadFunction(data["buy 24 animals"]);
-      inAppPurchaseProvider.is36AnimalsDownloadFunction(data["buy 36 animals"]);
+      inAppPurchaseProvider.setIs24Animal(data["buy 24 animals"]);
+      inAppPurchaseProvider.setIs36Animal(data["buy 36 animals"]);
       inAppPurchaseProvider.setGemsValue(data["gems"]);
     }
   }
@@ -44,8 +44,8 @@ createUserInformationData(context) async {
     if (snapshot.exists) {
       Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
 
-      inAppPurchaseProvider.is24AnimalsDownloadFunction(data["buy 24 animals"]);
-      inAppPurchaseProvider.is36AnimalsDownloadFunction(data["buy 36 animals"]);
+      inAppPurchaseProvider.setIs24Animal(data["buy 24 animals"]);
+      inAppPurchaseProvider.setIs36Animal(data["buy 36 animals"]);
       inAppPurchaseProvider.setGemsValue(data["gems"]);
     } else {
       final firebaseFirestore = FirebaseFirestore.instance
@@ -56,8 +56,8 @@ createUserInformationData(context) async {
         "buy 24 animals": false,
         "buy 36 animals": false,
       });
-      inAppPurchaseProvider.is24AnimalsDownloadFunction(false);
-      inAppPurchaseProvider.is36AnimalsDownloadFunction(false);
+      inAppPurchaseProvider.setIs24Animal(false);
+      inAppPurchaseProvider.setIs36Animal(false);
       inAppPurchaseProvider.setGemsValue(0);
     }
   }

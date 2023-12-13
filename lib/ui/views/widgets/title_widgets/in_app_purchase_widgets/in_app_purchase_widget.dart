@@ -104,10 +104,19 @@ inAppPurchaseWidget(context) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  PurchaseIconWidget(
-                    icon: "assets/purchases_icon/premium_icon.png",
-                    text: animalProvider.getUiTexts[0],
-                    whichFunction: "premium",
+                  Consumer<InAppPurchaseProvider>(
+                    builder: (context, inAppPurchaseProvider, _) =>
+                        PurchaseIconWidget(
+                      icon: "assets/purchases_icon/premium_icon.png",
+                      text: animalProvider.getUiTexts[0],
+                      whichFunction: "premium",
+                      isLoading: (inAppPurchaseProvider
+                                  .getIsAll36AnimalInformationDownload &&
+                              inAppPurchaseProvider
+                                  .getIsAll36AnimalInformationDownload)
+                          ? false
+                          : true,
+                    ),
                   ),
                   PurchaseIconWidget(
                     icon: "assets/purchases_icon/play_with_ads.gif",
