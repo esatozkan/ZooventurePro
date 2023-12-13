@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:in_app_purchase_android/in_app_purchase_android.dart';
-import 'package:in_app_purchase_android/billing_client_wrappers.dart';
 import 'package:provider/provider.dart';
+import 'package:zooventure/ui/views/widgets/internet_connection_widget.dart';
 import '/ui/providers/in_app_purchase_provider.dart';
 import '../../../../../data/constants/constants.dart';
 
@@ -55,58 +53,20 @@ subscribeWidget(
                   const Spacer(),
                   Expanded(
                     child: ListView.builder(
-                      itemCount:
-                          inAppPurchaseProvider.getRemoveAdProducts.length,
+                      itemCount: 3,
                       itemBuilder: ((context, index) {
                         return GestureDetector(
                           onTap: () async {
-                            inAppPurchaseProvider.setIsRestore(false);
-
-                            await inAppPurchaseProvider
-                                .getIApEngine.inAppPurchase
-                                .restorePurchases()
-                                .whenComplete(() async {
-                              await Future.delayed(const Duration(seconds: 1))
-                                  .then((value) async {
-                                if (inAppPurchaseProvider
-                                        .getRemoveAdSubExisting &&
-                                    inAppPurchaseProvider
-                                            .getRemoveAdOldPurchaseDetails
-                                            .productID !=
-                                        inAppPurchaseProvider
-                                            .getRemoveAdProducts[index].id) {
-                                  await inAppPurchaseProvider.getIApEngine
-                                      .upgradeOrDowngradeSubscription(
-                                          inAppPurchaseProvider
-                                              .getRemoveAdOldPurchaseDetails,
-                                          inAppPurchaseProvider
-                                              .getRemoveAdProducts[index])
-                                      .then((value) {
-                                    inAppPurchaseProvider
-                                        .setRemoveAdSubExisting(false);
-                                  });
-
-                                  PurchaseParam purchaseParam = GooglePlayPurchaseParam(
-                                      productDetails: inAppPurchaseProvider
-                                          .getRemoveAdProducts[index],
-                                      changeSubscriptionParam: ChangeSubscriptionParam(
-                                          oldPurchaseDetails: inAppPurchaseProvider
-                                                  .getRemoveAdOldPurchaseDetails
-                                              as GooglePlayPurchaseDetails,
-                                          prorationMode: ProrationMode
-                                              .immediateWithTimeProration));
-                                  InAppPurchase.instance.buyNonConsumable(
-                                      purchaseParam: purchaseParam);
-                                } else {
-                                  inAppPurchaseProvider.getIApEngine
-                                      .handlePurchase(
-                                          inAppPurchaseProvider
-                                              .getRemoveAdProducts[index],
-                                          inAppPurchaseProvider
-                                              .getRemoveAdProductIds);
-                                }
-                              });
-                            });
+                            if (!inAppPurchaseProvider
+                                .getRemoveAdIsSubscribed) {
+                              inAppPurchaseProvider.getIApEngine.handlePurchase(
+                                  inAppPurchaseProvider
+                                      .getProductsList[index + 9],
+                                  inAppPurchaseProvider.getStoreProductIds);
+                            } else {
+                              showInformationSnackbar(
+                                  context, "abonelik bulunmaktadır");
+                            }
                           },
                           child: Container(
                             margin: const EdgeInsets.symmetric(
@@ -122,10 +82,10 @@ subscribeWidget(
                             ),
                             child: ListTile(
                               title: Text(inAppPurchaseProvider
-                                  .getRemoveAdProducts[index].description),
+                                  .getProductsList[index + 9].description),
                               trailing: Text(
                                 inAppPurchaseProvider
-                                    .getRemoveAdProducts[index].price,
+                                    .getProductsList[index + 9].price,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -143,43 +103,52 @@ subscribeWidget(
                   const Spacer(),
                   Column(
                     children: [
-                      ListTile(
-                        title: const Text(
-                          "Reklamları kaldır",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                      Visibility(
+                        visible: !inAppPurchaseProvider.getRemoveAdIsSubscribed,
+                        child: ListTile(
+                          title: const Text(
+                            "Reklamları kaldır",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
                           ),
-                        ),
-                        trailing: Image.asset(
-                          "assets/games/question_games/question_game/correct_answer.png",
-                          fit: BoxFit.cover,
+                          trailing: Image.asset(
+                            "assets/games/question_games/question_game/correct_answer.png",
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                      ListTile(
-                        title: Text(
-                          "24 Hayvanı edin",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                      Visibility(
+                        visible: !inAppPurchaseProvider.getBuy24Animal,
+                        child: ListTile(
+                          title: Text(
+                            "24 Hayvanı edin",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
                           ),
-                        ),
-                        trailing: Image.asset(
-                          "assets/games/question_games/question_game/correct_answer.png",
-                          fit: BoxFit.cover,
+                          trailing: Image.asset(
+                            "assets/games/question_games/question_game/correct_answer.png",
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                      ListTile(
-                        title: Text(
-                          "36 Hayvanı edin",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                      Visibility(
+                        visible: !inAppPurchaseProvider.getBuy36Animal,
+                        child: ListTile(
+                          title: Text(
+                            "36 Hayvanı edin",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
                           ),
-                        ),
-                        trailing: Image.asset(
-                          "assets/games/question_games/question_game/correct_answer.png",
-                          fit: BoxFit.cover,
+                          trailing: Image.asset(
+                            "assets/games/question_games/question_game/correct_answer.png",
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ],
@@ -187,14 +156,19 @@ subscribeWidget(
                   Expanded(
                     child: ListView.builder(
                       padding: const EdgeInsets.symmetric(vertical: 20),
-                      itemCount:
-                          inAppPurchaseProvider.getPremiumProducts.length,
+                      itemCount: 3,
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () {
-                            inAppPurchaseProvider.getIApEngine.handlePurchase(
-                                inAppPurchaseProvider.getPremiumProducts[index],
-                                inAppPurchaseProvider.getPremiumProductIds);
+                          onTap: () async {
+                            if (!inAppPurchaseProvider.getIsPremiumSubscribed) {
+                              inAppPurchaseProvider.getIApEngine.handlePurchase(
+                                  inAppPurchaseProvider
+                                      .getProductsList[index + 6],
+                                  inAppPurchaseProvider.getStoreProductIds);
+                            } else {
+                              showInformationSnackbar(
+                                  context, "abonelik bulunmaktadır");
+                            }
                           },
                           child: Container(
                             margin: const EdgeInsets.symmetric(
@@ -210,10 +184,10 @@ subscribeWidget(
                             ),
                             child: ListTile(
                               title: Text(inAppPurchaseProvider
-                                  .getPremiumProducts[index].description),
+                                  .getProductsList[index + 6].description),
                               trailing: Text(
                                 inAppPurchaseProvider
-                                    .getPremiumProducts[index].price,
+                                    .getProductsList[index + 6].price,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),

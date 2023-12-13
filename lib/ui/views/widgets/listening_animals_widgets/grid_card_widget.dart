@@ -22,10 +22,10 @@ class _GridCardWidgetState extends State<GridCardWidget> {
   Widget build(BuildContext context) {
     PageChangedProvider pageChangedProvider =
         Provider.of<PageChangedProvider>(context, listen: false);
+    AnimalProvider animalProvider = Provider.of<AnimalProvider>(context);
 
     final Size size = MediaQuery.of(context).size;
 
-    AnimalProvider animalProvider = Provider.of<AnimalProvider>(context);
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: (size.width < 1100) ? 4 : 6,

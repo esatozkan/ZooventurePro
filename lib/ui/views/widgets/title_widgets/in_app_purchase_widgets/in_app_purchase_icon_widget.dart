@@ -1,7 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+//ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import '/ui/views/widgets/internet_connection_widget.dart';
 import '/ui/providers/in_app_purchase_provider.dart';
 import 'subscribe_widget.dart';
 import '../../../../../data/constants/constants.dart';
@@ -33,29 +34,47 @@ class _PurchaseIconWidget extends State<PurchaseIconWidget> {
       child: GestureDetector(
         onTap: () {
           if (widget.whichFunction == "removeAds") {
-            SystemChrome.setPreferredOrientations([
-              DeviceOrientation.portraitUp,
-              DeviceOrientation.portraitDown
-            ]).then((value) {
-              subscribeWidget(
-                context,
-                "Remove Ads",
-                "assets/in_app_purchase_background/no_live_vertical.png",
-                "removeAd",
-              );
-            });
+            if (!inAppPurchaseProvider.getIsPremiumSubscribed) {
+              SystemChrome.setPreferredOrientations([
+                DeviceOrientation.portraitUp,
+                DeviceOrientation.portraitDown
+              ]).then((value) {
+                subscribeWidget(
+                  context,
+                  "Remove Ads",
+                  "assets/in_app_purchase_background/no_live_vertical.png",
+                  "removeAd",
+                );
+              });
+            } else {
+              Navigator.of(context).pop();
+              showInformationSnackbar(
+                  context, "Premium Abonelik bulunmaktadır");
+            }
           } else if (widget.whichFunction == "buy_24_animals") {
-            inAppPurchaseProvider.getIApEngine.handlePurchase(
-                inAppPurchaseProvider.getBuyAnimalProducts[inAppPurchaseProvider
-                    .getBuyAnimalProducts
-                    .indexWhere((element) => element.id == "buy_24_animals")],
-                inAppPurchaseProvider.getBuyAnimalProductIds);
+            if (!inAppPurchaseProvider.getIsPremiumSubscribed) {
+              inAppPurchaseProvider.getIApEngine.handlePurchase(
+                  inAppPurchaseProvider.getProductsList[inAppPurchaseProvider
+                      .getProductsList
+                      .indexWhere((element) => element.id == "buy_24_animals")],
+                  inAppPurchaseProvider.getStoreProductIds);
+            } else {
+              Navigator.of(context).pop();
+              showInformationSnackbar(
+                  context, "Premium Abonelik bulunmaktadır");
+            }
           } else if (widget.whichFunction == "buy_36_animals") {
-            inAppPurchaseProvider.getIApEngine.handlePurchase(
-                inAppPurchaseProvider.getBuyAnimalProducts[inAppPurchaseProvider
-                    .getBuyAnimalProducts
-                    .indexWhere((element) => element.id == "buy_36_animals")],
-                inAppPurchaseProvider.getBuyAnimalProductIds);
+            if (!inAppPurchaseProvider.getIsPremiumSubscribed) {
+              inAppPurchaseProvider.getIApEngine.handlePurchase(
+                  inAppPurchaseProvider.getProductsList[inAppPurchaseProvider
+                      .getProductsList
+                      .indexWhere((element) => element.id == "buy_36_animals")],
+                  inAppPurchaseProvider.getStoreProductIds);
+            } else {
+              Navigator.of(context).pop();
+              showInformationSnackbar(
+                  context, "Premium Abonelik bulunmaktadır");
+            }
           } else if (widget.whichFunction == "premium") {
             SystemChrome.setPreferredOrientations([
               DeviceOrientation.portraitUp,

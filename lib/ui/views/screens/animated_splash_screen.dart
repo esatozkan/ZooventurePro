@@ -30,16 +30,20 @@ class _SplashScreenState extends State<SplashScreen> {
     inAppPurchaseProvider.restoreSubscription();
 
     iApEngine.inAppPurchase.purchaseStream.listen((list) {
-      list.forEach((element) {
-        print(element.productID);
-        print("********");
-      });
       if (list.isNotEmpty) {
-        //aboneliği yükle
-        OnePref.setRemoveAds(true);
+        for (var element in list) {
+          if (element.productID.contains("remove_ad_")) {
+            //aboneliği yükle
+            OnePref.setRemoveAds(true);
+          }
+          if (element.productID.contains("premium_")) {
+            OnePref.setPremium(true);
+          }
+        }
       } else {
         // abonelik bulunmuyor ya da iptal edilmiş
         OnePref.setRemoveAds(false);
+        OnePref.setPremium(false);
       }
     });
   }

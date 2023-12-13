@@ -56,7 +56,9 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     InAppPurchaseProvider inAppPurchaseProvider =
         Provider.of<InAppPurchaseProvider>(context, listen: false);
+
     List<int> pageIndex = [0, 1, 2];
+
     return Scaffold(
       body: SafeArea(
         child: Consumer<PageChangedProvider>(
@@ -81,9 +83,8 @@ class _MainScreenState extends State<MainScreen> {
                         right: 100,
                         top: 100,
                         bottom: (googleAdsProvider.bannerAd != null &&
-                                !inAppPurchaseProvider
-                                    .getRemoveAdIsSubscribed &&
-                                !inAppPurchaseProvider.getIsPremiumSubscribed)
+                                !inAppPurchaseProvider.getIsPremiumSubscribed &&
+                                !inAppPurchaseProvider.getRemoveAdIsSubscribed)
                             ? googleAdsProvider.bannerAd!.size.height.toDouble()
                             : 0,
                       ),
@@ -101,8 +102,8 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     Visibility(
                       visible: (googleAdsProvider.bannerAd != null &&
-                              !inAppPurchaseProvider.getRemoveAdIsSubscribed &&
-                              !inAppPurchaseProvider.getIsPremiumSubscribed)
+                              !inAppPurchaseProvider.getIsPremiumSubscribed &&
+                              !inAppPurchaseProvider.getRemoveAdIsSubscribed)
                           ? true
                           : false,
                       child: Align(
