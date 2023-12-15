@@ -12,10 +12,8 @@ getText(String local, context) async {
 
   if (languageBox.isEmpty) {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    // DocumentSnapshot snapshot =
-    //     await firebaseFirestore.collection("languages").doc(local).get();
     DocumentSnapshot snapshot =
-        await firebaseFirestore.collection("languages").doc("deneme").get();
+        await firebaseFirestore.collection("languages").doc(local).get();
 
     if (snapshot.exists) {
       Map<dynamic, dynamic> data = snapshot.data() as Map<dynamic, dynamic>;
