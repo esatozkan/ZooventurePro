@@ -13,8 +13,9 @@ void generateAnimal(context, String local) {
 
   Box animalBox = Hive.box<Animal>("animals");
 
-  if (animalBox.isEmpty) {
-    for (int i = 0; i < animalNames.length; i++) {
+  if (animalBox.length != 24) {
+    animalBox.clear();
+    for (int i = 0; i < 24; i++) {
       Animal animal = Animal(
         name: animalNames[i],
         voice: animalVoices[i],
@@ -26,10 +27,13 @@ void generateAnimal(context, String local) {
 
       animalBox.put(i, animal);
     }
+    animalProvider.isAllAnimalDownloadFunction(true);
+
     animalRealImage.clear();
     animalVirtualImages.clear();
     animalNames.clear();
     animalVoices.clear();
+    animalSpelling.clear();
   } else {
     for (int i = 0; i < animalBox.length; i++) {
       final getAnimalHive = animalBox.get(i);
@@ -43,6 +47,7 @@ void generateAnimal(context, String local) {
       );
       animalProvider.addAnimal(animal);
     }
+    animalProvider.isAllAnimalDownloadFunction(true);
   }
 
   if (inAppPurchaseProvider.getBuy24Animal ||
@@ -60,7 +65,7 @@ generateBuyAnimal(int animalType) {
   Box animal24Box = Hive.box<Animal>("buy24animals");
   Box animal36Box = Hive.box<Animal>("buy36animals");
 
-  for (int i = 0; i < animalNames.length; i++) {
+  for (int i = 0; i < animalType; i++) {
     Animal animal = Animal(
       name: animalNames[i],
       voice: animalVoices[i],
@@ -74,6 +79,7 @@ generateBuyAnimal(int animalType) {
       animal36Box.put(i, animal);
     }
   }
+
   animalNames.clear();
   animalRealImage.clear();
   animalSpelling.clear();

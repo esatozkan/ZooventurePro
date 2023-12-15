@@ -1,7 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import '/data/services/user_service.dart';
-import '../../ui/providers/animal_provider.dart';
 import '../../ui/providers/in_app_purchase_provider.dart';
 import '../../ui/providers/language_provider.dart';
 import '../models/animal_model.dart';
@@ -27,7 +26,8 @@ Future getSomeInformation(context) async {
     inAppPurchaseProvider.listenPurchases(list, context);
   });
 
-  if (animalBox.isEmpty) {
+  if (animalBox.length != 24) {
+    animalBox.clear();
     await getAnimalVirtualImage(context);
   }
 
@@ -40,16 +40,15 @@ Future getSomeInformation(context) async {
 Future getAllInformation(context) async {
   LanguageProvider languageProvider =
       Provider.of<LanguageProvider>(context, listen: false);
-  AnimalProvider animalProvider =
-      Provider.of<AnimalProvider>(context, listen: false);
   InAppPurchaseProvider inAppPurchaseProvider =
       Provider.of<InAppPurchaseProvider>(context, listen: false);
 
-  Box animalBox = Hive.box<Animal>("buy36animals");
+  Box animalBox = Hive.box<Animal>("animals");
   Box animal24Box = Hive.box<Animal>("buy24animals");
   Box animal36Box = Hive.box<Animal>("buy36animals");
 
-  if (animalBox.isEmpty) {
+  if (animalBox.length != 24) {
+    animalBox.clear();
     await getAnimalName(languageProvider.getLocal, context);
     await getAnimalVoice(context);
     await getAnimalRealImage(context);
@@ -64,9 +63,7 @@ Future getAllInformation(context) async {
 
   generateAnimal(context, languageProvider.getLocal);
 
-  animalProvider.isAllAnimalDownloadFunction(true);
-
-  if (animal24Box.isEmpty) {
+  if (animal24Box.length != 24) {
     await getAnimalVirtualImage(context, animalType: 24);
     await getAnimalRealImage(context, animalType: 24);
     await getAnimalName(languageProvider.getLocal, context, animalType: 24);

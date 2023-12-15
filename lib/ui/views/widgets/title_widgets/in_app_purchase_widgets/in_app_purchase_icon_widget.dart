@@ -53,11 +53,16 @@ class _PurchaseIconWidget extends State<PurchaseIconWidget> {
             }
           } else if (widget.whichFunction == "buy_24_animals") {
             if (!inAppPurchaseProvider.getIsPremiumSubscribed) {
-              inAppPurchaseProvider.getIApEngine.handlePurchase(
-                  inAppPurchaseProvider.getProductsList[inAppPurchaseProvider
-                      .getProductsList
-                      .indexWhere((element) => element.id == "buy_24_animals")],
-                  inAppPurchaseProvider.getStoreProductIds);
+              if (inAppPurchaseProvider.getIsAll24AnimalInformationDownload) {
+                inAppPurchaseProvider.getIApEngine.handlePurchase(
+                    inAppPurchaseProvider.getProductsList[
+                        inAppPurchaseProvider.getProductsList.indexWhere(
+                            (element) => element.id == "buy_24_animals")],
+                    inAppPurchaseProvider.getStoreProductIds);
+              } else {
+                Navigator.of(context).pop();
+                showInformationSnackbar(context, "bilgiler yükleniyor");
+              }
             } else {
               Navigator.of(context).pop();
               showInformationSnackbar(
@@ -65,28 +70,39 @@ class _PurchaseIconWidget extends State<PurchaseIconWidget> {
             }
           } else if (widget.whichFunction == "buy_36_animals") {
             if (!inAppPurchaseProvider.getIsPremiumSubscribed) {
-              inAppPurchaseProvider.getIApEngine.handlePurchase(
-                  inAppPurchaseProvider.getProductsList[inAppPurchaseProvider
-                      .getProductsList
-                      .indexWhere((element) => element.id == "buy_36_animals")],
-                  inAppPurchaseProvider.getStoreProductIds);
+              if (inAppPurchaseProvider.getIsAll36AnimalInformationDownload) {
+                inAppPurchaseProvider.getIApEngine.handlePurchase(
+                    inAppPurchaseProvider.getProductsList[
+                        inAppPurchaseProvider.getProductsList.indexWhere(
+                            (element) => element.id == "buy_36_animals")],
+                    inAppPurchaseProvider.getStoreProductIds);
+              } else {
+                Navigator.of(context).pop();
+                showInformationSnackbar(context, "bilgiler yükleniyor");
+              }
             } else {
               Navigator.of(context).pop();
               showInformationSnackbar(
                   context, "Premium Abonelik bulunmaktadır");
             }
           } else if (widget.whichFunction == "premium") {
-            SystemChrome.setPreferredOrientations([
-              DeviceOrientation.portraitUp,
-              DeviceOrientation.portraitDown
-            ]).then((value) {
-              subscribeWidget(
-                context,
-                "Premium",
-                "assets/in_app_purchase_background/no_live_vertical.png",
-                "premium",
-              );
-            });
+            if (inAppPurchaseProvider.getIsAll24AnimalInformationDownload &&
+                inAppPurchaseProvider.getIsAll36AnimalInformationDownload) {
+              SystemChrome.setPreferredOrientations([
+                DeviceOrientation.portraitUp,
+                DeviceOrientation.portraitDown
+              ]).then((value) {
+                subscribeWidget(
+                  context,
+                  "Premium",
+                  "assets/in_app_purchase_background/no_live_vertical.png",
+                  "premium",
+                );
+              });
+            } else {
+              Navigator.of(context).pop();
+              showInformationSnackbar(context, "bilgiler yükleniyor");
+            }
           }
         },
         child: Column(

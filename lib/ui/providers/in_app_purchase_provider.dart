@@ -11,24 +11,19 @@ import 'package:onepref/onepref.dart';
 class InAppPurchaseProvider with ChangeNotifier {
   final firebaseFirestore = FirebaseFirestore.instance.collection("users");
   //  GEMS
-  //late int gems;
-  late int gems = 0;
+  late int gems;
   // REMOVE AD
   bool removeAdIsSubscribed = OnePref.getRemoveAds() ?? false;
-  //bool removeAdIsSubscribed = false;
   bool removeAdSubExisting = false;
   bool isRestore = false;
   late PurchaseDetails removeAdOldPurchaseDetails;
   //  BUY ANIMAL
-  bool buy24Animal = OnePref.getBool("buy24Animals") ?? false;
-  bool buy36Animal = OnePref.getBool("buy36animals") ?? false;
-  // bool buy24Animal = false;
-  // bool buy36Animal = false;
+  late bool buy24Animal;
+  late bool buy36Animal;
   bool isAll24AnimalInformationDownload = false;
   bool isAll36AnimalInformationDownload = false;
   //  PREMIUM
   bool isPremiumSubscribed = OnePref.getPremium() ?? false;
-  //bool isPremiumSubscribed = false;
   bool premiumSubExisting = false;
   bool premiumIsRestore = false;
   late PurchaseDetails premiumOldPurchaseDetails;
@@ -225,7 +220,6 @@ class InAppPurchaseProvider with ChangeNotifier {
       if (product.id == purchaseDetails.productID) {
         gems += product.reward!;
         OnePref.setInt("gems", gems);
-
         firebaseFirestore.doc(FirebaseAuth.instance.currentUser!.uid).update({
           "${product.reward!} gems sold": FieldValue.increment(1),
           "gems": gems,
