@@ -38,6 +38,7 @@ Future<void> main() async {
   await Hive.openBox("languages");
   await Hive.openBox("internetConnection");
   await Hive.openBox("lives");
+  await Hive.openBox<DateTime>("timer");
 
   //await Hive.deleteBoxFromDisk("animals");
   // await Hive.deleteBoxFromDisk("flags");
@@ -46,6 +47,7 @@ Future<void> main() async {
   // await Hive.deleteBoxFromDisk("lives");
   //  await Hive.deleteBoxFromDisk("buy24animals");
   //  await Hive.deleteBoxFromDisk("buy36animals");
+  //await Hive.deleteBoxFromDisk("timer");
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

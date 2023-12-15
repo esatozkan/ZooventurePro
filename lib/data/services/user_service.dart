@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:onepref/onepref.dart';
 import 'package:provider/provider.dart';
 import '/ui/providers/in_app_purchase_provider.dart';
 import '../models/user_model.dart';
@@ -25,6 +26,12 @@ getUserInformation(context) async {
       inAppPurchaseProvider.setIs24Animal(data["buy 24 animals"]);
       inAppPurchaseProvider.setIs36Animal(data["buy 36 animals"]);
       inAppPurchaseProvider.setGemsValue(data["gems"]);
+    } else {
+      inAppPurchaseProvider
+          .setIs24Animal(OnePref.getBool("buy24Animals") ?? false);
+      inAppPurchaseProvider
+          .setIs36Animal(OnePref.getBool("buy36animals") ?? false);
+      inAppPurchaseProvider.setGemsValue(OnePref.getInt("gems") ?? 0);
     }
   }
 }
@@ -60,5 +67,9 @@ createUserInformationData(context) async {
       inAppPurchaseProvider.setIs36Animal(false);
       inAppPurchaseProvider.setGemsValue(0);
     }
+  } else {
+    inAppPurchaseProvider.setIs24Animal(false);
+    inAppPurchaseProvider.setIs36Animal(false);
+    inAppPurchaseProvider.setGemsValue(0);
   }
 }

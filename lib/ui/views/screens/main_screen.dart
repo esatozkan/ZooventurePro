@@ -48,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
     googleAdsProvider.loadBannerAd();
     googleAdsProvider.loadInterstitialAd(context: context);
     getAllInformation(context);
-    Provider.of<LivesProvider>(context, listen: false).startCountDown();
+    Provider.of<LivesProvider>(context, listen: false).determineLive();
     super.initState();
   }
 
