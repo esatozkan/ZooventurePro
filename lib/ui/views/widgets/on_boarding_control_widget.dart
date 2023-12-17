@@ -20,6 +20,7 @@ class _OnBoardingControlWidgetState extends State<OnBoardingControlWidget> {
       context,
     );
 
+    final Size size = MediaQuery.of(context).size;
     return Padding(
       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 3),
       child: Row(
@@ -35,13 +36,13 @@ class _OnBoardingControlWidgetState extends State<OnBoardingControlWidget> {
                 );
                 pageChangedProvider.pageChangedFunction(
                     pageChangedProvider.getPageChanged == 1 ? 0 : 1);
-                Future.delayed(const Duration(milliseconds: 300))
-                    .then((value) => googleAdsProvider.showInterstitialAd(context));
+                Future.delayed(const Duration(milliseconds: 300)).then(
+                    (value) => googleAdsProvider.showInterstitialAd(context));
               },
               child: Image.asset(
                 "assets/bottom_navbar_icon/left_swipe.png",
-                height: 100,
-                width: 100,
+                height: size.width < 1100 ? 100 : 150,
+                width: size.width < 1100 ? 100 : 150,
                 fit: BoxFit.cover,
               ),
             ),
@@ -58,13 +59,13 @@ class _OnBoardingControlWidgetState extends State<OnBoardingControlWidget> {
                 pageChangedProvider.pageChangedFunction(
                     pageChangedProvider.getPageChanged == 0 ? 1 : 2);
 
-                Future.delayed(const Duration(milliseconds: 300))
-                    .then((value) => googleAdsProvider.showInterstitialAd(context));
+                Future.delayed(const Duration(milliseconds: 300)).then(
+                    (value) => googleAdsProvider.showInterstitialAd(context));
               },
               child: Image.asset(
                 "assets/bottom_navbar_icon/right_swipe.png",
-                height: 100,
-                width: 100,
+                height: size.width < 1100 ? 100 : 150,
+                width: size.width < 1100 ? 100 : 150,
                 fit: BoxFit.cover,
               ),
             ),

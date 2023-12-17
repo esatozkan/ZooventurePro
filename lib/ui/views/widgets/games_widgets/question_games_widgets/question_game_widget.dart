@@ -37,6 +37,7 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
   @override
   Widget build(BuildContext context) {
     AudioPlayer audioPlayer = AudioPlayer();
+    final Size size = MediaQuery.of(context).size;
 
     return Consumer<PageChangedProvider>(
         builder: (context, pageChangedProvider, _) {
@@ -116,8 +117,8 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
                                   child: Container(
-                                    height: 150,
-                                    width: 150,
+                                    height: size.height < 1100 ? 150 : 300,
+                                    width: size.height < 1100 ? 150 : 300,
                                     decoration: const BoxDecoration(
                                         color: Color(0xffeb92e5)),
                                     child: GestureDetector(
@@ -214,8 +215,8 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                                           .keys
                                           .toList()[index]
                                           .realImage,
-                                  height: 150,
-                                  width: 150,
+                                  height: size.height < 1100 ? 150 : 250,
+                                  width: size.height < 1100 ? 150 : 250,
                                   fit: BoxFit.cover,
                                 ),
                               ),

@@ -33,6 +33,8 @@ class _TitleWidgetState extends State<TitleWidget> {
 
     FirebaseAuth auth = FirebaseAuth.instance;
 
+    final Size size = MediaQuery.of(context).size;
+
     return Column(
       children: [
         Row(
@@ -55,8 +57,8 @@ class _TitleWidgetState extends State<TitleWidget> {
               },
               child: Image.asset(
                 "assets/bottom_navbar_icon/gift.gif",
-                height: 100,
-                width: 150,
+                height: size.width < 1100 ? 100 : 150,
+                width: size.width < 1100 ? 150 : 250,
                 fit: BoxFit.cover,
               ),
             ),
@@ -68,7 +70,7 @@ class _TitleWidgetState extends State<TitleWidget> {
                         ? animalProvider.getUiTexts["animal sounds"]
                         : animalProvider.getUiTexts["games"],
                 style: TextStyle(
-                  fontSize: 32,
+                  fontSize: size.width < 1100 ? 32 : 50,
                   fontFamily: "displayFont",
                   color: itemColor,
                   letterSpacing: 2,
@@ -114,8 +116,12 @@ class _TitleWidgetState extends State<TitleWidget> {
                                                 child: Image.asset(
                                                   "assets/close_icon.png",
                                                   color: itemColor,
-                                                  height: 50,
-                                                  width: 50,
+                                                  height: size.width < 1100
+                                                      ? 50
+                                                      : 80,
+                                                  width: size.width < 1100
+                                                      ? 50
+                                                      : 80,
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
@@ -204,10 +210,10 @@ class _TitleWidgetState extends State<TitleWidget> {
                                 ? Consumer<LanguageProvider>(
                                     builder: (context, languageProvider, _) =>
                                         CircleAvatar(
-                                      radius: 30,
+                                      radius: size.width < 1100 ? 30 : 50,
                                       backgroundColor: Colors.black,
                                       child: CircleAvatar(
-                                        radius: 28,
+                                        radius: size.width < 1100 ? 28 : 46,
                                         backgroundImage: MemoryImage(
                                           languageProvider
                                                   .getLanguageServiceImage[
@@ -217,10 +223,10 @@ class _TitleWidgetState extends State<TitleWidget> {
                                     ),
                                   )
                                 : CircleAvatar(
-                                    radius: 30,
+                                    radius: size.width < 1100 ? 30 : 50,
                                     backgroundColor: Colors.black,
                                     child: CircleAvatar(
-                                      radius: 28,
+                                      radius: size.width < 1100 ? 28 : 46,
                                       backgroundColor: itemColor,
                                       backgroundImage: const AssetImage(
                                           "assets/get_firebase_loading.gif"),

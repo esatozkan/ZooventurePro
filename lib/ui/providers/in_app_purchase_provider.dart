@@ -18,8 +18,8 @@ class InAppPurchaseProvider with ChangeNotifier {
   bool isRestore = false;
   late PurchaseDetails removeAdOldPurchaseDetails;
   //  BUY ANIMAL
-  late bool buy24Animal;
-  late bool buy36Animal;
+  late bool buy24Animal=false;
+  late bool buy36Animal=false;
   bool isAll24AnimalInformationDownload = false;
   bool isAll36AnimalInformationDownload = false;
   //  PREMIUM

@@ -18,6 +18,7 @@ class GameScreenTitleWidget extends StatelessWidget {
     AnimalProvider animalProvider =
         Provider.of<AnimalProvider>(context, listen: false);
     FirebaseAuth auth = FirebaseAuth.instance;
+    final Size size = MediaQuery.of(context).size;
     return Row(
       children: [
         GestureDetector(
@@ -47,7 +48,7 @@ class GameScreenTitleWidget extends StatelessWidget {
                 GameScreenTitleWidgetIcon(
               icon: Icon(
                 Icons.diamond,
-                size: 30,
+                size: size.width < 1100 ? 30 : 50,
                 color: itemColor,
               ),
               text: inAppPurchaseProvider.getGems < 1000
@@ -65,9 +66,9 @@ class GameScreenTitleWidget extends StatelessWidget {
         ),
         Consumer<LivesProvider>(
           builder: (context, livesProvider, _) => GameScreenTitleWidgetIcon(
-            icon: const Icon(
+            icon: Icon(
               Icons.favorite,
-              size: 30,
+              size: size.width < 1100 ? 30 : 50,
               color: Colors.red,
             ),
             text: livesProvider.getLive == 5

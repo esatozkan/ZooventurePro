@@ -16,6 +16,7 @@ class QuestionTitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     PageChangedProvider pageChangedProvider =
         Provider.of<PageChangedProvider>(context, listen: false);
+    final Size size = MediaQuery.of(context).size;
     return Align(
       alignment: Alignment.topLeft,
       child: GestureDetector(
@@ -29,8 +30,8 @@ class QuestionTitleWidget extends StatelessWidget {
         },
         child: Image.asset(
           "assets/game_control/back_icon.png",
-          height: 60,
-          width: 60,
+          height: size.height < 1100 ? 60 : 100,
+          width: size.height < 1100 ? 60 : 100,
           fit: BoxFit.cover,
           color: const Color(0xffeb92e5),
         ),

@@ -32,82 +32,86 @@ class _PurchaseIconWidget extends State<PurchaseIconWidget> {
         Provider.of(context, listen: false);
     AnimalProvider animalProvider =
         Provider.of<AnimalProvider>(context, listen: false);
+
+    final Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: GestureDetector(
         onTap: () {
-          if (widget.whichFunction == "removeAds") {
-            if (!inAppPurchaseProvider.getIsPremiumSubscribed) {
-              SystemChrome.setPreferredOrientations([
-                DeviceOrientation.portraitUp,
-                DeviceOrientation.portraitDown
-              ]).then((value) {
-                subscribeWidget(
-                  context,
-                  animalProvider.getUiTexts["remove ads"],
-                  "assets/in_app_purchase_background/no_live_vertical.png",
-                  "removeAd",
-                );
-              });
-            } else {
-              Navigator.of(context).pop();
-              showInformationSnackbar(
-                  context, animalProvider.getUiTexts["subscribe available"]);
-            }
-          } else if (widget.whichFunction == "buy_24_animals") {
-            if (!inAppPurchaseProvider.getIsPremiumSubscribed) {
-              if (inAppPurchaseProvider.getIsAll24AnimalInformationDownload) {
-                inAppPurchaseProvider.getIApEngine.handlePurchase(
-                    inAppPurchaseProvider.getProductsList[
-                        inAppPurchaseProvider.getProductsList.indexWhere(
-                            (element) => element.id == "buy_24_animals")],
-                    inAppPurchaseProvider.getStoreProductIds);
+          if (inAppPurchaseProvider.getProductsList.isNotEmpty) {
+            if (widget.whichFunction == "removeAds") {
+              if (!inAppPurchaseProvider.getIsPremiumSubscribed) {
+                SystemChrome.setPreferredOrientations([
+                  DeviceOrientation.portraitUp,
+                  DeviceOrientation.portraitDown
+                ]).then((value) {
+                  subscribeWidget(
+                    context,
+                    animalProvider.getUiTexts["remove ads"],
+                    "assets/in_app_purchase_background/remove_ads_background.png",
+                    "removeAd",
+                  );
+                });
+              } else {
+                Navigator.of(context).pop();
+                showInformationSnackbar(
+                    context, animalProvider.getUiTexts["subscribe available"]);
+              }
+            } else if (widget.whichFunction == "buy_24_animals") {
+              if (!inAppPurchaseProvider.getIsPremiumSubscribed) {
+                if (inAppPurchaseProvider.getIsAll24AnimalInformationDownload) {
+                  inAppPurchaseProvider.getIApEngine.handlePurchase(
+                      inAppPurchaseProvider.getProductsList[
+                          inAppPurchaseProvider.getProductsList.indexWhere(
+                              (element) => element.id == "buy_24_animals")],
+                      inAppPurchaseProvider.getStoreProductIds);
+                } else {
+                  Navigator.of(context).pop();
+                  showInformationSnackbar(
+                      context, animalProvider.getUiTexts["loading the animal"]);
+                }
+              } else {
+                Navigator.of(context).pop();
+                showInformationSnackbar(
+                    context, animalProvider.getUiTexts["subscribe available"]);
+              }
+            } else if (widget.whichFunction == "buy_36_animals") {
+              if (!inAppPurchaseProvider.getIsPremiumSubscribed) {
+                if (inAppPurchaseProvider.getIsAll36AnimalInformationDownload) {
+                  inAppPurchaseProvider.getIApEngine.handlePurchase(
+                      inAppPurchaseProvider.getProductsList[
+                          inAppPurchaseProvider.getProductsList.indexWhere(
+                              (element) => element.id == "buy_36_animals")],
+                      inAppPurchaseProvider.getStoreProductIds);
+                } else {
+                  Navigator.of(context).pop();
+                  showInformationSnackbar(
+                      context, animalProvider.getUiTexts["loading the animal"]);
+                }
+              } else {
+                Navigator.of(context).pop();
+                showInformationSnackbar(
+                    context, animalProvider.getUiTexts["subscribe available"]);
+              }
+            } else if (widget.whichFunction == "premium") {
+              if (inAppPurchaseProvider.getIsAll24AnimalInformationDownload &&
+                  inAppPurchaseProvider.getIsAll36AnimalInformationDownload) {
+                SystemChrome.setPreferredOrientations([
+                  DeviceOrientation.portraitUp,
+                  DeviceOrientation.portraitDown
+                ]).then((value) {
+                  subscribeWidget(
+                    context,
+                    animalProvider.getUiTexts["buy premium"],
+                    "assets/in_app_purchase_background/premium_background.png",
+                    "premium",
+                  );
+                });
               } else {
                 Navigator.of(context).pop();
                 showInformationSnackbar(
                     context, animalProvider.getUiTexts["loading the animal"]);
               }
-            } else {
-              Navigator.of(context).pop();
-              showInformationSnackbar(
-                  context, animalProvider.getUiTexts["subscribe available"]);
-            }
-          } else if (widget.whichFunction == "buy_36_animals") {
-            if (!inAppPurchaseProvider.getIsPremiumSubscribed) {
-              if (inAppPurchaseProvider.getIsAll36AnimalInformationDownload) {
-                inAppPurchaseProvider.getIApEngine.handlePurchase(
-                    inAppPurchaseProvider.getProductsList[
-                        inAppPurchaseProvider.getProductsList.indexWhere(
-                            (element) => element.id == "buy_36_animals")],
-                    inAppPurchaseProvider.getStoreProductIds);
-              } else {
-                Navigator.of(context).pop();
-                showInformationSnackbar(
-                    context, animalProvider.getUiTexts["loading the animal"]);
-              }
-            } else {
-              Navigator.of(context).pop();
-              showInformationSnackbar(
-                  context, animalProvider.getUiTexts["subscribe available"]);
-            }
-          } else if (widget.whichFunction == "premium") {
-            if (inAppPurchaseProvider.getIsAll24AnimalInformationDownload &&
-                inAppPurchaseProvider.getIsAll36AnimalInformationDownload) {
-              SystemChrome.setPreferredOrientations([
-                DeviceOrientation.portraitUp,
-                DeviceOrientation.portraitDown
-              ]).then((value) {
-                subscribeWidget(
-                  context,
-                  animalProvider.getUiTexts["buy premium"],
-                  "assets/in_app_purchase_background/no_live_vertical.png",
-                  "premium",
-                );
-              });
-            } else {
-              Navigator.of(context).pop();
-              showInformationSnackbar(
-                  context, animalProvider.getUiTexts["loading the animal"]);
             }
           }
         },
@@ -119,8 +123,8 @@ class _PurchaseIconWidget extends State<PurchaseIconWidget> {
                 widget.isLoading == true
                     ? "assets/get_firebase_loading.gif"
                     : widget.icon,
-                height: 80,
-                width: 80,
+                height: size.width < 1100 ? 80 : 150,
+                width: size.width < 1100 ? 80 : 150,
                 fit: BoxFit.cover,
                 color: widget.isLoading == true ? itemColor : null,
               ),
@@ -131,7 +135,7 @@ class _PurchaseIconWidget extends State<PurchaseIconWidget> {
                 widget.text,
                 style: TextStyle(
                   fontFamily: "displayFont",
-                  fontSize: 20,
+                  fontSize: size.width < 1100 ? 20 : 35,
                   color: itemColor,
                 ),
               ),

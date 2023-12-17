@@ -14,6 +14,9 @@ class GamesScreen extends StatelessWidget {
     LanguageProvider languageProvider =
         Provider.of<LanguageProvider>(context, listen: false);
     controlOfAddAnimalToApp(context);
+
+    final Size size = MediaQuery.of(context).size;
+
     List<GameIconWidget> games = [
       GameIconWidget(
         icon: "assets/games/memory_game_logo.png",
@@ -50,10 +53,10 @@ class GamesScreen extends StatelessWidget {
     return Builder(
       builder: (context) {
         return GridView.builder(
-          padding: const EdgeInsets.only(top: 10),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          padding: EdgeInsets.only(top: size.width < 1100 ? 10 : 15),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 1.4,
+            mainAxisExtent: size.width < 1100 ? 200 : 350,
           ),
           itemCount: languageProvider.getLocal == "en"
               ? games.length

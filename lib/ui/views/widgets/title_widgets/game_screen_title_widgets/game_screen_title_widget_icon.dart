@@ -18,9 +18,10 @@ class GameScreenTitleWidgetIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Container(
-      height: 30,
-      width: 100,
+      height: size.width < 1100 ? 30 : 50,
+      width: size.width < 1100 ? 100 : 150,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: color,
@@ -36,15 +37,18 @@ class GameScreenTitleWidgetIcon extends StatelessWidget {
               isChance == true
                   ? Text(
                       Provider.of<LivesProvider>(context).getLive.toString(),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: size.width < 1100 ? 18 : 30),
                     )
                   : const Text(""),
             ],
           ),
           Text(
             text,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: size.width < 1100 ? 16 : 25),
           )
         ],
       ),

@@ -8,6 +8,43 @@ import '../../../../../data/constants/constants.dart';
 inAppPurchaseWidget(context) {
   AnimalProvider animalProvider =
       Provider.of<AnimalProvider>(context, listen: false);
+
+  final Size size = MediaQuery.of(context).size;
+
+  List itemList = [
+    Consumer<InAppPurchaseProvider>(
+      builder: (context, inAppPurchaseProvider, _) => PurchaseIconWidget(
+        icon: "assets/purchases_icon/buy_24_animals.png",
+        text: animalProvider.getUiTexts["buy 24 animals"],
+        whichFunction: "buy_24_animals",
+        isLoading: !inAppPurchaseProvider.getIsAll24AnimalInformationDownload,
+      ),
+    ),
+    Consumer<InAppPurchaseProvider>(
+      builder: (context, inAppPurchaseProvider, _) => PurchaseIconWidget(
+        icon: "assets/purchases_icon/buy_36_animals.gif",
+        text: animalProvider.getUiTexts["buy 36 animals"],
+        whichFunction: "buy_36_animals",
+        isLoading: !inAppPurchaseProvider.getIsAll36AnimalInformationDownload,
+      ),
+    ),
+    Consumer<InAppPurchaseProvider>(
+      builder: (context, inAppPurchaseProvider, _) => PurchaseIconWidget(
+        icon: "assets/purchases_icon/premium_icon.png",
+        text: animalProvider.getUiTexts["buy premium"],
+        whichFunction: "premium",
+        isLoading: (inAppPurchaseProvider.getIsAll36AnimalInformationDownload &&
+                inAppPurchaseProvider.getIsAll36AnimalInformationDownload)
+            ? false
+            : true,
+      ),
+    ),
+    PurchaseIconWidget(
+      icon: "assets/purchases_icon/play_with_ads.gif",
+      text: animalProvider.getUiTexts["remove ads"],
+      whichFunction: "removeAds",
+    ),
+  ];
   showDialog(
     context: context,
     builder: (_) => Center(
@@ -20,113 +57,74 @@ inAppPurchaseWidget(context) {
                 image: AssetImage(
                     "assets/purchases_icon/in_app_purchases_background_image.png"),
                 fit: BoxFit.cover)),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        right: 20,
-                        top: 10,
-                      ),
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Image.asset(
-                          "assets/close_icon.png",
-                          color: Colors.transparent,
-                          height: 50,
-                          width: 50,
-                          fit: BoxFit.cover,
-                        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      right: 20,
+                      top: 10,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Image.asset(
+                        "assets/close_icon.png",
+                        color: Colors.transparent,
+                        height: size.width < 1100 ? 50 : 80,
+                        width: size.width < 1100 ? 50 : 80,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Text(
-                        animalProvider.getUiTexts["game store"],
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontFamily: "displayFont",
-                          color: itemColor,
-                        ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Text(
+                      animalProvider.getUiTexts["game store"],
+                      style: TextStyle(
+                        fontSize: size.width < 1100 ? 32 : 50,
+                        fontFamily: "displayFont",
+                        color: itemColor,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        right: 20,
-                        top: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      right: 20,
+                      top: 10,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Image.asset(
+                        "assets/close_icon.png",
+                        color: itemColor,
+                        height: size.width < 1100 ? 50 : 80,
+                        width: size.width < 1100 ? 50 : 80,
+                        fit: BoxFit.cover,
                       ),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Image.asset(
-                          "assets/close_icon.png",
-                          color: itemColor,
-                          height: 50,
-                          width: 50,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    )
-                  ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Expanded(
+              child: Expanded(
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisExtent: size.width < 1100 ? 150 : 250,
+                  ),
+                  itemCount: itemList.length,
+                  itemBuilder: (context, index) => itemList[index],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Consumer<InAppPurchaseProvider>(
-                    builder: (context, inAppPurchaseProvider, _) =>
-                        PurchaseIconWidget(
-                      icon: "assets/purchases_icon/buy_24_animals.png",
-                      text: animalProvider.getUiTexts["buy 24 animals"],
-                      whichFunction: "buy_24_animals",
-                      isLoading: !inAppPurchaseProvider
-                          .getIsAll24AnimalInformationDownload,
-                    ),
-                  ),
-                  Consumer<InAppPurchaseProvider>(
-                    builder: (context, inAppPurchaseProvider, _) =>
-                        PurchaseIconWidget(
-                      icon: "assets/purchases_icon/buy_36_animals.gif",
-                      text: animalProvider.getUiTexts["buy 36 animals"],
-                      whichFunction: "buy_36_animals",
-                      isLoading: !inAppPurchaseProvider
-                          .getIsAll36AnimalInformationDownload,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Consumer<InAppPurchaseProvider>(
-                    builder: (context, inAppPurchaseProvider, _) =>
-                        PurchaseIconWidget(
-                      icon: "assets/purchases_icon/premium_icon.png",
-                      text: animalProvider.getUiTexts["buy premium"],
-                      whichFunction: "premium",
-                      isLoading: (inAppPurchaseProvider
-                                  .getIsAll36AnimalInformationDownload &&
-                              inAppPurchaseProvider
-                                  .getIsAll36AnimalInformationDownload)
-                          ? false
-                          : true,
-                    ),
-                  ),
-                  PurchaseIconWidget(
-                    icon: "assets/purchases_icon/play_with_ads.gif",
-                    text: animalProvider.getUiTexts["remove ads"],
-                    whichFunction: "removeAds",
-                  ),
-                ],
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     ),

@@ -31,6 +31,8 @@ class _GameIconWidgetState extends State<GameIconWidget> {
         Provider.of<PageChangedProvider>(context, listen: false);
     LivesProvider livesProvider =
         Provider.of<LivesProvider>(context, listen: false);
+
+    final Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         if (Provider.of<AnimalProvider>(context, listen: false)
@@ -75,18 +77,20 @@ class _GameIconWidgetState extends State<GameIconWidget> {
             borderRadius: BorderRadius.circular(30),
             child: Image.asset(
               widget.icon,
-              height: 120,
-              width: 120,
+              height: size.width < 1100 ? 120 : 220,
+              width: size.width < 1100 ? 120 : 220,
               fit: BoxFit.cover,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 5),
+            padding: EdgeInsets.only(top: size.width < 110 ? 5 : 10),
             child: Consumer<AnimalProvider>(
               builder: (context, animalProvider, _) => Text(
                 widget.text1,
                 style: TextStyle(
-                    fontFamily: "displayFont", fontSize: 18, color: itemColor),
+                    fontFamily: "displayFont",
+                    fontSize: size.width < 1100 ? 18 : 34,
+                    color: itemColor),
               ),
             ),
           ),

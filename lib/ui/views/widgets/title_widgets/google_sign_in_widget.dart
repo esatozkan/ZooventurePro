@@ -8,6 +8,7 @@ class GoogleSignInWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final FirebaseAuth auth = FirebaseAuth.instance;
+    final Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () async {
         if (auth.currentUser == null) {
@@ -15,7 +16,7 @@ class GoogleSignInWidget extends StatelessWidget {
         }
       },
       child: CircleAvatar(
-        radius: 30,
+        radius: size.width < 1100 ? 30 : 50,
         backgroundImage: const AssetImage("assets/sign_in_google.png"),
         foregroundImage: AssetImage(auth.currentUser == null
             ? "assets/games/question_games/question_game/wrong_answer.png"

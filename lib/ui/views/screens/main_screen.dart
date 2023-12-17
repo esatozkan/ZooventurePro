@@ -45,8 +45,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
-    googleAdsProvider.loadBannerAd();
-    googleAdsProvider.loadInterstitialAd(context: context);
+    // googleAdsProvider.loadBannerAd();
+    // googleAdsProvider.loadInterstitialAd(context: context);
     getAllInformation(context);
     Provider.of<LivesProvider>(context, listen: false).determineLive();
     super.initState();
@@ -58,6 +58,8 @@ class _MainScreenState extends State<MainScreen> {
         Provider.of<InAppPurchaseProvider>(context, listen: false);
 
     List<int> pageIndex = [0, 1, 2];
+
+    final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       body: SafeArea(
@@ -79,9 +81,9 @@ class _MainScreenState extends State<MainScreen> {
                     const TitleWidget(),
                     Padding(
                       padding: EdgeInsets.only(
-                        left: 100,
-                        right: 100,
-                        top: 100,
+                        left: size.width < 1100 ? 100 : 150,
+                        right: size.width < 1100 ? 100 : 150,
+                        top: size.width < 1100 ? 100 : 150,
                         bottom: (googleAdsProvider.bannerAd != null &&
                                 !inAppPurchaseProvider.getIsPremiumSubscribed &&
                                 !inAppPurchaseProvider.getRemoveAdIsSubscribed)

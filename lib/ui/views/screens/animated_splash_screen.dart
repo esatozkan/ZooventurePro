@@ -50,10 +50,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return AnimatedSplashScreen.withScreenFunction(
       backgroundColor: itemColor.withOpacity(.8),
       splash: "assets/splash_screen.gif",
-      splashIconSize: 300,
+      splashIconSize: size.width < 1100 ? 300 : 600,
       screenFunction: () async {
         await getSomeInformation(context);
         internetConnection.put(0, true);

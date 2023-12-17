@@ -22,8 +22,12 @@ buyGemWidget(context) {
     context: context,
     builder: (_) => Center(
       child: Container(
-        height: (MediaQuery.of(context).size.height * 7) / 8,
-        width: (MediaQuery.of(context).size.width * 7) / 8,
+        height: MediaQuery.of(context).orientation == Orientation.portrait
+            ? MediaQuery.of(context).size.height
+            : (MediaQuery.of(context).size.height * 7) / 8,
+        width: MediaQuery.of(context).orientation == Orientation.portrait
+            ? MediaQuery.of(context).size.width
+            : (MediaQuery.of(context).size.width * 7) / 8,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             image: const DecorationImage(

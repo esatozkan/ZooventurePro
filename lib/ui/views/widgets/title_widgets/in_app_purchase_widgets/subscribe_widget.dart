@@ -46,166 +46,181 @@ subscribeWidget(
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(
-          image:
-              DecorationImage(image: AssetImage(imagePath), fit: BoxFit.cover),
-        ),
-        child: whichSubscribe == "removeAd"
-            ? Column(
-                children: [
-                  const Spacer(),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: 3,
-                      itemBuilder: ((context, index) {
-                        return GestureDetector(
-                          onTap: () async {
-                            if (!inAppPurchaseProvider
-                                .getRemoveAdIsSubscribed) {
-                              inAppPurchaseProvider.getIApEngine.handlePurchase(
-                                  inAppPurchaseProvider
-                                      .getProductsList[index + 9],
-                                  inAppPurchaseProvider.getStoreProductIds);
-                            } else {
-                              showInformationSnackbar(
-                                  context,
-                                  animalProvider
-                                      .getUiTexts["subscribe available"]);
-                            }
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 5),
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: Colors.black,
-                                width: 2,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(imagePath), fit: BoxFit.cover),
+          ),
+          child: whichSubscribe == "removeAd"
+              ? Column(
+                  children: [
+                    const Spacer(),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: 3,
+                        itemBuilder: ((context, index) {
+                          return GestureDetector(
+                            onTap: () async {
+                              if (!inAppPurchaseProvider
+                                  .getRemoveAdIsSubscribed) {
+                                inAppPurchaseProvider.getIApEngine
+                                    .handlePurchase(
+                                        inAppPurchaseProvider
+                                            .getProductsList[index + 9],
+                                        inAppPurchaseProvider
+                                            .getStoreProductIds);
+                              } else {
+                                showInformationSnackbar(
+                                    context,
+                                    animalProvider
+                                        .getUiTexts["subscribe available"]);
+                              }
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 5),
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 2,
+                                ),
+                                color: Colors.transparent,
                               ),
-                              color: itemColor,
-                            ),
-                            child: ListTile(
-                              title: Text(inAppPurchaseProvider
-                                  .getProductsList[index + 9].description),
-                              trailing: Text(
-                                inAppPurchaseProvider
-                                    .getProductsList[index + 9].price,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
+                              child: ListTile(
+                                title: Text(
+                                  inAppPurchaseProvider
+                                      .getProductsList[index + 9].description,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                trailing: Text(
+                                  inAppPurchaseProvider
+                                      .getProductsList[index + 9].price,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12),
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      }),
+                          );
+                        }),
+                      ),
                     ),
-                  ),
-                ],
-              )
-            : Column(
-                children: [
-                  const Spacer(),
-                  Column(
-                    children: [
-                      Visibility(
-                        visible: !inAppPurchaseProvider.getRemoveAdIsSubscribed,
-                        child: ListTile(
-                          title: Text(
-                            animalProvider.getUiTexts["remove ads"],
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                          trailing: Image.asset(
-                            "assets/games/question_games/question_game/correct_answer.png",
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: !inAppPurchaseProvider.getBuy24Animal,
-                        child: ListTile(
-                          title: Text(
-                            animalProvider.getUiTexts["buy 24 animals"],
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                          trailing: Image.asset(
-                            "assets/games/question_games/question_game/correct_answer.png",
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: !inAppPurchaseProvider.getBuy36Animal,
-                        child: ListTile(
-                          title: Text(
-                            animalProvider.getUiTexts["buy 36 animals"],
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                          trailing: Image.asset(
-                            "assets/games/question_games/question_game/correct_answer.png",
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      itemCount: 3,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () async {
-                            if (!inAppPurchaseProvider.getIsPremiumSubscribed) {
-                              inAppPurchaseProvider.getIApEngine.handlePurchase(
-                                  inAppPurchaseProvider
-                                      .getProductsList[index + 6],
-                                  inAppPurchaseProvider.getStoreProductIds);
-                            } else {
-                              showInformationSnackbar(
-                                  context, "abonelik bulunmaktadır");
-                            }
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 5),
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: Colors.black,
-                                width: 2,
+                  ],
+                )
+              : Column(
+                  children: [
+                    const Spacer(),
+                    Column(
+                      children: [
+                        Visibility(
+                          visible:
+                              !inAppPurchaseProvider.getRemoveAdIsSubscribed,
+                          child: ListTile(
+                            title: Text(
+                              animalProvider.getUiTexts["remove ads"],
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
                               ),
-                              color: itemColor,
                             ),
-                            child: ListTile(
-                              title: Text(inAppPurchaseProvider
-                                  .getProductsList[index + 6].description),
-                              trailing: Text(
-                                inAppPurchaseProvider
-                                    .getProductsList[index + 6].price,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
+                            trailing: Image.asset(
+                              "assets/games/question_games/question_game/correct_answer.png",
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: !inAppPurchaseProvider.getBuy24Animal,
+                          child: ListTile(
+                            title: Text(
+                              animalProvider.getUiTexts["buy 24 animals"],
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            trailing: Image.asset(
+                              "assets/games/question_games/question_game/correct_answer.png",
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: !inAppPurchaseProvider.getBuy36Animal,
+                          child: ListTile(
+                            title: Text(
+                              animalProvider.getUiTexts["buy 36 animals"],
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            trailing: Image.asset(
+                              "assets/games/question_games/question_game/correct_answer.png",
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        itemCount: 3,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () async {
+                              if (!inAppPurchaseProvider
+                                  .getIsPremiumSubscribed) {
+                                inAppPurchaseProvider.getIApEngine
+                                    .handlePurchase(
+                                        inAppPurchaseProvider
+                                            .getProductsList[index + 6],
+                                        inAppPurchaseProvider
+                                            .getStoreProductIds);
+                              } else {
+                                showInformationSnackbar(
+                                    context,
+                                    animalProvider
+                                        .getUiTexts["subscribe available"]);
+                              }
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 5),
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 2,
+                                ),
+                                color: Colors.transparent,
+                              ),
+                              child: ListTile(
+                                title: Text(
+                                  inAppPurchaseProvider
+                                      .getProductsList[index + 6].description,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                trailing: Text(
+                                  inAppPurchaseProvider
+                                      .getProductsList[index + 6].price,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12),
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                  )
-                ],
-              ),
-      ),
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                )),
     ),
   );
 }

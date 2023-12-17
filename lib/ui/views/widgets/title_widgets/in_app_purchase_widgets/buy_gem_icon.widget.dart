@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-
 import '/data/constants/constants.dart';
 
 double gemIconWidth = 150;
@@ -18,11 +17,12 @@ class BuyGemIconWidget extends StatelessWidget {
     required this.text,
     required this.gemCount,
     required this.price,
-
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double gemIconWidth = 150;
+    double gemIconHeight = 135;
     return Container(
       height: gemIconHeight,
       width: gemIconWidth,
@@ -34,7 +34,7 @@ class BuyGemIconWidget extends StatelessWidget {
             height: 55,
             width: gemIconWidth,
             decoration: BoxDecoration(
-              borderRadius:const BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(15),
                 topRight: Radius.circular(15),
               ),
@@ -47,16 +47,16 @@ class BuyGemIconWidget extends StatelessWidget {
           Container(
             height: 20,
             width: gemIconWidth,
-            color:const Color(0xfffea638),
+            color: const Color(0xfffea638),
             child: Center(
               child: Text(
                 text,
-                style:const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
             ),
           ),
           Container(
-            margin:const EdgeInsets.symmetric(vertical: 5),
+            margin: const EdgeInsets.symmetric(vertical: 5),
             height: 15,
             width: gemIconWidth,
             child: Row(
@@ -70,7 +70,7 @@ class BuyGemIconWidget extends StatelessWidget {
                 ),
                 Text(
                   " $gemCount",
-                  style:const TextStyle(
+                  style: const TextStyle(
                     color: Color(0xff746061),
                     fontWeight: FontWeight.bold,
                   ),
@@ -79,18 +79,17 @@ class BuyGemIconWidget extends StatelessWidget {
             ),
           ),
           Container(
-            margin:const EdgeInsets.symmetric(horizontal: 5),
+            margin: const EdgeInsets.symmetric(horizontal: 5),
             height: 25,
             width: gemIconWidth,
             decoration: BoxDecoration(
-              color:const Color(0xff7dd507),
+              color: const Color(0xff7dd507),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Center(
-              
               child: Text(
                 price,
-                style:const TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
