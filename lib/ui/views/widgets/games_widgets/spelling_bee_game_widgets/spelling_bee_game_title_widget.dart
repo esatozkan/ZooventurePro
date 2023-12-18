@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:zooventure/ui/providers/page_changed_provider.dart';
+import '/ui/providers/page_changed_provider.dart';
 import 'fly_in_animation_widget.dart';
 import 'spelling_bee_game_provider.dart';
 

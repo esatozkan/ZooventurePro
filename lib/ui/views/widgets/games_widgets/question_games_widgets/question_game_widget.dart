@@ -3,7 +3,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:zooventure/ui/providers/page_changed_provider.dart';
+import '/ui/providers/page_changed_provider.dart';
 import '/data/repository/generate_question.dart';
 import '/ui/views/widgets/games_widgets/question_games_widgets/question_games_provider.dart';
 import '/ui/views/widgets/games_widgets/question_games_widgets/question_title_widget.dart';

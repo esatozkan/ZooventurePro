@@ -9,7 +9,6 @@ import '/ui/views/screens/games/know_what_type_animal_screen.dart';
 import '/ui/views/screens/games/know_what_virtual_animal_screen.dart';
 import '/ui/views/screens/games/memory_games_screen.dart';
 import '/ui/views/screens/games/spelling_bee_game_screen.dart';
-import '../../../data/constants/constants.dart';
 import '../widgets/on_boarding_control_widget.dart';
 import '../widgets/title_widgets/title_widget.dart';
 import '/ui/providers/page_changed_provider.dart';
@@ -45,8 +44,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
-    // googleAdsProvider.loadBannerAd();
-    // googleAdsProvider.loadInterstitialAd(context: context);
+    googleAdsProvider.loadBannerAd();
+    googleAdsProvider.loadInterstitialAd(context: context);
     getAllInformation(context);
     Provider.of<LivesProvider>(context, listen: false).determineLive();
     super.initState();
@@ -68,14 +67,28 @@ class _MainScreenState extends State<MainScreen> {
                   .contains(pageChangedProvider.getPageChanged)
               ? Stack(
                   children: [
-                    screenBackgroundImage(
-                      pageChangedProvider.getPageChanged == 0
-                          ? "assets/bottom_navbar_icon/animalsIcon.png"
-                          : pageChangedProvider.getPageChanged == 1
-                              ? "assets/bottom_navbar_icon/animalVoiceIcon.png"
-                              : "assets/bottom_navbar_icon/gameScreenIcon.png",
-                      MediaQuery.of(context).size.height,
-                      MediaQuery.of(context).size.width,
+                    Stack(
+                      children: [
+                        Image.asset(
+                          "assets/bottom_navbar_icon/screensBackground.png",
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          fit: BoxFit.cover,
+                        ),
+                        Center(
+                          child: Image.asset(
+                            pageChangedProvider.getPageChanged == 0
+                                ? "assets/bottom_navbar_icon/animalsIcon.png"
+                                : pageChangedProvider.getPageChanged == 1
+                                    ? "assets/bottom_navbar_icon/animalVoiceIcon.png"
+                                    : "assets/bottom_navbar_icon/gameScreenIcon.png",
+                            color: Colors.black12,
+                            height: MediaQuery.of(context).size.height*2/3,
+                            width: MediaQuery.of(context).size.height*2/3,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ],
                     ),
                     const OnBoardingControlWidget(),
                     const TitleWidget(),

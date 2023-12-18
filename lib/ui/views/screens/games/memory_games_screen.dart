@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:zooventure/ui/providers/page_changed_provider.dart';
+import '/ui/providers/page_changed_provider.dart';
 import '../../widgets/games_widgets/memory_game_widgets/confetti_animation_widget.dart';
 import '../../widgets/games_widgets/memory_game_widgets/generate_word.dart';
 import '../../widgets/games_widgets/memory_game_widgets/memory_game_title_widget.dart';

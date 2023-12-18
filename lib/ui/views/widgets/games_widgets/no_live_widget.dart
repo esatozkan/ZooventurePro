@@ -3,7 +3,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:zooventure/ui/providers/animal_provider.dart';
+import '/ui/providers/animal_provider.dart';
 import '/ui/providers/in_app_purchase_provider.dart';
 import '/ui/views/widgets/internet_connection_widget.dart';
 import '/ui/views/widgets/title_widgets/in_app_purchase_widgets/buy_gem_widget.dart';

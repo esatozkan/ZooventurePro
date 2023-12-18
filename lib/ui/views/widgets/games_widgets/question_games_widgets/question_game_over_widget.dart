@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:zooventure/ui/providers/lives_provider.dart';
-import 'package:zooventure/ui/views/widgets/games_widgets/no_live_widget.dart';
-import 'package:zooventure/ui/views/widgets/title_widgets/in_app_purchase_widgets/buy_gem_widget.dart';
+import '/ui/providers/lives_provider.dart';
+import '/ui/views/widgets/games_widgets/no_live_widget.dart';
+import '/ui/views/widgets/title_widgets/in_app_purchase_widgets/buy_gem_widget.dart';
 import '/ui/providers/animal_provider.dart';
 import '../../../../providers/page_changed_provider.dart';
 import 'question_games_provider.dart';

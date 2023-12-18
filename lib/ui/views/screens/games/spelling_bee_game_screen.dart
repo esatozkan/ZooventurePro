@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:zooventure/ui/providers/page_changed_provider.dart';
+import '/ui/providers/page_changed_provider.dart';
 import '/ui/views/widgets/games_widgets/spelling_bee_game_widgets/fly_in_animation_widget.dart';
 import '/ui/views/widgets/games_widgets/spelling_bee_game_widgets/progress_bar_widget.dart';
 import '/ui/views/widgets/games_widgets/spelling_bee_game_widgets/spelling_bee_game_title_widget.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zooventure/data/constants/constants.dart';
+import '/data/constants/constants.dart';
 
 void showInformationSnackbar(context, String text) {
   ScaffoldMessenger.of(context).showSnackBar(

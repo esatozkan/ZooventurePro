@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:zooventure/ui/providers/animal_provider.dart';
+import '/ui/providers/animal_provider.dart';
 import '/ui/providers/in_app_purchase_provider.dart';
 import '/ui/views/widgets/title_widgets/in_app_purchase_widgets/buy_gem_icon.widget.dart';
 import '../../../../../data/constants/constants.dart';

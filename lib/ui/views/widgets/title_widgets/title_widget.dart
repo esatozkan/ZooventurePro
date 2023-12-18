@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:zooventure/data/services/user_service.dart';
+import '/data/services/user_service.dart';
 import '/ui/views/widgets/title_widgets/google_sign_in_widget.dart';
 import '/ui/views/screens/main_screen.dart';
 import '/ui/views/widgets/internet_connection_widget.dart';
@@ -35,9 +35,11 @@ class _TitleWidgetState extends State<TitleWidget> {
 
     final Size size = MediaQuery.of(context).size;
 
-    return Column(
-      children: [
-        Row(
+    return Positioned(
+      top: 0,
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
@@ -84,10 +86,10 @@ class _TitleWidgetState extends State<TitleWidget> {
                       onTap: () async {
                         if (animalProvider.getIsAllInformationDownload) {
                           applicationData("Click Language Button");
-
+              
                           // ignore: use_build_context_synchronously
                           googleAdsProvider.showInterstitialAd(context);
-
+              
                           // ignore: use_build_context_synchronously
                           showDialog(
                             context: context,
@@ -136,10 +138,11 @@ class _TitleWidgetState extends State<TitleWidget> {
                                                     .height *
                                                 7) /
                                             8,
-                                        width:
-                                            (MediaQuery.of(context).size.width *
-                                                    7) /
-                                                8,
+                                        width: (MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                7) /
+                                            8,
                                         child: Padding(
                                           padding: const EdgeInsets.all(40.0),
                                           child: GridView.builder(
@@ -152,30 +155,35 @@ class _TitleWidgetState extends State<TitleWidget> {
                                             itemCount: languageProvider
                                                 .getLanguageService.length,
                                             itemBuilder:
-                                                (BuildContext context, index) {
+                                                (BuildContext context,
+                                                    index) {
                                               return GestureDetector(
                                                 onTap: () async {
                                                   languageProvider
                                                       .setFlagIndex(index);
                                                   // ignore: use_build_context_synchronously
-                                                  await loadingWidget(context);
-
+                                                  await loadingWidget(
+                                                      context);
+              
                                                   // ignore: use_build_context_synchronously
                                                   Navigator.pop(context);
-
+              
                                                   setState(
                                                     () {
-                                                      animalProvider.getUiTexts[
+                                                      animalProvider
+                                                                  .getUiTexts[
                                                               "games"] =
                                                           animalProvider
                                                                   .getUiTexts[
                                                               "games"];
-                                                      animalProvider.getUiTexts[
+                                                      animalProvider
+                                                                  .getUiTexts[
                                                               "animal names"] =
                                                           animalProvider
                                                                   .getUiTexts[
                                                               "animal names"];
-                                                      animalProvider.getUiTexts[
+                                                      animalProvider
+                                                                  .getUiTexts[
                                                               "animal sounds"] =
                                                           animalProvider
                                                                   .getUiTexts[
@@ -240,10 +248,7 @@ class _TitleWidgetState extends State<TitleWidget> {
             ),
           ],
         ),
-        const SizedBox(
-          height: 10,
-        ),
-      ],
+      ),
     );
   }
 }
