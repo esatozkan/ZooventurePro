@@ -84,7 +84,6 @@ class LivesProvider extends ChangeNotifier {
       if (minutes > minuteLeft) {
         remainingMinutes = minutes - minuteLeft;
         startCountDown();
-        //dsfdsfsd
       } else if (minutes < minuteLeft) {
         live++;
         if (live != 5) {
