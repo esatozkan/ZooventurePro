@@ -26,17 +26,6 @@ class ReplayWidget extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(animalProvider.getUiTexts["buy"]),
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(12),
-            width: double.infinity,
-            child: ElevatedButton(
               onPressed: () {
                 SystemChrome.setPreferredOrientations([
                   DeviceOrientation.landscapeLeft,

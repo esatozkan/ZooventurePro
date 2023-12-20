@@ -26,7 +26,7 @@ class MessageWidget extends StatelessWidget {
 
     if (sessionCompleted) {
       title = "All Words Completed";
-      buttonText = animalProvider.getUiTexts["quit"];
+      buttonText = animalProvider.getUiTexts["replay"];
     }
 
     return AlertDialog(
@@ -68,33 +68,6 @@ class MessageWidget extends StatelessWidget {
                       spellingBeeGameThemeData.textTheme.displayLarge?.copyWith(
                     fontSize: 30,
                     color: Colors.amber,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-        Center(
-          child: Visibility(
-            visible: sessionCompleted,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10, bottom: 10),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(60),
-                  ),
-                ),
-                onPressed: () {},
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    animalProvider.getUiTexts["buy"],
-                    style: spellingBeeGameThemeData.textTheme.displayLarge
-                        ?.copyWith(
-                      fontSize: 30,
-                      color: Colors.amber,
-                    ),
                   ),
                 ),
               ),
