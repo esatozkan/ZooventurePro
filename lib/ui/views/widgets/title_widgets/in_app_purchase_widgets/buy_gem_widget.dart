@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '/ui/providers/animal_provider.dart';
 import '/ui/providers/in_app_purchase_provider.dart';
@@ -23,12 +22,8 @@ buyGemWidget(context) {
     context: context,
     builder: (_) => Center(
       child: Container(
-        height: MediaQuery.of(context).orientation == Orientation.portrait
-            ? MediaQuery.of(context).size.height
-            : (MediaQuery.of(context).size.height * 7) / 8,
-        width: MediaQuery.of(context).orientation == Orientation.portrait
-            ? MediaQuery.of(context).size.width
-            : (MediaQuery.of(context).size.width * 7) / 8,
+        height: (MediaQuery.of(context).size.height * 7) / 8,
+        width: (MediaQuery.of(context).size.width * 7) / 8,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             image: const DecorationImage(
@@ -98,24 +93,14 @@ buyGemWidget(context) {
                   ],
                 ),
               ),
-              Container(
-                margin:
-                    MediaQuery.of(context).orientation == Orientation.portrait
-                        ? const EdgeInsets.only(top: 20)
-                        : const EdgeInsets.all(0),
-                height:
-                    MediaQuery.of(context).orientation == Orientation.portrait
-                        ? (gemIconHeight * 3) + 40
-                        : (gemIconHeight * 2) + 20,
+              SizedBox(
+                height: (gemIconHeight * 2) + 20,
                 width: (gemIconWidth * 3) + 60,
                 child: GridView.builder(
                   itemCount: 6,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: MediaQuery.of(context).orientation ==
-                            Orientation.portrait
-                        ? 2
-                        : 3,
+                    crossAxisCount: 3,
                     crossAxisSpacing: 30,
                     mainAxisSpacing: 10,
                     childAspectRatio: gemIconWidth / gemIconHeight,
@@ -145,31 +130,6 @@ buyGemWidget(context) {
                   },
                 ),
               ),
-              MediaQuery.of(context).orientation == Orientation.portrait
-                  ? Container(
-                      margin: const EdgeInsets.all(20),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 60,
-                        vertical: 20,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: const Color(0xff7dd507),
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Image.asset(
-                          "assets/close_icon.png",
-                          color: itemColor,
-                          height: 50,
-                          width: 50,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    )
-                  : const Text("")
             ],
           ),
         ),

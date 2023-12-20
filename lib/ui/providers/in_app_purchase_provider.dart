@@ -40,9 +40,9 @@ class InAppPurchaseProvider with ChangeNotifier {
     ProductId(id: "remove_ad_monthly", isConsumable: false),
     ProductId(id: "remove_ad_yearly", isConsumable: false),
     ProductId(
-        id: "buy_24_animals", isConsumable: true, isOneTimePurchase: true),
+        id: "buy_24_animals", isConsumable: false, isOneTimePurchase: true),
     ProductId(
-        id: "buy_36_animals", isConsumable: true, isOneTimePurchase: true),
+        id: "buy_36_animals", isConsumable: false, isOneTimePurchase: true),
     ProductId(id: "premium_weekly", isConsumable: false),
     ProductId(id: "premium_monthly", isConsumable: false),
     ProductId(id: "premium_yearly", isConsumable: false),
