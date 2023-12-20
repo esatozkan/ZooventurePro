@@ -20,7 +20,3 @@ void generateQuestion(context) {
   question.removeRange(
       questionGameProvider.getNumberOfQuestion + 1, question.length);
 }
-
-void clearQuestion() {
-  question.clear();
-}

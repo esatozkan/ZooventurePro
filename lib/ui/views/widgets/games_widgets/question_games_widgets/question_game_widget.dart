@@ -30,6 +30,9 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
     SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp],
     );
+    Provider.of<QuestionGameProvider>(context, listen: false)
+        .resetGame(context);
+    generateQuestion(context);
 
     super.initState();
   }
@@ -41,10 +44,6 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
 
     return Consumer<PageChangedProvider>(
         builder: (context, pageChangedProvider, _) {
-      Provider.of<QuestionGameProvider>(context, listen: false)
-          .resetGame(context);
-      generateQuestion(context);
-
       if (widget.question == "knowWhatTypeAnimalScreen") {
         audioPlayer.play(
           BytesSource(

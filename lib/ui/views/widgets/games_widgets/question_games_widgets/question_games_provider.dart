@@ -64,6 +64,6 @@ class QuestionGameProvider extends ChangeNotifier {
     questionIndex = 0;
     answerControl = false;
     onTap = true;
-
+    
   }
 }
