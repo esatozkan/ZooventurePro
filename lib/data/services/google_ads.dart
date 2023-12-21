@@ -9,10 +9,12 @@ class GoogleAdsProvider with ChangeNotifier {
   BannerAd? bannerAd;
   int interstitialAdIndex = 0;
   int showInterstitialAdIndex = 7;
+  final String _loadInterstitialAdId="ca-app-pub-3940256099942544/1033173712";
+  final String _loadBannerAdId="ca-app-pub-3940256099942544/6300978111";
 
   void loadInterstitialAd({bool showAfterLoad = false, required context}) {
     InterstitialAd.load(
-      adUnitId: "ca-app-pub-3940256099942544/1033173712",
+      adUnitId: _loadInterstitialAdId,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
@@ -47,7 +49,7 @@ class GoogleAdsProvider with ChangeNotifier {
 
   void loadBannerAd() {
     bannerAd = BannerAd(
-      adUnitId: "ca-app-pub-3940256099942544/6300978111",
+      adUnitId: _loadBannerAdId,
       request: const AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(

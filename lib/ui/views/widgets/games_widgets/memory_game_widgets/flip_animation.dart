@@ -92,7 +92,7 @@ class _FlipAnimationWidgetState extends State<FlipAnimationWidget>
             : ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.asset(
-                  "assets/app_icon.png",
+                  "assets/app_icon/app_icon.png",
                   fit: BoxFit.cover,
                 ),
               ),

@@ -121,6 +121,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/app_icon/
     - assets/bottom_navbar_icon/
     - assets/game_control/
     - assets/purchases_icon/
