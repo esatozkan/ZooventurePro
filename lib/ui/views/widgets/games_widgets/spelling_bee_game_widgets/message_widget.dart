@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:zooventure/ui/views/screens/main_screen.dart';
 import '/ui/providers/animal_provider.dart';
 import '../../../../providers/page_changed_provider.dart';
 import '/data/constants/constants.dart';
@@ -59,6 +60,7 @@ class MessageWidget extends StatelessWidget {
                       .requestWord(request: true);
                   Navigator.of(context).pop();
                 }
+                googleAdsProvider.showInterstitialAd(context);
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

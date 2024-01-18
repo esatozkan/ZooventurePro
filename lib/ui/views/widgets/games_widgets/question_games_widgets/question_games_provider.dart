@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import '../../../screens/main_screen.dart';
 import '/data/repository/generate_question.dart';
 
 class QuestionGameProvider extends ChangeNotifier {
@@ -27,7 +28,7 @@ class QuestionGameProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> nextQuestion(int index, {String isVoice = ""}) async {
+  Future<void> nextQuestion(int index, context, {String isVoice = ""}) async {
     answerControl = !answerControl;
     audioPlayer.play(
       AssetSource(
@@ -48,12 +49,13 @@ class QuestionGameProvider extends ChangeNotifier {
           audioPlayer.play(
             BytesSource(question[questionIndex].question.name),
           );
-        }
-        if (isVoice == "KnowWhatHearAnimalScreen" &&
+        } else if (isVoice == "KnowWhatHearAnimalScreen" &&
             questionIndex != numberOfQuestion) {
           audioPlayer.play(
             BytesSource(question[questionIndex].question.voice),
           );
+        } else {
+          googleAdsProvider.showInterstitialAd(context);
         }
       });
     }
@@ -64,6 +66,5 @@ class QuestionGameProvider extends ChangeNotifier {
     questionIndex = 0;
     answerControl = false;
     onTap = true;
-    
   }
 }

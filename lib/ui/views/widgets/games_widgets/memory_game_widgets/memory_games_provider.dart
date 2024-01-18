@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zooventure/ui/views/screens/main_screen.dart';
 import 'game_audio_widget.dart';
 import 'word_model.dart';
 
@@ -24,7 +25,7 @@ class MemoryGamesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  onAnimationCompleted({required bool isForward}) async {
+  onAnimationCompleted(context, {required bool isForward}) async {
     if (tappedWords.length == 2) {
       if (isForward) {
         if (tappedWords.entries.elementAt(0).value.text ==
@@ -48,6 +49,7 @@ class MemoryGamesProvider extends ChangeNotifier {
           await GameAudioWidget.playAudio("Incorrect");
           reserveFlip = true;
         }
+        googleAdsProvider.showInterstitialAd(context);
       } else {
         reserveFlip = false;
         tappedWords.clear();

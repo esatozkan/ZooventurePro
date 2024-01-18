@@ -36,7 +36,7 @@ class WordTileWidget extends StatelessWidget {
               delay: notifier.reserveFlip ? 1500 : 0,
               reverse: notifier.reserveFlip,
               animatedCompleted: (isForward) {
-                notifier.onAnimationCompleted(isForward: isForward);
+                notifier.onAnimationCompleted(context, isForward: isForward);
               },
               animate: animate,
               word: MatchedAnimationWidget(
@@ -60,7 +60,7 @@ class WordTileWidget extends StatelessWidget {
                           ),
                         )
                       : Image.memory(
-                        word.url,
+                          word.url,
                           fit: BoxFit.cover,
                         ),
                 ),

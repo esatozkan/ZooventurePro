@@ -124,16 +124,51 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ],
                   )
-                : PageView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: pages.length,
-                    controller: pageController,
-                    onPageChanged: (index) {
-                      pageChangedProvider.pageChangedFunction(
-                          pageChangedProvider.getPageChanged);
-                    },
-                    itemBuilder: (context, index) =>
-                        pages[pageChangedProvider.getPageChanged],
+                : Stack(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom:
+                              (googleAdsProvider.getIsBannerAdLoaded != false &&
+                                      !inAppPurchaseProvider
+                                          .getIsPremiumSubscribed &&
+                                      !inAppPurchaseProvider
+                                          .getIsRemoveAdSubscribed)
+                                  ? googleAdsProvider.bannerAd!.size.height
+                                      .toDouble()
+                                  : 0,
+                        ),
+                        child: PageView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: pages.length,
+                          controller: pageController,
+                          onPageChanged: (index) {
+                            pageChangedProvider.pageChangedFunction(
+                                pageChangedProvider.getPageChanged);
+                          },
+                          itemBuilder: (context, index) =>
+                              pages[pageChangedProvider.getPageChanged],
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SafeArea(
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: 50,
+                            child:
+                                (googleAdsProvider.getIsBannerAdLoaded !=
+                                            false &&
+                                        !inAppPurchaseProvider
+                                            .getIsRemoveAdSubscribed &&
+                                        !inAppPurchaseProvider
+                                            .getIsPremiumSubscribed)
+                                    ? AdWidget(ad: googleAdsProvider.bannerAd!)
+                                    : const Text(""),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
           ),
         ),

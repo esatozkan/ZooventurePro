@@ -3,6 +3,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import '../../../screens/main_screen.dart';
 import '/ui/providers/page_changed_provider.dart';
 import '/data/repository/generate_question.dart';
 import '/ui/views/widgets/games_widgets/question_games_widgets/question_games_provider.dart';
@@ -62,6 +63,8 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                 .voice,
           ),
         );
+      }else{
+        googleAdsProvider.showInterstitialAd(context);
       }
       return SafeArea(
         child: Consumer<QuestionGameProvider>(
@@ -180,17 +183,17 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                                   if (widget.question ==
                                           "knowWhatVirtualImage" ||
                                       widget.question == "knowWhatRealImage") {
-                                    await questionGameProvider
-                                        .nextQuestion(index);
+                                    await questionGameProvider.nextQuestion(
+                                        index, context);
                                   } else {
                                     if (widget.question ==
                                         "knowWhatTypeAnimalScreen") {
                                       await questionGameProvider.nextQuestion(
-                                          index,
+                                          index, context,
                                           isVoice: "knowWhatTypeAnimalScreen");
                                     } else {
                                       await questionGameProvider.nextQuestion(
-                                          index,
+                                          index, context,
                                           isVoice: "KnowWhatHearAnimalScreen");
                                     }
                                   }
