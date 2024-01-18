@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onepref/onepref.dart';
-import '/ui/providers/lives_provider.dart';
 import '/data/models/animal_model.dart';
 import '/data/services/google_ads.dart';
 import '/ui/views/widgets/games_widgets/question_games_widgets/question_games_provider.dart';
@@ -19,6 +18,7 @@ import '/ui/providers/animal_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'ui/providers/in_app_purchase_provider.dart';
+import 'ui/providers/parent_control_provider.dart';
 import 'ui/views/widgets/games_widgets/memory_game_widgets/memory_games_provider.dart';
 
 Future<void> main() async {
@@ -37,8 +37,6 @@ Future<void> main() async {
   await Hive.openBox("flagSpelling");
   await Hive.openBox<Map<dynamic, dynamic>>("languages");
   await Hive.openBox("internetConnection");
-  await Hive.openBox("lives");
-  await Hive.openBox<DateTime>("timer");
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -76,14 +74,14 @@ Future<void> main() async {
               ListenableProvider(
                 create: (context) => QuestionGameProvider(),
               ),
+              ListenableProvider(
+                create: (_) => ParentControlProvider(),
+              ),
               ChangeNotifierProvider(
                 create: (_) => MemoryGamesProvider(),
               ),
               ChangeNotifierProvider(
                 create: (_) => SpellingBeeGameProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (_) => LivesProvider(),
               ),
               ChangeNotifierProvider(
                 create: (_) => GoogleAdsProvider(),

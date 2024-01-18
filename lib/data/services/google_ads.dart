@@ -9,7 +9,7 @@ class GoogleAdsProvider with ChangeNotifier {
   BannerAd? bannerAd;
   bool isBannerAdLoaded = false;
   int interstitialAdIndex = 0;
-  int showInterstitialAdIndex = 7;
+  int showInterstitialAdIndex = 14;
   final String _loadInterstitialAdId = "ca-app-pub-3940256099942544/1033173712";
   final String _loadBannerAdId = "ca-app-pub-3940256099942544/6300978111";
 
@@ -36,13 +36,13 @@ class GoogleAdsProvider with ChangeNotifier {
         Provider.of<InAppPurchaseProvider>(context, listen: false);
     if (interstitialAd != null &&
         interstitialAdIndex == showInterstitialAdIndex - 1 &&
-        inAppPurchaseProvider.getRemoveAdIsSubscribed == false &&
+        inAppPurchaseProvider.getIsRemoveAdSubscribed == false &&
         inAppPurchaseProvider.getIsPremiumSubscribed == false) {
       interstitialAd!.show();
       interstitialAdIndex = 0;
       loadInterstitialAd(context: context);
     } else {
-      if (inAppPurchaseProvider.getRemoveAdIsSubscribed == false &&
+      if (inAppPurchaseProvider.getIsRemoveAdSubscribed == false &&
           inAppPurchaseProvider.getIsPremiumSubscribed == false) {
         interstitialAdIndex++;
       }

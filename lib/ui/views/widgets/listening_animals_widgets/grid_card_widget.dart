@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/data/services/animal_service.dart';
 import '/ui/views/widgets/internet_connection_widget.dart';
-import '../../../../data/services/application_data_service.dart';
 import '../../../providers/animal_provider.dart';
 import '../../../providers/page_changed_provider.dart';
 import '../../screens/main_screen.dart';
@@ -42,7 +41,7 @@ class _GridCardWidgetState extends State<GridCardWidget> {
               if (animalProvider.getIsAllInformationDownload) {
                 pageChangedProvider.getPageChanged == 0
                     ? {
-                        applicationData("Click Animal Name"),
+                       
                         {
                           await voicePlayer
                               .play(
@@ -55,7 +54,7 @@ class _GridCardWidgetState extends State<GridCardWidget> {
                         }
                       }
                     : {
-                        applicationData("Click Animal Listening"),
+                       
                         await voicePlayer
                             .play(
                               BytesSource(

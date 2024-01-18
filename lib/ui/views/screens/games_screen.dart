@@ -1,5 +1,4 @@
 import 'package:provider/provider.dart';
-import '/data/repository/generate_animal.dart';
 import '/ui/providers/language_provider.dart';
 import '/ui/providers/animal_provider.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,6 @@ class GamesScreen extends StatelessWidget {
     AnimalProvider animalProvider = Provider.of(context, listen: false);
     LanguageProvider languageProvider =
         Provider.of<LanguageProvider>(context, listen: false);
-    controlOfAddAnimalToApp(context);
 
     final Size size = MediaQuery.of(context).size;
 

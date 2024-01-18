@@ -50,12 +50,12 @@ void generateAnimal(context, String local) {
     animalProvider.isAllAnimalDownloadFunction(true);
   }
 
-  if (inAppPurchaseProvider.getBuy24Animal ||
+  if (inAppPurchaseProvider.getIsBuy24AnimalSubscribed ||
       inAppPurchaseProvider.getIsPremiumSubscribed) {
     addAnimalToApp(24, context);
   }
 
-  if (inAppPurchaseProvider.getBuy36Animal ||
+  if (inAppPurchaseProvider.getIsBuy36AnimalSubscribed ||
       inAppPurchaseProvider.getIsPremiumSubscribed) {
     addAnimalToApp(36, context);
   }
@@ -139,11 +139,11 @@ controlOfAddAnimalToApp(context) {
     }
   } else {
     if (animalProvider.getAnimals.length == 24 &&
-        inAppPurchaseProvider.getBuy24Animal) {
+        inAppPurchaseProvider.getIsBuy24AnimalSubscribed) {
       addAnimalToApp(24, context);
     }
     if (animalProvider.getAnimals.length == 24 &&
-        inAppPurchaseProvider.getBuy36Animal) {
+        inAppPurchaseProvider.getIsBuy36AnimalSubscribed) {
       addAnimalToApp(36, context);
     }
   }

@@ -50,8 +50,7 @@ dependencies:
   google_mobile_ads: ^3.1.0
   onepref: ^0.0.15
   in_app_purchase: ^3.1.11
-  firebase_auth: ^4.15.0
-  google_sign_in: ^6.1.6
+  url_launcher: ^6.2.3
 
 
 dev_dependencies:
@@ -126,7 +125,6 @@ flutter:
     - assets/game_control/
     - assets/purchases_icon/
     - assets/in_app_purchase_background/
-    - assets/gem_images/
     - assets/games/
     - assets/games/spelling_bee_games/
     - assets/games/spelling_bee_games/spelling_bee_game_sounds/

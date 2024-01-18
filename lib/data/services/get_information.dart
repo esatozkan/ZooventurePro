@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
-import '/data/services/user_service.dart';
 import '../../ui/providers/in_app_purchase_provider.dart';
 import '../../ui/providers/language_provider.dart';
 import '../models/animal_model.dart';
@@ -18,12 +17,10 @@ Future getSomeInformation(context) async {
 
   Box animalBox = Hive.box<Animal>("animals");
 
-  getUserInformation(context);
-
-  await inAppPurchaseProvider.getProducts();
+  inAppPurchaseProvider.getProducts();
   inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
       .listen((list) {
-    inAppPurchaseProvider.listenPurchases(list, context);
+    inAppPurchaseProvider.listenPurchases(list);
   });
 
   if (animalBox.length != 24) {

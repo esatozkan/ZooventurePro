@@ -48,7 +48,7 @@ Future chanceLocal(context) async {
     getUrls.add(imageBytes);
   }
 
-  if (inAppPurchaseProvider.getBuy24Animal) {
+  if (inAppPurchaseProvider.getIsBuy24AnimalSubscribed) {
     final storageRef = FirebaseStorage.instance.ref().child(
         "buy-24-animals/animal-types/animal-type-${languageProvider.getLocal}");
     final listResult = await storageRef.listAll();
@@ -59,7 +59,7 @@ Future chanceLocal(context) async {
     }
   }
 
-  if (inAppPurchaseProvider.getBuy36Animal) {
+  if (inAppPurchaseProvider.getIsBuy36AnimalSubscribed) {
     final storageRef = FirebaseStorage.instance.ref().child(
         "buy-36-animals/animal-types/animal-type-${languageProvider.getLocal}");
     final listResult = await storageRef.listAll();

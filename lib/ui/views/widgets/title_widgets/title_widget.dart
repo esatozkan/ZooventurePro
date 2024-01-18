@@ -1,17 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import '/data/services/user_service.dart';
-import '/ui/views/widgets/title_widgets/google_sign_in_widget.dart';
+import 'package:zooventure/ui/providers/parent_control_provider.dart';
+import 'in_app_purchase_widgets/parent_control_widget.dart';
 import '/ui/views/screens/main_screen.dart';
 import '/ui/views/widgets/internet_connection_widget.dart';
-import '/ui/views/widgets/title_widgets/game_screen_title_widgets/game_screen_title_widget.dart';
-import '/data/services/application_data_service.dart';
 import '/ui/providers/language_provider.dart';
 import '/ui/providers/animal_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../data/constants/constants.dart';
 import '../../../providers/page_changed_provider.dart';
-import 'in_app_purchase_widgets/in_app_purchase_widget.dart';
 import 'language_widgets/loading_widget.dart';
 
 class TitleWidget extends StatefulWidget {
@@ -31,8 +27,6 @@ class _TitleWidgetState extends State<TitleWidget> {
     LanguageProvider languageProvider =
         Provider.of<LanguageProvider>(context, listen: false);
 
-    FirebaseAuth auth = FirebaseAuth.instance;
-
     final Size size = MediaQuery.of(context).size;
 
     return Positioned(
@@ -45,16 +39,12 @@ class _TitleWidgetState extends State<TitleWidget> {
             GestureDetector(
               onTap: () async {
                 if (animalProvider.getIsAllInformationDownload) {
-                  if (auth.currentUser != null) {
-                    applicationData("Click Sale");
-                    // ignore: use_build_context_synchronously
-                    inAppPurchaseWidget(context);
-                  } else {
-                    // ignore: use_build_context_synchronously
-                    createUserInformationData(context);
-                  }
+                  Provider.of<ParentControlProvider>(context, listen: false)
+                      .generateProcess();
+                  parentControlWidget(context);
                 } else {
-                  showInformationSnackbar(context, "loading the animal");
+                  showInformationSnackbar(
+                      context, animalProvider.getUiTexts["loading the animal"]);
                 }
               },
               child: Image.asset(
@@ -81,15 +71,13 @@ class _TitleWidgetState extends State<TitleWidget> {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 50),
-              child: pageChangedProvider.getPageChanged == 0
+              child: pageChangedProvider.getPageChanged != 2
                   ? GestureDetector(
                       onTap: () async {
                         if (animalProvider.getIsAllInformationDownload) {
-                          applicationData("Click Language Button");
-              
                           // ignore: use_build_context_synchronously
                           googleAdsProvider.showInterstitialAd(context);
-              
+
                           // ignore: use_build_context_synchronously
                           showDialog(
                             context: context,
@@ -138,11 +126,10 @@ class _TitleWidgetState extends State<TitleWidget> {
                                                     .height *
                                                 7) /
                                             8,
-                                        width: (MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                7) /
-                                            8,
+                                        width:
+                                            (MediaQuery.of(context).size.width *
+                                                    7) /
+                                                8,
                                         child: Padding(
                                           padding: const EdgeInsets.all(40.0),
                                           child: GridView.builder(
@@ -155,35 +142,30 @@ class _TitleWidgetState extends State<TitleWidget> {
                                             itemCount: languageProvider
                                                 .getLanguageService.length,
                                             itemBuilder:
-                                                (BuildContext context,
-                                                    index) {
+                                                (BuildContext context, index) {
                                               return GestureDetector(
                                                 onTap: () async {
                                                   languageProvider
                                                       .setFlagIndex(index);
                                                   // ignore: use_build_context_synchronously
-                                                  await loadingWidget(
-                                                      context);
-              
+                                                  await loadingWidget(context);
+
                                                   // ignore: use_build_context_synchronously
                                                   Navigator.pop(context);
-              
+
                                                   setState(
                                                     () {
-                                                      animalProvider
-                                                                  .getUiTexts[
+                                                      animalProvider.getUiTexts[
                                                               "games"] =
                                                           animalProvider
                                                                   .getUiTexts[
                                                               "games"];
-                                                      animalProvider
-                                                                  .getUiTexts[
+                                                      animalProvider.getUiTexts[
                                                               "animal names"] =
                                                           animalProvider
                                                                   .getUiTexts[
                                                               "animal names"];
-                                                      animalProvider
-                                                                  .getUiTexts[
+                                                      animalProvider.getUiTexts[
                                                               "animal sounds"] =
                                                           animalProvider
                                                                   .getUiTexts[
@@ -208,8 +190,8 @@ class _TitleWidgetState extends State<TitleWidget> {
                             ),
                           );
                         } else {
-                          showInformationSnackbar(
-                              context, "loading the animal");
+                          showInformationSnackbar(context,
+                              animalProvider.getUiTexts["loading the animal"]);
                         }
                       },
                       child: Consumer<AnimalProvider>(
@@ -242,9 +224,7 @@ class _TitleWidgetState extends State<TitleWidget> {
                                   ),
                       ),
                     )
-                  : pageChangedProvider.getPageChanged == 1
-                      ? const GoogleSignInWidget()
-                      : const GameScreenTitleWidget(),
+                  : null,
             ),
           ],
         ),
