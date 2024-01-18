@@ -73,74 +73,69 @@ class _MainScreenState extends State<MainScreen> {
         ),
         child: SafeArea(
           child: Consumer<PageChangedProvider>(
-            builder: (context, pageChangedProvider, _) => pageIndex
-                    .contains(pageChangedProvider.getPageChanged)
-                ? Stack(
-                    children: [
-                      const OnBoardingControlWidget(),
-                      const TitleWidget(),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: size.width < 1100 ? 100 : 150,
-                          right: size.width < 1100 ? 100 : 150,
-                          top: size.width < 1100 ? 100 : 150,
-                          bottom: (googleAdsProvider.bannerAd != null &&
-                                  !inAppPurchaseProvider
-                                      .getIsPremiumSubscribed &&
-                                  !inAppPurchaseProvider
-                                      .getRemoveAdIsSubscribed)
-                              ? googleAdsProvider.bannerAd!.size.height
-                                  .toDouble()
-                              : 0,
-                        ),
-                        child: PageView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: pages.length,
-                          controller: pageController,
-                          onPageChanged: (index) {
-                            pageChangedProvider.pageChangedFunction(
-                                pageChangedProvider.getPageChanged);
-                          },
-                          itemBuilder: (context, index) =>
-                              pages[pageChangedProvider.getPageChanged],
-                        ),
-                      ),
-                      Visibility(
-                        visible: (googleAdsProvider.bannerAd != null &&
-                                !inAppPurchaseProvider.getIsPremiumSubscribed &&
-                                !inAppPurchaseProvider.getRemoveAdIsSubscribed)
-                            ? true
-                            : false,
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: SizedBox(
-                            width: googleAdsProvider.bannerAd != null
-                                ? googleAdsProvider.bannerAd!.size.width
-                                    .toDouble()
-                                : 0,
-                            height: googleAdsProvider.bannerAd != null
-                                ? googleAdsProvider.bannerAd!.size.height
-                                    .toDouble()
-                                : 0,
-                            child: googleAdsProvider.bannerAd != null
-                                ? AdWidget(ad: googleAdsProvider.bannerAd!)
-                                : const Text(""),
+            builder: (context, pageChangedProvider, _) =>
+                pageIndex.contains(pageChangedProvider.getPageChanged)
+                    ? Stack(
+                        children: [
+                          const OnBoardingControlWidget(),
+                          const TitleWidget(),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: size.width < 1100 ? 100 : 150,
+                              right: size.width < 1100 ? 100 : 150,
+                              top: size.width < 1100 ? 100 : 150,
+                              bottom: (googleAdsProvider.getIsBannerAdLoaded != false &&
+                                      !inAppPurchaseProvider
+                                          .getIsPremiumSubscribed &&
+                                      !inAppPurchaseProvider
+                                          .getRemoveAdIsSubscribed)
+                                  ? googleAdsProvider.bannerAd!.size.height
+                                      .toDouble()
+                                  : 0,
+                            ),
+                            child: PageView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: pages.length,
+                              controller: pageController,
+                              onPageChanged: (index) {
+                                pageChangedProvider.pageChangedFunction(
+                                    pageChangedProvider.getPageChanged);
+                              },
+                              itemBuilder: (context, index) =>
+                                  pages[pageChangedProvider.getPageChanged],
+                            ),
                           ),
-                        ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: SafeArea(
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                height: 50,
+                                child: (googleAdsProvider
+                                                .getIsBannerAdLoaded !=
+                                            false &&
+                                        !inAppPurchaseProvider
+                                            .getRemoveAdIsSubscribed &&
+                                        !inAppPurchaseProvider
+                                            .getIsPremiumSubscribed)
+                                    ? AdWidget(ad: googleAdsProvider.bannerAd!)
+                                    : const Text(""),
+                              ),
+                            ),
+                          ),
+                        ],
                       )
-                    ],
-                  )
-                : PageView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: pages.length,
-                    controller: pageController,
-                    onPageChanged: (index) {
-                      pageChangedProvider.pageChangedFunction(
-                          pageChangedProvider.getPageChanged);
-                    },
-                    itemBuilder: (context, index) =>
-                        pages[pageChangedProvider.getPageChanged],
-                  ),
+                    : PageView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: pages.length,
+                        controller: pageController,
+                        onPageChanged: (index) {
+                          pageChangedProvider.pageChangedFunction(
+                              pageChangedProvider.getPageChanged);
+                        },
+                        itemBuilder: (context, index) =>
+                            pages[pageChangedProvider.getPageChanged],
+                      ),
           ),
         ),
       ),

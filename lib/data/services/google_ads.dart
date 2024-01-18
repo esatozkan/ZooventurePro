@@ -7,10 +7,13 @@ import '../../ui/providers/in_app_purchase_provider.dart';
 class GoogleAdsProvider with ChangeNotifier {
   InterstitialAd? interstitialAd;
   BannerAd? bannerAd;
+  bool isBannerAdLoaded = false;
   int interstitialAdIndex = 0;
   int showInterstitialAdIndex = 7;
-  final String _loadInterstitialAdId="ca-app-pub-3940256099942544/1033173712";
-  final String _loadBannerAdId="ca-app-pub-3940256099942544/6300978111";
+  final String _loadInterstitialAdId = "ca-app-pub-3940256099942544/1033173712";
+  final String _loadBannerAdId = "ca-app-pub-3940256099942544/6300978111";
+
+  bool get getIsBannerAdLoaded => isBannerAdLoaded;
 
   void loadInterstitialAd({bool showAfterLoad = false, required context}) {
     InterstitialAd.load(
@@ -55,9 +58,12 @@ class GoogleAdsProvider with ChangeNotifier {
       listener: BannerAdListener(
         onAdLoaded: (ad) {
           bannerAd = ad as BannerAd;
+          isBannerAdLoaded = true;
           notifyListeners();
         },
         onAdFailedToLoad: (ad, err) {
+          isBannerAdLoaded = false;
+          notifyListeners();
           ad.dispose();
         },
       ),
