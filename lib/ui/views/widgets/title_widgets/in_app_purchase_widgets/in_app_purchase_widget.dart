@@ -165,7 +165,7 @@ class _InAppPurchaseWidgetState extends State<InAppPurchaseWidget> {
                       mainAxisSpacing: 20,
                       crossAxisSpacing: 20,
                       mainAxisExtent:
-                          MediaQuery.of(context).size.width < 800 ? 200 : 400,
+                          MediaQuery.of(context).size.width < 800 ? 200 : 300,
                     ),
                     itemBuilder: (context, index) => itemList[index],
                   ),

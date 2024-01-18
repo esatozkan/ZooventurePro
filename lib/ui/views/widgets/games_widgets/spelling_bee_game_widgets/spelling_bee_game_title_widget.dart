@@ -42,8 +42,8 @@ class _SpellingBeeGameTitleWidgetState
             },
             child: Image.asset(
               "assets/game_control/back_icon.png",
-              height: 60,
-              width: 60,
+              height: MediaQuery.of(context).size.width < 800 ? 60 : 100,
+              width: MediaQuery.of(context).size.width < 800 ? 60 : 100,
               fit: BoxFit.cover,
               color: Colors.amber,
             ),
@@ -57,15 +57,15 @@ class _SpellingBeeGameTitleWidgetState
               animationCompleted: animatedCompleted(),
               child: Image.asset(
                 "assets/games/spelling_bee_games/bee.png",
-                height: 80,
-                width: 80,
+                height: MediaQuery.of(context).size.width < 800 ? 80 : 140,
+                width: MediaQuery.of(context).size.width < 800 ? 80 : 140,
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          const SizedBox(
-            height: 60,
-            width: 60,
+          SizedBox(
+            height: MediaQuery.of(context).size.width < 800 ? 60 : 100,
+            width: MediaQuery.of(context).size.width < 800 ? 60 : 100,
           ),
         ],
       ),

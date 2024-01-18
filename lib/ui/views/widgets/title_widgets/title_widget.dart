@@ -49,8 +49,8 @@ class _TitleWidgetState extends State<TitleWidget> {
               },
               child: Image.asset(
                 "assets/bottom_navbar_icon/gift.gif",
-                height: size.width < 1100 ? 100 : 150,
-                width: size.width < 1100 ? 150 : 250,
+                height: size.width < 800 ? 100 : 150,
+                width: size.width < 800 ? 150 : 250,
                 fit: BoxFit.cover,
               ),
             ),
@@ -62,7 +62,7 @@ class _TitleWidgetState extends State<TitleWidget> {
                         ? animalProvider.getUiTexts["animal sounds"]
                         : animalProvider.getUiTexts["games"],
                 style: TextStyle(
-                  fontSize: size.width < 1100 ? 32 : 50,
+                  fontSize: size.width < 800 ? 32 : 50,
                   fontFamily: "displayFont",
                   color: itemColor,
                   letterSpacing: 2,
@@ -213,7 +213,7 @@ class _TitleWidgetState extends State<TitleWidget> {
                                     ),
                                   )
                                 : CircleAvatar(
-                                    radius: size.width < 1100 ? 30 : 50,
+                                    radius: size.width < 800 ? 30 : 50,
                                     backgroundColor: Colors.black,
                                     child: CircleAvatar(
                                       radius: size.width < 1100 ? 28 : 46,

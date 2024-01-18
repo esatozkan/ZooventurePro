@@ -25,8 +25,8 @@ class MemoryGamesTitleWidget extends StatelessWidget {
           },
           child: Image.asset(
             "assets/game_control/back_icon.png",
-            height: 60,
-            width: 60,
+            height: MediaQuery.of(context).size.width < 800 ? 60 : 100,
+            width: MediaQuery.of(context).size.width < 800 ? 60 : 100,
             fit: BoxFit.cover,
             color: Colors.deepPurple,
           ),
@@ -34,16 +34,16 @@ class MemoryGamesTitleWidget extends StatelessWidget {
         Consumer<MemoryGamesProvider>(
           builder: (_, memoryGameProvider, __) => Text(
             memoryGameProvider.getMove.toString(),
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.deepPurple,
-              fontSize: 40,
+              fontSize: MediaQuery.of(context).size.width < 800 ? 40 : 60,
               fontFamily: "bubblegumSans",
             ),
           ),
         ),
-        const SizedBox(
-          height: 60,
-          width: 60,
+        SizedBox(
+          height: MediaQuery.of(context).size.width < 800 ? 60 : 100,
+          width: MediaQuery.of(context).size.width < 800 ? 60 : 100,
         ),
       ],
     );

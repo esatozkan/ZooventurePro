@@ -26,8 +26,8 @@ class InAppPurchaseIconWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: Image.asset(
               isLoading ? "assets/get_firebase_loading.gif" : image,
-              height: size.width < 1100 ? 100 : 200,
-              width: size.width < 1100 ? 100 : 200,
+              height: size.width < 800 ? 100 : 200,
+              width: size.width < 800 ? 100 : 200,
               fit: BoxFit.cover,
               color:isLoading == true ? itemColor : null,
             ),

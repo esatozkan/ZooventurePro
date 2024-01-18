@@ -124,7 +124,6 @@ flutter:
     - assets/bottom_navbar_icon/
     - assets/game_control/
     - assets/purchases_icon/
-    - assets/in_app_purchase_background/
     - assets/games/
     - assets/games/spelling_bee_games/
     - assets/games/spelling_bee_games/spelling_bee_game_sounds/
