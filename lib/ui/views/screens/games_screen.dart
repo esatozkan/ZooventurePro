@@ -59,7 +59,12 @@ class GamesScreen extends StatelessWidget {
           itemCount: languageProvider.getLocal == "en"
               ? games.length
               : games.length - 1,
-          itemBuilder: (context, index) => games[index],
+          itemBuilder: (context, index) =>
+              Consumer<AnimalProvider>(builder: (context, animalProvider, _) {
+            return Visibility(
+                visible: animalProvider.getIsAllInformationDownload,
+                child: games[index]);
+          }),
         );
       },
     );

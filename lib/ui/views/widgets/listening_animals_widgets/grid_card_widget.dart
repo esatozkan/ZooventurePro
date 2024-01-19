@@ -24,9 +24,6 @@ class _GridCardWidgetState extends State<GridCardWidget> {
 
     final Size size = MediaQuery.of(context).size;
 
-    print(animalProvider.getAnimals.length);
-    print("*************");
-
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: (size.width < 1100) ? 4 : 6,
@@ -41,6 +38,8 @@ class _GridCardWidgetState extends State<GridCardWidget> {
           builder: (context, animalProvider, _) => IconButton(
             onPressed: () async {
               if (animalProvider.getIsAllInformationDownload) {
+                print(animalProvider.getAnimals.length);
+                print("*************");
                 pageChangedProvider.getPageChanged == 0
                     ? {
                         {
