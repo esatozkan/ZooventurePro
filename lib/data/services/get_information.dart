@@ -4,6 +4,7 @@ import '../../ui/providers/in_app_purchase_provider.dart';
 import '../../ui/providers/language_provider.dart';
 import '../models/animal_model.dart';
 import '../repository/generate_animal.dart';
+import '../repository/generate_asset_animal.dart';
 import 'animal_service.dart';
 import 'flag_service.dart';
 import 'language_service.dart';
@@ -15,18 +16,13 @@ Future getSomeInformation(context) async {
   InAppPurchaseProvider inAppPurchaseProvider =
       Provider.of<InAppPurchaseProvider>(context, listen: false);
 
-  Box animalBox = Hive.box<Animal>("animals");
-
   inAppPurchaseProvider.getProducts();
   inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
       .listen((list) {
     inAppPurchaseProvider.listenPurchases(list);
   });
 
-  if (animalBox.length != 24) {
-    animalBox.clear();
-    await getAnimalVirtualImage(context);
-  }
+  generateAssetAnimal();
 
   await getText(
     languageProvider.getLocal,
@@ -46,6 +42,7 @@ Future getAllInformation(context) async {
 
   if (animalBox.length != 24) {
     animalBox.clear();
+    await getAnimalVirtualImage(context);
     await getAnimalName(languageProvider.getLocal, context);
     await getAnimalVoice(context);
     await getAnimalRealImage(context);

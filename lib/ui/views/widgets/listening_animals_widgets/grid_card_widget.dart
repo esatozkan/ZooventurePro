@@ -1,8 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/data/services/animal_service.dart';
-import '/ui/views/widgets/internet_connection_widget.dart';
+import '/data/repository/generate_asset_animal.dart';
 import '../../../providers/animal_provider.dart';
 import '../../../providers/page_changed_provider.dart';
 import '../../screens/main_screen.dart';
@@ -25,6 +24,9 @@ class _GridCardWidgetState extends State<GridCardWidget> {
 
     final Size size = MediaQuery.of(context).size;
 
+    print(animalProvider.getAnimals.length);
+    print("*************");
+
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: (size.width < 1100) ? 4 : 6,
@@ -33,7 +35,7 @@ class _GridCardWidgetState extends State<GridCardWidget> {
       ),
       itemCount: animalProvider.getIsAllInformationDownload == true
           ? animalProvider.getAnimals.length
-          : animalVirtualImages.length,
+          : assetAnimals.length,
       itemBuilder: (BuildContext context, index) {
         return Consumer<AnimalProvider>(
           builder: (context, animalProvider, _) => IconButton(
@@ -41,7 +43,6 @@ class _GridCardWidgetState extends State<GridCardWidget> {
               if (animalProvider.getIsAllInformationDownload) {
                 pageChangedProvider.getPageChanged == 0
                     ? {
-                       
                         {
                           await voicePlayer
                               .play(
@@ -54,7 +55,6 @@ class _GridCardWidgetState extends State<GridCardWidget> {
                         }
                       }
                     : {
-                       
                         await voicePlayer
                             .play(
                               BytesSource(
@@ -65,17 +65,28 @@ class _GridCardWidgetState extends State<GridCardWidget> {
                                 googleAdsProvider.showInterstitialAd(context)),
                       };
               } else {
-                showInformationSnackbar(
-                    context, animalProvider.getUiTexts["loading the animal"]);
+                pageChangedProvider.getPageChanged == 0
+                    ? {
+                        {
+                          await voicePlayer
+                              .play(AssetSource(assetAnimals[index].animalType))
+                              .then((value) => googleAdsProvider
+                                  .showInterstitialAd(context)),
+                        }
+                      }
+                    : {
+                        await voicePlayer
+                            .play(AssetSource(assetAnimals[index].animalVoice))
+                            .then((value) =>
+                                googleAdsProvider.showInterstitialAd(context)),
+                      };
               }
             },
             icon: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.memory(
-                animalProvider.getIsAllInformationDownload == true
-                    ? animalProvider.getAnimals[index].image
-                    : animalVirtualImages[index],
-              ),
+              child: animalProvider.getIsAllInformationDownload == true
+                  ? Image.memory(animalProvider.getAnimals[index].image)
+                  : Image.asset(assetAnimals[index].animalVirtualImage),
             ),
             // Image.network(animalProvider.getAnimalGif[index])),
           ),

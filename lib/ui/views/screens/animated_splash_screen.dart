@@ -39,11 +39,21 @@ class _SplashScreenState extends State<SplashScreen> {
           if (element.productID.contains("premium_")) {
             OnePref.setPremium(true);
           }
+          if(element.productID.contains("buy_24_animal_")){
+            OnePref.setBool("isBuy24AnimalSubscribed", true);
+          }
+          if(element.productID.contains("buy_36_animal_")){
+            OnePref.setBool("isBuy36AnimalSubscribed", true);
+          }
         }
       } else {
         // abonelik bulunmuyor ya da iptal edilmiş
         OnePref.setRemoveAds(false);
         OnePref.setPremium(false);
+        OnePref.setBool("isBuy24AnimalSubscribed",false);
+        OnePref.setBool("isBuy36AnimalSubscribed",false);
+        
+        
       }
     });
   }

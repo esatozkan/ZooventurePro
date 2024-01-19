@@ -87,13 +87,13 @@ generateBuyAnimal(int animalType) {
   animalVoices.clear();
 }
 
-addAnimalToApp(int animalType, context) {
+addAnimalToApp(int animalType, context) async {
   AnimalProvider animalProvider =
       Provider.of<AnimalProvider>(context, listen: false);
   if (animalType == 24) {
     Box animal24Box = Hive.box<Animal>("buy24animals");
     for (int i = 0; i < animal24Box.length; i++) {
-      final getAnimal24Hive = animal24Box.get(i);
+      final getAnimal24Hive = await animal24Box.get(i);
       Animal animal = Animal(
         name: getAnimal24Hive.name,
         voice: getAnimal24Hive.voice,
@@ -108,7 +108,7 @@ addAnimalToApp(int animalType, context) {
   if (animalType == 36) {
     Box animal36Box = Hive.box<Animal>("buy36animals");
     for (int i = 0; i < animal36Box.length; i++) {
-      final getAnimal36Hive = animal36Box.get(i);
+      final getAnimal36Hive =await animal36Box.get(i);
       Animal animal = Animal(
         name: getAnimal36Hive.name,
         voice: getAnimal36Hive.voice,
