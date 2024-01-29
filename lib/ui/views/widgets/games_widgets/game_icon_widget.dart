@@ -1,6 +1,4 @@
 import '/ui/providers/page_changed_provider.dart';
-import '../internet_connection_widget.dart';
-import '/ui/providers/animal_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../data/constants/constants.dart';
@@ -30,29 +28,21 @@ class _GameIconWidgetState extends State<GameIconWidget> {
     final Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        if (Provider.of<AnimalProvider>(context, listen: false)
-            .getIsAllInformationDownload) {
-          Future.delayed(const Duration(milliseconds: 500)).then((value) {
-            if (widget.whichFunction == "memoryGame") {
-              pageChangedProvider.pageChangedFunction(7);
-            } else if (widget.whichFunction == "SpellingBeeGame") {
-              pageChangedProvider.pageChangedFunction(8);
-            } else if (widget.whichFunction == "knowWhatVirtualAnimalScreen") {
-              pageChangedProvider.pageChangedFunction(6);
-            } else if (widget.whichFunction == "knowWhatHearAnimalScreen") {
-              pageChangedProvider.pageChangedFunction(3);
-            } else if (widget.whichFunction == "knowWhatRealAnimalScreen") {
-              pageChangedProvider.pageChangedFunction(4);
-            } else if (widget.whichFunction == "knowWhatTypeAnimalScreen") {
-              pageChangedProvider.pageChangedFunction(5);
-            }
-          });
-        } else {
-          showInformationSnackbar(
-              context,
-              Provider.of<AnimalProvider>(context, listen: false)
-                  .getUiTexts["loading the animal"]);
-        }
+        Future.delayed(const Duration(milliseconds: 500)).then((value) {
+          if (widget.whichFunction == "memoryGame") {
+            pageChangedProvider.pageChangedFunction(7);
+          } else if (widget.whichFunction == "SpellingBeeGame") {
+            pageChangedProvider.pageChangedFunction(8);
+          } else if (widget.whichFunction == "knowWhatVirtualAnimalScreen") {
+            pageChangedProvider.pageChangedFunction(6);
+          } else if (widget.whichFunction == "knowWhatHearAnimalScreen") {
+            pageChangedProvider.pageChangedFunction(3);
+          } else if (widget.whichFunction == "knowWhatRealAnimalScreen") {
+            pageChangedProvider.pageChangedFunction(4);
+          } else if (widget.whichFunction == "knowWhatTypeAnimalScreen") {
+            pageChangedProvider.pageChangedFunction(5);
+          }
+        });
       },
       child: Column(
         children: [
@@ -67,14 +57,12 @@ class _GameIconWidgetState extends State<GameIconWidget> {
           ),
           Padding(
             padding: EdgeInsets.only(top: size.width < 110 ? 5 : 10),
-            child: Consumer<AnimalProvider>(
-              builder: (context, animalProvider, _) => Text(
-                widget.text1,
-                style: TextStyle(
-                    fontFamily: "displayFont",
-                    fontSize: size.width < 1100 ? 18 : 34,
-                    color: itemColor),
-              ),
+            child: Text(
+              widget.text1,
+              style: TextStyle(
+                  fontFamily: "displayFont",
+                  fontSize: size.width < 1100 ? 18 : 34,
+                  color: itemColor),
             ),
           ),
         ],

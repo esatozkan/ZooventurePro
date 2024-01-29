@@ -1,38 +1,33 @@
 import 'dart:math';
+import '/data/services/animal_service.dart';
 import '/data/models/animal_model.dart';
 import '/data/models/question_model.dart';
-import '/ui/providers/animal_provider.dart';
-import 'package:provider/provider.dart';
 
-QuestionAnswerModel addQuestion(context, index) {
-  AnimalProvider animalProvider =
-      Provider.of<AnimalProvider>(context, listen: false);
-
+QuestionModel addQuestion(index) {
   List<int> generatedRandomNumbers = [];
-  Map<Animal, bool> generatedOptions = {};
+  Map<AnimalModel, bool> generatedOptions = {};
 
   generatedRandomNumbers.add(index);
-  generatedOptions[animalProvider.getAnimals[index]] = true;
+  generatedOptions[freeAnimals[index]] = true;
 
   while (generatedRandomNumbers.length < 4) {
     int generatedRandomNumber;
     do {
-      generatedRandomNumber = Random().nextInt(animalProvider.animals.length);
+      generatedRandomNumber = Random().nextInt(freeAnimals.length);
     } while (generatedRandomNumbers.contains(generatedRandomNumber));
     generatedRandomNumbers.add(generatedRandomNumber);
-    generatedOptions[animalProvider.getAnimals[generatedRandomNumber]] = false;
+    generatedOptions[freeAnimals[generatedRandomNumber]] = false;
   }
 
-  List<MapEntry<Animal, bool>> entries = generatedOptions.entries.toList();
+  List<MapEntry<AnimalModel, bool>> entries = generatedOptions.entries.toList();
   entries.shuffle();
   generatedOptions.clear();
   generatedOptions = Map.fromEntries(entries);
 
-  QuestionAnswerModel questionAnswerModel = QuestionAnswerModel(
-    question: animalProvider.getAnimals[index],
+  QuestionModel questionModel = QuestionModel(
+    question: freeAnimals[index],
     option: generatedOptions,
   );
-
   generatedRandomNumbers.clear();
-  return questionAnswerModel;
+  return questionModel;
 }

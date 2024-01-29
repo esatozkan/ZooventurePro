@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:zooventure/ui/providers/animal_provider.dart';
+import '/data/services/text_services.dart';
 import '../../../../../data/constants/constants.dart';
 import '../../../../providers/parent_control_provider.dart';
 import 'in_app_purchase_widget.dart';
@@ -34,18 +34,15 @@ Future<dynamic> parentControlWidget(BuildContext context) {
                             const AssetImage("assets/parent_control.png")),
                   ),
                   Text(
-                    Provider.of<AnimalProvider>(context, listen: false)
-                            .getUiTexts
-                            .containsKey("parent kontrol")
-                        ? Provider.of<AnimalProvider>(context, listen: false)
-                            .getUiTexts["parent kontrol"]
-                        : "Parent Control",
-                    style: TextStyle(
+                      texts["parent control"].toString().length < 16
+                          ? texts["parent control"].toString()
+                          : "${texts["parent control"].toString().substring(0, 12)}...",
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize:
                             MediaQuery.of(context).size.width < 800 ? 22 : 40,
-                        color: itemColor),
-                  ),
+                        color: itemColor,
+                      )),
                   Padding(
                     padding:
                         const EdgeInsets.only(right: 20, top: 20, bottom: 20),

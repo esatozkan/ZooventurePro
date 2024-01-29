@@ -1,22 +1,25 @@
 import 'dart:math';
 import 'package:provider/provider.dart';
+import '/data/services/animal_service.dart';
 import '/ui/views/widgets/games_widgets/question_games_widgets/question_games_provider.dart';
-import '/ui/providers/animal_provider.dart';
 import '/data/services/question_service.dart';
 import '../models/question_model.dart';
 
-List<QuestionAnswerModel> question = [];
+List<QuestionModel> question = [];
 
 void generateQuestion(context) {
-  AnimalProvider animalProvider = Provider.of(context, listen: false);
-  QuestionGameProvider questionGameProvider =
-      Provider.of(context, listen: false);
-
-  for (int i = 0; i < animalProvider.getAnimals.length; i++) {
-    question.add(addQuestion(context, i));
+  for (int i = 0; i < freeAnimals.length; i++) {
+    question.add(addQuestion(i));
   }
 
   question.shuffle(Random());
   question.removeRange(
-      questionGameProvider.getNumberOfQuestion + 1, question.length);
+      Provider.of<QuestionGameProvider>(context, listen: false)
+              .getNumberOfQuestion +
+          1,
+      question.length);
+}
+
+void clearQuestion() {
+  question.clear();
 }

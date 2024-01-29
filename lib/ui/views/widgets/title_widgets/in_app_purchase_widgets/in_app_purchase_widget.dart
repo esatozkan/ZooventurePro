@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:zooventure/ui/providers/in_app_purchase_provider.dart';
-import 'package:zooventure/ui/views/widgets/title_widgets/in_app_purchase_widgets/in_app_purchase_icon_widget.dart';
-import 'package:zooventure/ui/views/widgets/title_widgets/in_app_purchase_widgets/show_modal_bottom_sheet_widget.dart';
-import '../../../../../data/repository/generate_animal.dart';
+import '/data/services/text_services.dart';
+import '/ui/providers/in_app_purchase_provider.dart';
+import '/ui/views/widgets/title_widgets/in_app_purchase_widgets/in_app_purchase_icon_widget.dart';
+import '/ui/views/widgets/title_widgets/in_app_purchase_widgets/show_modal_bottom_sheet_widget.dart';
 import '/data/constants/constants.dart';
-import '../../../../providers/animal_provider.dart';
 
 class InAppPurchaseWidget extends StatefulWidget {
   const InAppPurchaseWidget({super.key});
@@ -27,15 +26,10 @@ class _InAppPurchaseWidgetState extends State<InAppPurchaseWidget> {
 
   @override
   Widget build(BuildContext context) {
-    AnimalProvider animalProvider =
-        Provider.of<AnimalProvider>(context, listen: false);
-
     List itemList = [
       InAppPurchaseIconWidget(
         image: "assets/purchases_icon/play_console_logo.png",
-        text: animalProvider.getUiTexts.containsKey("other apps")
-            ? animalProvider.getUiTexts["other apps"]
-            : "Other Apps",
+        text: texts["other apps"].toString(),
         onTap: () async {
           final Uri uri = Uri.parse(
               "https://play.google.com/store/apps/dev?id=8206297146535463722");
@@ -48,40 +42,33 @@ class _InAppPurchaseWidgetState extends State<InAppPurchaseWidget> {
           builder: (context, inAppPurchaseProvider, _) {
         return InAppPurchaseIconWidget(
           image: "assets/purchases_icon/buy_24_animals.png",
-          text: animalProvider.getUiTexts["buy 24 animals"],
+          text: texts["buy 24 animals"].toString(),
           onTap: () {
             showModalBottomSheetWidget(context, 0);
           },
-          isLoading: !inAppPurchaseProvider.getIsAll24AnimalInformationDownload,
         );
       }),
       Consumer<InAppPurchaseProvider>(
         builder: (context, inAppPurchaseProvider, _) => InAppPurchaseIconWidget(
           image: "assets/purchases_icon/buy_36_animals.gif",
-          text: animalProvider.getUiTexts["buy 36 animals"],
+          text: texts["buy 36 animals"].toString(),
           onTap: () {
             showModalBottomSheetWidget(context, 3);
           },
-          isLoading: !inAppPurchaseProvider.getIsAll36AnimalInformationDownload,
         ),
       ),
       Consumer<InAppPurchaseProvider>(
         builder: (context, inAppPurchaseProvider, _) => InAppPurchaseIconWidget(
           image: "assets/purchases_icon/premium_icon.png",
-          text: animalProvider.getUiTexts["buy premium"],
+          text: texts["buy premium"].toString(),
           onTap: () {
             showModalBottomSheetWidget(context, 9);
           },
-          isLoading:
-              (inAppPurchaseProvider.getIsAll36AnimalInformationDownload &&
-                      inAppPurchaseProvider.getIsAll36AnimalInformationDownload)
-                  ? false
-                  : true,
         ),
       ),
       InAppPurchaseIconWidget(
         image: "assets/purchases_icon/play_with_ads.gif",
-        text: animalProvider.getUiTexts["remove ads"],
+        text: texts["remove ads"].toString(),
         onTap: () {
           showModalBottomSheetWidget(context, 6);
         },
@@ -118,7 +105,6 @@ class _InAppPurchaseWidgetState extends State<InAppPurchaseWidget> {
                           DeviceOrientation.landscapeLeft,
                           DeviceOrientation.landscapeRight,
                         ]).then((value) {
-                          controlOfAddAnimalToApp(context);
                           Navigator.of(context).pop();
                         });
                       },
@@ -130,7 +116,7 @@ class _InAppPurchaseWidgetState extends State<InAppPurchaseWidget> {
                     ),
                   ),
                   Text(
-                    animalProvider.getUiTexts["game store"],
+                    texts["game store"].toString(),
                     style: TextStyle(
                         color: itemColor,
                         fontWeight: FontWeight.bold,

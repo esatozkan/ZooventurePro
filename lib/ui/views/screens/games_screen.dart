@@ -1,7 +1,6 @@
-import 'package:provider/provider.dart';
-import '/ui/providers/language_provider.dart';
-import '/ui/providers/animal_provider.dart';
 import 'package:flutter/material.dart';
+import '/ui/views/widgets/title_widgets/title_widget.dart';
+import '/data/services/text_services.dart';
 import '../widgets/games_widgets/game_icon_widget.dart';
 
 class GamesScreen extends StatelessWidget {
@@ -9,41 +8,37 @@ class GamesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AnimalProvider animalProvider = Provider.of(context, listen: false);
-    LanguageProvider languageProvider =
-        Provider.of<LanguageProvider>(context, listen: false);
-
     final Size size = MediaQuery.of(context).size;
 
     List<GameIconWidget> games = [
       GameIconWidget(
         icon: "assets/games/memory_game_logo.png",
-        text1: animalProvider.getUiTexts["memory game"],
+        text1: texts["memory game"].toString(),
         whichFunction: "memoryGame",
       ),
       GameIconWidget(
         icon: "assets/games/know_what_hear_game_logo.png",
-        text1: animalProvider.getUiTexts["find animal sounds"],
+        text1: texts["find animal sounds"].toString(),
         whichFunction: "knowWhatHearAnimalScreen",
       ),
       GameIconWidget(
         icon: "assets/games/know_what_virtual_image_logo.png",
-        text1: animalProvider.getUiTexts["find virtual image"],
+        text1: texts["find virtual image"].toString(),
         whichFunction: "knowWhatVirtualAnimalScreen",
       ),
       GameIconWidget(
         icon: "assets/games/know_what_type_animal_game_logo.png",
-        text1: animalProvider.getUiTexts["find animal names"],
+        text1: texts["find animal names"].toString(),
         whichFunction: "knowWhatTypeAnimalScreen",
       ),
       GameIconWidget(
         icon: "assets/games/know_what_real_image_logo.png",
-        text1: animalProvider.getUiTexts["find real image"],
+        text1: texts["find real image"].toString(),
         whichFunction: "knowWhatRealAnimalScreen",
       ),
       GameIconWidget(
         icon: "assets/games/spelling_bee_game_logo.png",
-        text1: animalProvider.getUiTexts["spelling bee game"],
+        text1: texts["spelling bee game"].toString(),
         whichFunction: "SpellingBeeGame",
       )
     ];
@@ -56,15 +51,8 @@ class GamesScreen extends StatelessWidget {
             crossAxisCount: 2,
             mainAxisExtent: size.width < 1100 ? 200 : 350,
           ),
-          itemCount: languageProvider.getLocal == "en"
-              ? games.length
-              : games.length - 1,
-          itemBuilder: (context, index) =>
-              Consumer<AnimalProvider>(builder: (context, animalProvider, _) {
-            return Visibility(
-                visible: animalProvider.getIsAllInformationDownload,
-                child: games[index]);
-          }),
+          itemCount: isEN ? games.length : games.length - 1,
+          itemBuilder: (context, index) => games[index],
         );
       },
     );

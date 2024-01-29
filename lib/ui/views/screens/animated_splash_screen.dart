@@ -1,15 +1,12 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onepref/onepref.dart';
 import 'package:provider/provider.dart';
+import '/data/repository/get_information.dart';
 import '/ui/providers/in_app_purchase_provider.dart';
 import '../../../data/constants/constants.dart';
-import '../../../data/services/get_information.dart';
 import '/ui/views/screens/main_screen.dart';
-
-final internetConnection = Hive.box("internetConnection");
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -39,10 +36,10 @@ class _SplashScreenState extends State<SplashScreen> {
           if (element.productID.contains("premium_")) {
             OnePref.setPremium(true);
           }
-          if(element.productID.contains("buy_24_animal_")){
+          if (element.productID.contains("buy_24_animal_")) {
             OnePref.setBool("isBuy24AnimalSubscribed", true);
           }
-          if(element.productID.contains("buy_36_animal_")){
+          if (element.productID.contains("buy_36_animal_")) {
             OnePref.setBool("isBuy36AnimalSubscribed", true);
           }
         }
@@ -50,10 +47,8 @@ class _SplashScreenState extends State<SplashScreen> {
         // abonelik bulunmuyor ya da iptal edilmiş
         OnePref.setRemoveAds(false);
         OnePref.setPremium(false);
-        OnePref.setBool("isBuy24AnimalSubscribed",false);
-        OnePref.setBool("isBuy36AnimalSubscribed",false);
-        
-        
+        OnePref.setBool("isBuy24AnimalSubscribed", false);
+        OnePref.setBool("isBuy36AnimalSubscribed", false);
       }
     });
   }
@@ -66,8 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
       splash: "assets/splash_screen.gif",
       splashIconSize: size.width < 1100 ? 300 : 600,
       screenFunction: () async {
-        await getSomeInformation(context);
-        internetConnection.put(0, true);
+        getInformation(context);
         return const MainScreen();
       },
     );

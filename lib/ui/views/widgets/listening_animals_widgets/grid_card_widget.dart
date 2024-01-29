@@ -1,8 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/data/repository/generate_asset_animal.dart';
-import '../../../providers/animal_provider.dart';
+import '/data/services/animal_service.dart';
 import '../../../providers/page_changed_provider.dart';
 import '../../screens/main_screen.dart';
 
@@ -20,75 +19,39 @@ class _GridCardWidgetState extends State<GridCardWidget> {
   Widget build(BuildContext context) {
     PageChangedProvider pageChangedProvider =
         Provider.of<PageChangedProvider>(context, listen: false);
-    AnimalProvider animalProvider = Provider.of<AnimalProvider>(context);
 
     final Size size = MediaQuery.of(context).size;
 
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: (size.width < 1100) ? 4 : 6,
-        crossAxisSpacing: 10,
-        childAspectRatio: .7,
+        crossAxisCount: (size.width < 1100) ? 3 : 6,
+        childAspectRatio: 1,
       ),
-      itemCount: animalProvider.getIsAllInformationDownload == true
-          ? animalProvider.getAnimals.length
-          : assetAnimals.length,
+      itemCount: freeAnimals.length,
       itemBuilder: (BuildContext context, index) {
-        return Consumer<AnimalProvider>(
-          builder: (context, animalProvider, _) => IconButton(
-            onPressed: () async {
-              if (animalProvider.getIsAllInformationDownload) {
-                print(animalProvider.getAnimals.length);
-                print("*************");
-                pageChangedProvider.getPageChanged == 0
-                    ? {
-                        {
-                          await voicePlayer
-                              .play(
-                                BytesSource(
-                                  animalProvider.getAnimals[index].name,
-                                ),
-                              )
-                              .then((value) => googleAdsProvider
-                                  .showInterstitialAd(context)),
-                        }
-                      }
-                    : {
-                        await voicePlayer
-                            .play(
-                              BytesSource(
-                                animalProvider.getAnimals[index].voice,
-                              ),
-                            )
-                            .then((value) =>
-                                googleAdsProvider.showInterstitialAd(context)),
-                      };
-              } else {
-                pageChangedProvider.getPageChanged == 0
-                    ? {
-                        {
-                          await voicePlayer
-                              .play(AssetSource(assetAnimals[index].animalType))
-                              .then((value) => googleAdsProvider
-                                  .showInterstitialAd(context)),
-                        }
-                      }
-                    : {
-                        await voicePlayer
-                            .play(AssetSource(assetAnimals[index].animalVoice))
-                            .then((value) =>
-                                googleAdsProvider.showInterstitialAd(context)),
-                      };
-              }
-            },
-            icon: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: animalProvider.getIsAllInformationDownload == true
-                  ? Image.memory(animalProvider.getAnimals[index].image)
-                  : Image.asset(assetAnimals[index].animalVirtualImage),
-            ),
-            // Image.network(animalProvider.getAnimalGif[index])),
+        return IconButton(
+          onPressed: () async {
+            pageChangedProvider.getPageChanged == 0
+                ? {
+                    {
+                      await voicePlayer
+                          .play(AssetSource(freeAnimals[index].animalType))
+                          .then((value) =>
+                              googleAdsProvider.showInterstitialAd(context)),
+                    }
+                  }
+                : {
+                    await voicePlayer
+                        .play(AssetSource(freeAnimals[index].animalVoice))
+                        .then((value) =>
+                            googleAdsProvider.showInterstitialAd(context)),
+                  };
+          },
+          icon: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.asset(freeAnimals[index].animalVirtualImage),
           ),
+          // Image.network(animalProvider.getAnimalGif[index])),
         );
       },
     );

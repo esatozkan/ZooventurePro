@@ -35,9 +35,9 @@ class _SpellingBeeGameScreenState extends State<SpellingBeeGameScreen> {
       spellingBeeGameGenerateAnimalWords(context);
 
       List<String> words = allWords.map((e) => e.name).toList();
-      List<Uint8List> images = allWords.map((e) => e.url).toList();
+      List<String> images = allWords.map((e) => e.url).toList();
 
-      late Uint8List image;
+      late String image;
       late String word;
       late String dropWord;
       generateWord() {
@@ -75,8 +75,7 @@ class _SpellingBeeGameScreenState extends State<SpellingBeeGameScreen> {
               ),
               Column(
                 children: [
-                  const Expanded(
-                      flex: 3, child: SpellingBeeGameTitleWidget()),
+                  const Expanded(flex: 3, child: SpellingBeeGameTitleWidget()),
                   Expanded(
                     flex: 4,
                     child: Row(
@@ -99,7 +98,7 @@ class _SpellingBeeGameScreenState extends State<SpellingBeeGameScreen> {
                       animate: true,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30),
-                        child: Image.memory(
+                        child: Image.asset(
                           image,
                           fit: BoxFit.cover,
                         ),

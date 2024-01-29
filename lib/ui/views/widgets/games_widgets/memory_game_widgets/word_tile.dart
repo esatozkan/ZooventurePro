@@ -59,7 +59,7 @@ class WordTileWidget extends StatelessWidget {
                             ),
                           ),
                         )
-                      : Image.memory(
+                      : Image.asset(
                           word.url,
                           fit: BoxFit.cover,
                         ),

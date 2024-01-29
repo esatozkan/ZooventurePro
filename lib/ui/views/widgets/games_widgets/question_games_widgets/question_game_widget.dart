@@ -47,23 +47,23 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
         builder: (context, pageChangedProvider, _) {
       if (widget.question == "knowWhatTypeAnimalScreen") {
         audioPlayer.play(
-          BytesSource(
+          AssetSource(
             question[Provider.of<QuestionGameProvider>(context, listen: false)
                     .getQuestionIndex]
                 .question
-                .name,
+                .animalType,
           ),
         );
       } else if (widget.question == "KnowWhatHearAnimalScreen") {
         audioPlayer.play(
-          BytesSource(
+          AssetSource(
             question[Provider.of<QuestionGameProvider>(context, listen: false)
                     .getQuestionIndex]
                 .question
-                .voice,
+                .animalVoice,
           ),
         );
-      }else{
+      } else {
         googleAdsProvider.showInterstitialAd(context);
       }
       return SafeArea(
@@ -96,7 +96,7 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                         borderRadius: BorderRadius.circular(30),
                         child: widget.question == "knowWhatVirtualImage" ||
                                 widget.question == "knowWhatRealImage"
-                            ? Image.memory(
+                            ? Image.asset(
                                 widget.question == "knowWhatVirtualImage"
                                     ? question[
                                             Provider.of<QuestionGameProvider>(
@@ -104,14 +104,14 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                                                     listen: false)
                                                 .getQuestionIndex]
                                         .question
-                                        .realImage
+                                        .animalRealImage
                                     : question[
                                             Provider.of<QuestionGameProvider>(
                                                     context,
                                                     listen: false)
                                                 .getQuestionIndex]
                                         .question
-                                        .image,
+                                        .animalVirtualImage,
                                 fit: BoxFit.cover,
                               )
                             : Padding(
@@ -128,20 +128,20 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                                         if (widget.question ==
                                             "knowWhatTypeAnimalScreen") {
                                           audioPlayer.play(
-                                            BytesSource(
+                                            AssetSource(
                                               question[questionGameProvider
                                                       .getQuestionIndex]
                                                   .question
-                                                  .name,
+                                                  .animalType,
                                             ),
                                           );
                                         } else {
                                           audioPlayer.play(
-                                            BytesSource(
+                                            AssetSource(
                                               question[questionGameProvider
                                                       .getQuestionIndex]
                                                   .question
-                                                  .voice,
+                                                  .animalVoice,
                                             ),
                                           );
                                         }
@@ -201,7 +201,7 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                               },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(30),
-                                child: Image.memory(
+                                child: Image.asset(
                                   widget.question == "knowWhatVirtualImage" ||
                                           widget.question ==
                                               "knowWhatTypeAnimalScreen"
@@ -210,13 +210,13 @@ class _QuestionGameWidget extends State<QuestionGameWidget> {
                                           .option
                                           .keys
                                           .toList()[index]
-                                          .image
+                                          .animalVirtualImage
                                       : question[questionGameProvider
                                               .getQuestionIndex]
                                           .option
                                           .keys
                                           .toList()[index]
-                                          .realImage,
+                                          .animalRealImage,
                                   height: size.height < 1100 ? 150 : 250,
                                   width: size.height < 1100 ? 150 : 250,
                                   fit: BoxFit.cover,

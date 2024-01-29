@@ -1,19 +1,21 @@
-import 'package:provider/provider.dart';
+import '/data/services/animal_service.dart';
 import 'word_model.dart';
-import '../../../../providers/animal_provider.dart';
 
 List<WordModel> sourceWords = [];
 
 int populateSourceWords(context) {
-  AnimalProvider animalProvider =
-      Provider.of<AnimalProvider>(context, listen: false);
   sourceWords.clear();
 
-  for (int i = 0; i < animalProvider.getAnimals.length; i++) {
+  for (int i = 0; i < freeAnimals.length; i++) {
+    int startIndex =
+        freeAnimals[i].animalVirtualImage.indexOf('animal_virtual_images/');
+    int endIndex = freeAnimals[i].animalVirtualImage.indexOf(".png");
+    String animalLength =
+        freeAnimals[i].animalVirtualImage.substring(startIndex + 22, endIndex);
     sourceWords.add(
       WordModel(
-        text: animalProvider.getAnimals[i].spelling,
-        url: animalProvider.getAnimals[i].image,
+        text: animalLength,
+        url: freeAnimals[i].animalVirtualImage,
         displayText: false,
       ),
     );

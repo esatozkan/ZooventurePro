@@ -1,23 +1,23 @@
 import 'dart:math';
-import 'package:provider/provider.dart';
+import '/data/services/animal_service.dart';
 import '/ui/views/widgets/games_widgets/spelling_bee_game_widgets/word_model.dart';
-import '../../../../providers/animal_provider.dart';
 
 List<SpellingBeeGameWordModel> allWords = [];
 
 spellingBeeGameGenerateAnimalWords(context) {
-  AnimalProvider animalProvider =
-      Provider.of<AnimalProvider>(context, listen: false);
-
   allWords.clear();
 
-  for (int i = 0; i < animalProvider.getAnimals.length; i++) {
-    String animalLength = animalProvider.getAnimals[i].spelling;
+  for (int i = 0; i < freeAnimals.length; i++) {
+    int startIndex =
+        freeAnimals[i].animalVirtualImage.indexOf('animal_virtual_images/');
+    int endIndex = freeAnimals[i].animalVirtualImage.indexOf(".png");
+    String animalLength =
+        freeAnimals[i].animalVirtualImage.substring(startIndex + 22, endIndex);
     if (animalLength.length < 7) {
       SpellingBeeGameWordModel spellingBeeGameWordModel =
           SpellingBeeGameWordModel(
         name: animalLength,
-        url: animalProvider.getAnimals[i].image,
+        url: freeAnimals[i].animalVirtualImage,
       );
       allWords.add(spellingBeeGameWordModel);
     }

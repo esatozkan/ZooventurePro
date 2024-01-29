@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import '/ui/providers/animal_provider.dart';
+import 'package:zooventure/data/services/text_services.dart';
 import '../../../../providers/page_changed_provider.dart';
 import 'question_games_provider.dart';
 
@@ -17,8 +17,6 @@ class QuestionGameGameOverWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AnimalProvider animalProvider =
-        Provider.of<AnimalProvider>(context, listen: false);
     PageChangedProvider pageChangedProvider =
         Provider.of<PageChangedProvider>(context, listen: false);
     return Consumer<QuestionGameProvider>(
@@ -48,7 +46,7 @@ class QuestionGameGameOverWidget extends StatelessWidget {
                         pageChangedProvider.pageChangedFunction(2);
                       });
                     },
-                    child: textButton(animalProvider.getUiTexts["quit"], 60)),
+                    child: textButton(texts["quit"].toString(), 60)),
               ],
             ),
           ),

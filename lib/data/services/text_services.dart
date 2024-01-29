@@ -1,40 +1,151 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hive/hive.dart';
-import 'package:provider/provider.dart';
-import '/ui/providers/animal_provider.dart';
+Map<String, String> textDe = {
+  "animal names": "Tierbezeichnungen",
+  "animal sounds": "Tiergeräusche",
+  "buy": "Kaufen",
+  "buy 24 animals": "24 Tiere Kaufen",
+  "buy 36 animals": "36 Tiere Kaufen",
+  "buy premium": "Premium Kaufen",
+  "find animal names": "Tierbezeichnungen Finden",
+  "find animal sounds": "Tiergeräusche Finden",
+  "find real image": "Echtes Bild Finden",
+  "find virtual image": "Virtuelles Bild Finden",
+  "game store": "Spieleladen",
+  "games": "Spiele",
+  "loading the animal": "Tier Wird Geladen...",
+  "memory game": "Gedächtnisspiel",
+  "new word": "Neues Wort",
+  "other apps": "Andere Apps",
+  "parent control": "Elternkontrolle",
+  "quit": "Beenden",
+  "remove ads": "Werbung Entfernen",
+  "replay": "Wiederholen",
+  "spelling bee game": "Rechtschreibspiel",
+  "subscribe available": "Abonnement Verfügbar",
+};
 
-Box languageBox = Hive.box<Map<dynamic, dynamic>>("languages");
+Map<String, String> textEn = {
+  "animal names": "Animal Names",
+  "animal sounds": "Animal Sounds",
+  "buy": "Buy",
+  "buy 24 animals": "Buy 24 Animals",
+  "buy 36 animals": "Buy 36 Animals",
+  "buy premium": "Buy Premium",
+  "find animal names": "Find Animal Names",
+  "find animal sounds": "Find Animal Sounds",
+  "find real image": "Find Real Image",
+  "find virtual image": "Find Virtual Image",
+  "game store": "Game Store",
+  "games": "Games",
+  "loading the animal": "Loading The Animal...",
+  "memory game": "Memory",
+  "new word": "New Word",
+  "other apps": "Other Apps",
+  "parent control": "Parent Control",
+  "quit": "Quit",
+  "remove ads": "Remove Ads",
+  "replay": "Replay",
+  "spelling bee game": "Spelling Bee",
+  "subscribe available": "Subscribe Available",
+};
 
-getText(String local, context) async {
-  AnimalProvider animalProvider =
-      Provider.of<AnimalProvider>(context, listen: false);
-  languageBox.clear();
+Map<String, String> textHi = {
+  "animal names": "जानवरों के नाम",
+  "animal sounds": "जानवरों की आवाज़ें",
+  "buy": "खरीदें",
+  "buy 24 animals": "चौबीस जानवर खरीदो",
+  "buy 36 animals": "छत्तीस जानवर खरीदो",
+  "buy premium": "प्रीमियम खरीदें",
+  "find animal names": "जानवरों के नाम ढूंढें",
+  "find animal sounds": "जानवरों की आवाज़ें ढूंढें",
+  "find real image": "असली छवि ढूंढें",
+  "find virtual image": "आभासिक छवि ढूंढें",
+  "game store": "खेल की दुकान",
+  "games": "खेल",
+  "loading the animal": "जानवर को लोड कर रहा है",
+  "memory game": "स्मृति खेल",
+  "new word": "नया शब्द",
+  "other apps": "दूसरे एप्लिकेशन",
+  "parent control": "अभिभावक नियंत्रण",
+  "quit": "बंद करें",
+  "remove ads": "विज्ञापन हटाएं",
+  "replay": "पुनः खेलें",
+  "spelling bee game": "शब्द बनाम शब्द खेल",
+  "subscribe available": "उपयोगकर्ता पंजीकृत है",
+};
 
-  if (languageBox.isEmpty) {
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    DocumentSnapshot snapshot =
-        await firebaseFirestore.collection("languages").doc(local).get();
+Map<String, String> textId = {
+  "animal names": "Nama-Nama Hewan",
+  "animal sounds": "Suara Hewan",
+  "buy": "Beli",
+  "buy 24 animals": "Beli 24 Hewan",
+  "buy 36 animals": "Beli 36 Hewan",
+  "buy premium": "Beli Premium",
+  "find animal names": "Cari Nama-Nama Hewan",
+  "find animal sounds": "Cari Suara Hewan",
+  "find real image": "Cari Gambar Nyata",
+  "find virtual image": "Cari Gambar Virtual",
+  "game store": "Toko Permainan",
+  "games": "Permainan",
+  "loading the animal": "Memuat Hewan...",
+  "memory game": "Permainan ingatan",
+  "new word": "Kata Baru",
+  "other apps": "Aplikasi Lain",
+  "parent control": "Pengawasan Orang Tua",
+  "quit": "Keluar",
+  "remove ads": "Hapus iklan",
+  "replay": "Main Ulang",
+  "spelling bee game": "Permainan Ejaan",
+  "subscribe available": "Berlangganan Tersedia",
+};
 
-    if (snapshot.exists) {
-      Map<dynamic, dynamic> data = snapshot.data() as Map<dynamic, dynamic>;
-      animalProvider.setTextToMap(data);
-      languageBox.put("languages", data);
-    } else {
-      snapshot =
-          await firebaseFirestore.collection("languages").doc("en").get();
-      animalProvider.setTextToMap(snapshot.data() as Map<dynamic, dynamic>);
-      languageBox.put("languages", snapshot.data() as Map<dynamic, dynamic>);
-    }
-  } else {
-    animalProvider.setTextToMap(languageBox.get("languages"));
-  }
-}
+Map<String, String> textIt = {
+  "animal names": "Nomi Degli Animali",
+  "animal sounds": "Suoni Degli Animali",
+  "buy": "Acquista",
+  "buy 24 animals": "Acquista 24 Animali",
+  "buy 36 animals": "Acquista 36 Animali",
+  "buy premium": "Acquista Premium",
+  "find animal names": "Trova Nomi Degli Animali",
+  "find animal sounds": "Trova Suoni Degli Animali",
+  "find real image": "Trova immagine Reale",
+  "find virtual image": "Trova immagine Virtuale",
+  "game store": "Negozio Di Giochi",
+  "games": "Giochi",
+  "loading the animal": "Caricamento Dell'animale...",
+  "memory game": "Gioco Della Memoria",
+  "new word": "Nuova Parola",
+  "other apps": "Altre App",
+  "parent control": "Controllo Dei Genitori",
+  "quit": "Esci",
+  "remove ads": "Rimuovi Pubblicità",
+  "replay": "Rigioca",
+  "spelling bee game": "Gioco Dell'ortografia",
+  "subscribe available": "Abbonamento Disponibile",
+};
 
-changeText(String local, context) async {
-  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-  DocumentSnapshot snapshot =
-      await firebaseFirestore.collection("languages").doc(local).get();
+Map<String, String> textTr = {
+  "animal names": "Hayvan Isimleri",
+  "animal sounds": "Hayvan Sesleri",
+  "buy": "Satın Al",
+  "buy 24 animals": "24 Hayvan Satın Al",
+  "buy 36 animals": "36 Hayvan Satın Al",
+  "buy premium": "Premium Satın Al",
+  "find animal names": "Hayvan İsimlerini Bil",
+  "find animal sounds": "Hayvan Seslerini Bil",
+  "find real image": "Gerçek Resmi Bul",
+  "find virtual image": "Sanal Resmi Bul",
+  "game store": "Oyun Magazası",
+  "games": "Oyunlar",
+  "loading the animal": "Hayvanlar Yükleniyor...",
+  "memory game": "Hafıza",
+  "new word": "Yeni Kelime",
+  "other apps": "Diger Uygulamalar",
+  "parent control": "Aile Kontrolü",
+  "quit": "Çıkış",
+  "remove ads": "Reklamları Kaldır",
+  "replay": "Tekrar",
+  "spelling bee game": "Heceleme Yarışması",
+  "subscribe available": "Abonelik Mevcut",
+};
 
-  Provider.of<AnimalProvider>(context, listen: false)
-      .setTextToMap(snapshot.data() as Map<dynamic, dynamic>);
-}
+Map<String, String> texts = {};

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import '/ui/providers/animal_provider.dart';
+import '/data/services/text_services.dart';
 import '../../../../providers/page_changed_provider.dart';
 import 'spin_animation.dart';
 
@@ -10,8 +10,6 @@ class ReplayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AnimalProvider animalProvider =
-        Provider.of<AnimalProvider>(context, listen: false);
     return SpinAnimationWidget(
       child: AlertDialog(
         backgroundColor: Colors.deepPurple,
@@ -38,7 +36,7 @@ class ReplayWidget extends StatelessWidget {
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(animalProvider.getUiTexts["quit"]),
+                child: Text(texts["quit"].toString()),
               ),
             ),
           ),

@@ -4,7 +4,7 @@ import '../../../screens/main_screen.dart';
 import '/data/repository/generate_question.dart';
 
 class QuestionGameProvider extends ChangeNotifier {
-  int numberOfQuestion = 7;
+  int numberOfQuestion = 10;
   int questionIndex = 0;
   bool answerControl = false;
   bool onTap = true;
@@ -30,35 +30,42 @@ class QuestionGameProvider extends ChangeNotifier {
 
   Future<void> nextQuestion(int index, context, {String isVoice = ""}) async {
     answerControl = !answerControl;
-    audioPlayer.play(
-      AssetSource(
-        question[questionIndex].option.values.toList()[index] == true
-            ? "games/question_games/question_game_sounds/correct.mp3"
-            : "games/question_games/question_game_sounds/incorrect.mp3",
-      ),
-    );
 
-    if (questionIndex != numberOfQuestion) {
-      await Future.delayed(const Duration(milliseconds: 1500), () {
-        setIsVisibleListItem(index, false);
-        answerControl = !answerControl;
-        questionIndex++;
-        onTap = true;
-        if (isVoice == "knowWhatTypeAnimalScreen" &&
-            questionIndex != numberOfQuestion) {
-          audioPlayer.play(
-            BytesSource(question[questionIndex].question.name),
-          );
-        } else if (isVoice == "KnowWhatHearAnimalScreen" &&
-            questionIndex != numberOfQuestion) {
-          audioPlayer.play(
-            BytesSource(question[questionIndex].question.voice),
-          );
-        } else {
-          googleAdsProvider.showInterstitialAd(context);
-        }
-      });
+    if (question[questionIndex].option.values.toList()[index] == false) {
+      await audioPlayer.play(
+        AssetSource(
+          "games/question_games/question_game_sounds/incorrect.mp3",
+        ),
+      );
+      answerControl = !answerControl;
+    } else {
+      await audioPlayer.play(
+        AssetSource(
+          "games/question_games/question_game_sounds/correct.mp3",
+        ),
+      );
+      if (questionIndex != numberOfQuestion) {
+        await Future.delayed(const Duration(milliseconds: 1500), () {
+          setIsVisibleListItem(index, false);
+          answerControl = !answerControl;
+          isVisibleList = List.filled(4, false);
+          questionIndex++;
+          onTap = true;
+          if (isVoice == "knowWhatTypeAnimalScreen" &&
+              questionIndex != numberOfQuestion) {
+            audioPlayer
+                .play(AssetSource(question[questionIndex].question.animalType));
+          } else if (isVoice == "KnowWhatHearAnimalScreen" &&
+              questionIndex != numberOfQuestion) {
+            audioPlayer.play(
+                AssetSource(question[questionIndex].question.animalVoice));
+          } else {
+            googleAdsProvider.showInterstitialAd(context);
+          }
+        });
+      }
     }
+
     notifyListeners();
   }
 

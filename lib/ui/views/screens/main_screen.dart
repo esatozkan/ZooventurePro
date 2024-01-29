@@ -1,7 +1,6 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '/ui/providers/in_app_purchase_provider.dart';
-import '../../../data/services/get_information.dart';
-import '/data/services/google_ads.dart';
+import '../../providers/google_ads_provider.dart';
 import '/ui/views/screens/games/know_what_hear_screen.dart';
 import '/ui/views/screens/games/know_what_real_animal_screen.dart';
 import '/ui/views/screens/games/know_what_type_animal_screen.dart';
@@ -45,7 +44,6 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     googleAdsProvider.loadBannerAd();
     googleAdsProvider.loadInterstitialAd(context: context);
-    getAllInformation(context);
     super.initState();
   }
 

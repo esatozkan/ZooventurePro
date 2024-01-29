@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:zooventure/ui/views/screens/main_screen.dart';
-import '/ui/providers/animal_provider.dart';
+import '/data/services/text_services.dart';
+import '/ui/views/screens/main_screen.dart';
 import '../../../../providers/page_changed_provider.dart';
 import '/data/constants/constants.dart';
 import '/ui/views/widgets/games_widgets/spelling_bee_game_widgets/spelling_bee_game_provider.dart';
@@ -17,8 +17,6 @@ class MessageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AnimalProvider animalProvider =
-        Provider.of<AnimalProvider>(context, listen: false);
     PageChangedProvider pageChangedProvider =
         Provider.of<PageChangedProvider>(context, listen: false);
 
@@ -27,7 +25,7 @@ class MessageWidget extends StatelessWidget {
 
     if (sessionCompleted) {
       title = "All Words Completed";
-      buttonText = animalProvider.getUiTexts["replay"];
+      buttonText = texts["replay"].toString();
     }
 
     return AlertDialog(
@@ -100,7 +98,7 @@ class MessageWidget extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  animalProvider.getUiTexts["quit"],
+                  texts["quit"].toString(),
                   style:
                       spellingBeeGameThemeData.textTheme.displayLarge?.copyWith(
                     fontSize: 30,

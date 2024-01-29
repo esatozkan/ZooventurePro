@@ -1,20 +1,12 @@
 import 'dart:async';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onepref/onepref.dart';
-import '/data/models/animal_model.dart';
-import '/data/services/google_ads.dart';
+import 'ui/providers/google_ads_provider.dart';
 import '/ui/views/widgets/games_widgets/question_games_widgets/question_games_provider.dart';
 import '/ui/views/widgets/games_widgets/spelling_bee_game_widgets/spelling_bee_game_provider.dart';
-import '/ui/providers/language_provider.dart';
 import '/ui/views/screens/animated_splash_screen.dart';
-import '/firebase_options.dart';
-import '/ui/views/screens/noInternetConnection_screen.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:firebase_core/firebase_core.dart';
 import '/ui/providers/page_changed_provider.dart';
 import 'package:flutter/services.dart';
-import '/ui/providers/animal_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'ui/providers/in_app_purchase_provider.dart';
@@ -28,72 +20,39 @@ Future<void> main() async {
 
   await OnePref.init();
 
-  await Hive.initFlutter();
-  Hive.registerAdapter(AnimalAdapter(), override: true);
-  await Hive.openBox<Animal>("animals");
-  await Hive.openBox<Animal>("buy24animals");
-  await Hive.openBox<Animal>("buy36animals");
-  await Hive.openBox("flags");
-  await Hive.openBox("flagSpelling");
-  await Hive.openBox<Map<dynamic, dynamic>>("languages");
-  await Hive.openBox("internetConnection");
-
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  var connectivityResult = await Connectivity().checkConnectivity();
-
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
   ]).then(
     (value) async {
-      if (connectivityResult == ConnectivityResult.none &&
-          internetConnection.get(0) != true) {
-        runApp(
-          const MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: NoInternetConnection(),
-          ),
-        );
-        main();
-      } else {
-        runApp(
-          MultiProvider(
-            providers: [
-              ListenableProvider(
-                create: (context) => AnimalProvider(),
-              ),
-              ListenableProvider(
-                create: (context) => PageChangedProvider(),
-              ),
-              ListenableProvider(
-                create: (context) => LanguageProvider(),
-              ),
-              ListenableProvider(
-                create: (context) => QuestionGameProvider(),
-              ),
-              ListenableProvider(
-                create: (_) => ParentControlProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (_) => MemoryGamesProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (_) => SpellingBeeGameProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (_) => GoogleAdsProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (_) => InAppPurchaseProvider(),
-              ),
-            ],
-            child: const MyApp(),
-          ),
-        );
-      }
+      runApp(
+        MultiProvider(
+          providers: [
+            ListenableProvider(
+              create: (context) => PageChangedProvider(),
+            ),
+            ListenableProvider(
+              create: (context) => QuestionGameProvider(),
+            ),
+            ListenableProvider(
+              create: (_) => ParentControlProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => MemoryGamesProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => SpellingBeeGameProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => GoogleAdsProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => InAppPurchaseProvider(),
+            ),
+          ],
+          child: const MyApp(),
+        ),
+      );
     },
   );
 }

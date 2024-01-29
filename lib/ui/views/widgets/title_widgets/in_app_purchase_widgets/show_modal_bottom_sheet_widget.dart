@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/ui/providers/animal_provider.dart';
+import 'package:zooventure/data/services/text_services.dart';
 import '../../../../providers/in_app_purchase_provider.dart';
 import '../../internet_connection_widget.dart';
 
 Future<dynamic> showModalBottomSheetWidget(context, int productIndex) {
   InAppPurchaseProvider inAppPurchaseProvider =
       Provider.of(context, listen: false);
-  AnimalProvider animalProvider =
-      Provider.of<AnimalProvider>(context, listen: false);
 
   return showModalBottomSheet(
     backgroundColor: const Color(0xfff6e2fe),
@@ -26,39 +24,29 @@ Future<dynamic> showModalBottomSheetWidget(context, int productIndex) {
                 onTap: () {
                   if (productIndex == 0) {
                     Navigator.of(context).pop();
-                    if (inAppPurchaseProvider
-                        .getIsAll24AnimalInformationDownload) {
-                      if (!inAppPurchaseProvider.getIsBuy24AnimalSubscribed) {
-                        inAppPurchaseProvider.getIApEngine.handlePurchase(
-                            inAppPurchaseProvider
-                                .getProductsDetails[index + productIndex],
-                            inAppPurchaseProvider.getProductIds);
-                      } else {
-                        showInformationSnackbar(context,
-                            animalProvider.getUiTexts["subscribe available"]);
-                      }
+
+                    if (!inAppPurchaseProvider.getIsBuy24AnimalSubscribed) {
+                      inAppPurchaseProvider.getIApEngine.handlePurchase(
+                          inAppPurchaseProvider
+                              .getProductsDetails[index + productIndex],
+                          inAppPurchaseProvider.getProductIds);
                     } else {
-                      showInformationSnackbar(context,
-                          animalProvider.getUiTexts["loading the animal"]);
+                      showInformationSnackbar(
+                          context, texts["subscribe available"].toString());
                     }
                   }
 
                   if (productIndex == 3) {
                     Navigator.of(context).pop();
-                    if (inAppPurchaseProvider
-                        .getIsAll36AnimalInformationDownload) {
-                      if (!inAppPurchaseProvider.getIsBuy36AnimalSubscribed) {
-                        inAppPurchaseProvider.getIApEngine.handlePurchase(
-                            inAppPurchaseProvider
-                                .getProductsDetails[index + productIndex],
-                            inAppPurchaseProvider.getProductIds);
-                      } else {
-                        showInformationSnackbar(context,
-                            animalProvider.getUiTexts["subscribe available"]);
-                      }
+
+                    if (!inAppPurchaseProvider.getIsBuy36AnimalSubscribed) {
+                      inAppPurchaseProvider.getIApEngine.handlePurchase(
+                          inAppPurchaseProvider
+                              .getProductsDetails[index + productIndex],
+                          inAppPurchaseProvider.getProductIds);
                     } else {
-                      showInformationSnackbar(context,
-                          animalProvider.getUiTexts["loading the animal"]);
+                      showInformationSnackbar(
+                          context, texts["subscribe available"].toString());
                     }
                   }
 
@@ -71,28 +59,21 @@ Future<dynamic> showModalBottomSheetWidget(context, int productIndex) {
                               .getProductsDetails[index + productIndex],
                           inAppPurchaseProvider.getProductIds);
                     } else {
-                      showInformationSnackbar(context,
-                          animalProvider.getUiTexts["subscribe available"]);
+                      showInformationSnackbar(
+                          context, texts["subscribe available"].toString());
                     }
                   }
                   if (productIndex == 9) {
                     Navigator.of(context).pop();
-                    if (inAppPurchaseProvider
-                            .getIsAll36AnimalInformationDownload &&
-                        inAppPurchaseProvider
-                            .getIsAll24AnimalInformationDownload) {
-                      if (!inAppPurchaseProvider.getIsPremiumSubscribed) {
-                        inAppPurchaseProvider.getIApEngine.handlePurchase(
-                            inAppPurchaseProvider
-                                .getProductsDetails[index + productIndex],
-                            inAppPurchaseProvider.getProductIds);
-                      } else {
-                        showInformationSnackbar(context,
-                            animalProvider.getUiTexts["subscribe available"]);
-                      }
+
+                    if (!inAppPurchaseProvider.getIsPremiumSubscribed) {
+                      inAppPurchaseProvider.getIApEngine.handlePurchase(
+                          inAppPurchaseProvider
+                              .getProductsDetails[index + productIndex],
+                          inAppPurchaseProvider.getProductIds);
                     } else {
-                      showInformationSnackbar(context,
-                          animalProvider.getUiTexts["loading the animal"]);
+                      showInformationSnackbar(
+                          context, texts["subscribe available"].toString());
                     }
                   }
                 },
