@@ -93,7 +93,7 @@ Future<dynamic> parentControlWidget(BuildContext context) {
                       onTap: () {
                         if (index + 1 == parentControlProvider.getResult) {
                           Navigator.of(context).pop();
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const InAppPurchaseWidget(),

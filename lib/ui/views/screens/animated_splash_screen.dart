@@ -51,6 +51,12 @@ class _SplashScreenState extends State<SplashScreen> {
         OnePref.setBool("isBuy36AnimalSubscribed", false);
       }
     });
+
+    inAppPurchaseProvider.getProducts();
+    inAppPurchaseProvider.getIApEngine.inAppPurchase.purchaseStream
+        .listen((listOfPurchaseDetails) {
+      inAppPurchaseProvider.listenPurchases(listOfPurchaseDetails);
+    });
   }
 
   @override

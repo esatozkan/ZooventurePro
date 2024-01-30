@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '/ui/views/screens/main_screen.dart';
+import '../../../../../data/services/animal_service.dart';
 import '/data/services/text_services.dart';
 import '/ui/providers/in_app_purchase_provider.dart';
 import '/ui/views/widgets/title_widgets/in_app_purchase_widgets/in_app_purchase_icon_widget.dart';
@@ -26,6 +28,8 @@ class _InAppPurchaseWidgetState extends State<InAppPurchaseWidget> {
 
   @override
   Widget build(BuildContext context) {
+    InAppPurchaseProvider inAppPurchaseProvider =
+        Provider.of<InAppPurchaseProvider>(context, listen: false);
     List itemList = [
       InAppPurchaseIconWidget(
         image: "assets/purchases_icon/play_console_logo.png",
@@ -105,7 +109,42 @@ class _InAppPurchaseWidgetState extends State<InAppPurchaseWidget> {
                           DeviceOrientation.landscapeLeft,
                           DeviceOrientation.landscapeRight,
                         ]).then((value) {
-                          Navigator.of(context).pop();
+                          if (inAppPurchaseProvider.getIsPremiumSubscribed) {
+                            if (freeAnimals.length == 24) {
+                              freeAnimals.addAll(buy24Animals);
+                              freeAnimals.addAll(buy36Animals);
+                            }
+                            if (freeAnimals.length == 48) {
+                              freeAnimals.addAll(buy36Animals);
+                            }
+                            if (freeAnimals.length == 60) {
+                              freeAnimals.addAll(buy24Animals);
+                            }
+                          } else {
+                            if (inAppPurchaseProvider
+                                .getIsBuy24AnimalSubscribed) {
+                              if (freeAnimals.length == 24) {
+                                freeAnimals.addAll(buy24Animals);
+                              } else if (freeAnimals.length == 60) {
+                                freeAnimals.addAll(buy24Animals);
+                              }
+                            }
+                            if (inAppPurchaseProvider
+                                .getIsBuy36AnimalSubscribed) {
+                              if (freeAnimals.length == 24) {
+                                freeAnimals.addAll(buy36Animals);
+                              } else if (freeAnimals.length == 48) {
+                                freeAnimals.addAll(buy36Animals);
+                              }
+                            }
+                          }
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MainScreen(),
+                            ),
+                          );
                         });
                       },
                       child: Icon(

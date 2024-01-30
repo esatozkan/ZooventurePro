@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:zooventure/data/services/text_services.dart';
+import '/data/services/text_services.dart';
 import '../../../../providers/in_app_purchase_provider.dart';
 import '../../internet_connection_widget.dart';
 
@@ -25,7 +25,8 @@ Future<dynamic> showModalBottomSheetWidget(context, int productIndex) {
                   if (productIndex == 0) {
                     Navigator.of(context).pop();
 
-                    if (!inAppPurchaseProvider.getIsBuy24AnimalSubscribed) {
+                    if (!inAppPurchaseProvider.getIsBuy24AnimalSubscribed &&
+                        !inAppPurchaseProvider.getIsPremiumSubscribed) {
                       inAppPurchaseProvider.getIApEngine.handlePurchase(
                           inAppPurchaseProvider
                               .getProductsDetails[index + productIndex],
@@ -39,7 +40,8 @@ Future<dynamic> showModalBottomSheetWidget(context, int productIndex) {
                   if (productIndex == 3) {
                     Navigator.of(context).pop();
 
-                    if (!inAppPurchaseProvider.getIsBuy36AnimalSubscribed) {
+                    if (!inAppPurchaseProvider.getIsBuy36AnimalSubscribed &&
+                        !inAppPurchaseProvider.getIsPremiumSubscribed) {
                       inAppPurchaseProvider.getIApEngine.handlePurchase(
                           inAppPurchaseProvider
                               .getProductsDetails[index + productIndex],
@@ -53,7 +55,8 @@ Future<dynamic> showModalBottomSheetWidget(context, int productIndex) {
                   if (productIndex == 6) {
                     Navigator.of(context).pop();
 
-                    if (!inAppPurchaseProvider.getIsRemoveAdSubscribed) {
+                    if (!inAppPurchaseProvider.getIsRemoveAdSubscribed &&
+                        !inAppPurchaseProvider.getIsPremiumSubscribed) {
                       inAppPurchaseProvider.getIApEngine.handlePurchase(
                           inAppPurchaseProvider
                               .getProductsDetails[index + productIndex],
@@ -101,7 +104,6 @@ Future<dynamic> showModalBottomSheetWidget(context, int productIndex) {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text("Remove Ads"),
-                                      Text("Language Options Available"),
                                       Text("Buy 24 and 36 animals"),
                                     ],
                                   ),
