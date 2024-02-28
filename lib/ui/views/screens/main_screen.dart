@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import '/ui/providers/in_app_purchase_provider.dart';
 import '../../providers/google_ads_provider.dart';
 import '/ui/views/screens/games/know_what_hear_screen.dart';
 import '/ui/views/screens/games/know_what_real_animal_screen.dart';
@@ -50,11 +49,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    InAppPurchaseProvider inAppPurchaseProvider =
-        Provider.of<InAppPurchaseProvider>(context, listen: false);
-
     List<int> pageIndex = [0, 1, 2];
-
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -82,11 +77,7 @@ class _MainScreenState extends State<MainScreen> {
                           right: size.width < 1100 ? 100 : 150,
                           top: size.width < 1100 ? 100 : 150,
                           bottom:
-                              (googleAdsProvider.getIsBannerAdLoaded != false &&
-                                      !inAppPurchaseProvider
-                                          .getIsPremiumSubscribed &&
-                                      !inAppPurchaseProvider
-                                          .getIsRemoveAdSubscribed)
+                              (googleAdsProvider.getIsBannerAdLoaded != false)
                                   ? googleAdsProvider.bannerAd!.size.height
                                       .toDouble()
                                   : 0,
@@ -110,12 +101,7 @@ class _MainScreenState extends State<MainScreen> {
                             width: MediaQuery.of(context).size.width,
                             height: 50,
                             child:
-                                (googleAdsProvider.getIsBannerAdLoaded !=
-                                            false &&
-                                        !inAppPurchaseProvider
-                                            .getIsRemoveAdSubscribed &&
-                                        !inAppPurchaseProvider
-                                            .getIsPremiumSubscribed)
+                                (googleAdsProvider.getIsBannerAdLoaded != false)
                                     ? AdWidget(ad: googleAdsProvider.bannerAd!)
                                     : const Text(""),
                           ),
@@ -128,11 +114,7 @@ class _MainScreenState extends State<MainScreen> {
                       Padding(
                         padding: EdgeInsets.only(
                           bottom:
-                              (googleAdsProvider.getIsBannerAdLoaded != false &&
-                                      !inAppPurchaseProvider
-                                          .getIsPremiumSubscribed &&
-                                      !inAppPurchaseProvider
-                                          .getIsRemoveAdSubscribed)
+                              (googleAdsProvider.getIsBannerAdLoaded != false)
                                   ? googleAdsProvider.bannerAd!.size.height
                                       .toDouble()
                                   : 0,
@@ -156,12 +138,7 @@ class _MainScreenState extends State<MainScreen> {
                             width: MediaQuery.of(context).size.width,
                             height: 50,
                             child:
-                                (googleAdsProvider.getIsBannerAdLoaded !=
-                                            false &&
-                                        !inAppPurchaseProvider
-                                            .getIsRemoveAdSubscribed &&
-                                        !inAppPurchaseProvider
-                                            .getIsPremiumSubscribed)
+                                (googleAdsProvider.getIsBannerAdLoaded != false)
                                     ? AdWidget(ad: googleAdsProvider.bannerAd!)
                                     : const Text(""),
                           ),

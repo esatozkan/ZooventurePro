@@ -38,12 +38,8 @@ dependencies:
   audioplayers: ^5.2.1
   flutter_native_splash: ^2.3.0
   animated_splash_screen: ^1.3.0
-  purchases_flutter: ^6.0.0
   confetti: ^0.7.0
   google_mobile_ads: ^3.1.0
-  onepref: ^0.0.15
-  in_app_purchase: ^3.1.11
-  url_launcher: ^6.2.3
 
 dev_dependencies:
   flutter_test:
@@ -133,25 +129,6 @@ flutter:
     - assets/animals/free_animals/animalsTypeID/
     - assets/animals/free_animals/animalsTypeIT/
     - assets/animals/free_animals/animalsTypeTR/
-    - assets/animals/buy_24_animals/animal_real_images/
-    - assets/animals/buy_24_animals/animal_virtual_images/
-    - assets/animals/buy_24_animals/animal_voices/
-    - assets/animals/buy_24_animals/animalsTypeDE/
-    - assets/animals/buy_24_animals/animalsTypeEN/
-    - assets/animals/buy_24_animals/animalsTypeHI/
-    - assets/animals/buy_24_animals/animalsTypeID/
-    - assets/animals/buy_24_animals/animalsTypeIT/
-    - assets/animals/buy_24_animals/animalsTypeTR/
-    - assets/animals/buy_36_animals/animal_real_images/
-    - assets/animals/buy_36_animals/animal_virtual_images/
-    - assets/animals/buy_36_animals/animal_voices/
-    - assets/animals/buy_36_animals/animalsTypeDE/
-    - assets/animals/buy_36_animals/animalsTypeEN/
-    - assets/animals/buy_36_animals/animalsTypeHI/
-    - assets/animals/buy_36_animals/animalsTypeID/
-    - assets/animals/buy_36_animals/animalsTypeIT/
-    - assets/animals/buy_36_animals/animalsTypeTR/
-    - assets/flag_images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

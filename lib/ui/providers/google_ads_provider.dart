@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:provider/provider.dart';
-
-import 'in_app_purchase_provider.dart';
 
 class GoogleAdsProvider with ChangeNotifier {
   InterstitialAd? interstitialAd;
@@ -32,20 +29,13 @@ class GoogleAdsProvider with ChangeNotifier {
   }
 
   void showInterstitialAd(context) {
-    InAppPurchaseProvider inAppPurchaseProvider =
-        Provider.of<InAppPurchaseProvider>(context, listen: false);
     if (interstitialAd != null &&
-        interstitialAdIndex == showInterstitialAdIndex - 1 &&
-        inAppPurchaseProvider.getIsRemoveAdSubscribed == false &&
-        inAppPurchaseProvider.getIsPremiumSubscribed == false) {
+        interstitialAdIndex == showInterstitialAdIndex - 1) {
       interstitialAd!.show();
       interstitialAdIndex = 0;
       loadInterstitialAd(context: context);
     } else {
-      if (inAppPurchaseProvider.getIsRemoveAdSubscribed == false &&
-          inAppPurchaseProvider.getIsPremiumSubscribed == false) {
-        interstitialAdIndex++;
-      }
+      interstitialAdIndex++;
     }
     notifyListeners();
   }
